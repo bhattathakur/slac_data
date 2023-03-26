@@ -1,5 +1,5 @@
 #!/bin/bash
-dir_name=PXE01M
+dir_name=Th228allpos1M
 mkdir ${dir_name}
 
 scratch_path=/scratch/t/tbhatta

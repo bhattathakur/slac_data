@@ -1,0 +1,431 @@
+####################################################################################
+#
+#  MacroBuildUtils.py
+#  Defines useful utilities to build macros for nEXO simulations
+#
+####################################################################################
+
+import Card, SimUtils
+import math
+import sys
+import re
+import json
+
+def CreateMacro(info, card):
+
+    macroName = info['MacroFileName']
+    if card.Has('UseScratchDir') and card.Get('UseScratchDir').lower() != 'no':
+      g4Name = info['ScratchDir'] + '/' + info['G4FileName'].split('/')[-1]
+    else:
+      g4Name = info['G4FileName']
+    pos = info['FullLocationName']
+    isotope = info['Isotope']
+
+    geomdesc, macros = ParseBody(GetBody(info))
+    #print(json.dumps(geomdesc, sort_keys=True, indent=4))
+
+    macroFile = open(macroName,'w')
+    macroFile.write(GetHeader(g4Name,card.Get('DetectorSimulation.G4TreeName')))
+    macroFile.write(GetBody(info))
+    #macroFile.write(GetParticle(isotope))
+
+    # Do not generate location commands for special event types
+    if isotope not in ['bb2n','bb0n','B8NuElectronRecoil', 'bb2nBulk', 'bb2nTail', 'nCaptureXe136','nCaptureCu']:
+      macroFile.write(GetLocation(pos, card, info, geomdesc,isotope))
+    #macroFile.write(GetRunBeam(info))
+    macroFile.close()
+    
+    return macros
+
+# Turn strings with units to floats in unified units, e.g. "3 cm" -> 30, "4 mm" -> 4, "45 deg" -> 45.
+def RemoveUnit(s):
+  units = {
+    'mm': 1., 'cm': 10., 'm': 1e3, 'km': 1e6,
+    'deg': 1.,
+  }
+  v = s.split()
+
+  if v[0] in ['false', 'true']: return 0
+
+  value = float(v[0])
+  if len(v) > 1:
+    value *= units[v[1]]
+  return value
+
+# Parse macro body to create a description of geometry to facilitate event generation with adjustable parameters
+def ParseBody(body):
+
+    params = {}
+    macros = set()
+    # Loop over each line of the macro body
+    for line in body.split("\n"):
+      # Remove comments
+      line = re.sub(r'#.*','',line.strip()).strip()
+
+      tokens = line.split()
+      # Skip blank lines
+      if len(tokens) == 0: continue
+      key = tokens[0]
+
+      # If it is calling a sub-macro, recurse into it
+      if key == '/control/execute':
+        macro = tokens[1]
+        macros.add(macro)
+        subparams, submacros = ParseBody(open(macro,'r').read())
+        for k, v in subparams.items():
+          params[k] = v
+        macros |= submacros
+
+      # Skip commands that are not nEXO-specific
+      if not line.startswith('/nEXO/'): continue
+ 
+      value = RemoveUnit(' '.join(tokens[1:]))
+      
+      params[key] = value
+
+    return params, macros
+
+def GetHeader(g4Name,treeName):
+    
+#    return """
+#/analysis/setOutputROOTFileName %s
+#/analysis/setOutputROOTTreeName %s
+#""" % (g4Name, treeName)
+
+    return """
+/analysis/setOutputROOTTreeName %s
+
+""" % (treeName)
+
+def GetBody(info):
+   
+    return info['MacroModel']
+
+def GetParticle(isotope):
+
+    if isotope in ['bb2n','bb0n','gps','B8NuElectronRecoil']:
+        return "/generator/setGenerator %s \n" % (isotope)
+    if isotope == 'bb2nBulk': # bb2n with E < 2250 keV.  2250/2457.83 = 0.91544167009
+        return "/generator/setGenerator bb2n \n/generator/setBb2nCutOffMax 0.91544167009\n" 
+    if isotope == 'bb2nTail': # bb2n with E > 2250 keV.  2250/2457.83 = 0.91544167009
+        return "/generator/setGenerator bb2n \n/generator/setBb2nCutOffMin 0.91544167009\n"
+    if isotope in ['nCaptureXe136','nCaptureCu']:
+        return "/generator/setGenerator %s \n/generator/setnCaptureXeSimMethod RandomGammas\n" % (isotope)
+    if len(isotope.split('_')) == 3: # If it is an underscore-separated string with 3 columns,
+        return "/generator/setGenerator gps \n/gps/particle {}\n/gps/energy {} {}\n/gps/ang/type iso".format(*isotope.split('_')) # makes energy sources isotropic by default. Should be changed in future iteration to allow other types of distributions to be set easily.
+
+
+    # If "isotope" contains at least one underscore, and the first underscore is preceded my an 'm', then it is a metastable isotope.
+    # e.g. "Ag110m_117.595"
+    isotope_cols = isotope.split('_')   
+    if isotope_cols[0][-1] == 'm': 
+
+      isotope_ground = isotope_cols[0][:-1]
+      if len(isotope_cols) > 1:
+        # The energy level has been explicitly specified.
+        Z = SimUtils.GetAtomicNumber(isotope_ground)
+        A = SimUtils.GetAtomicMass(isotope_ground)
+        E = float(isotope_cols[1])
+        #print('INFO [MacroBuildUtils]: A metastable state of the isotope %s is specified. (Z = %i, A = %i, E = %i)' % (isotope_ground, Z, A, E))
+
+      elif len(isotope_cols) == 1:
+        # No energy level has been explicitly specified. 
+        Z = SimUtils.GetAtomicNumber(isotope_ground)
+        A = SimUtils.GetAtomicMass(isotope_ground)
+        # Guess energy level
+        if isotope_ground == 'Ag110':  # Deals with the most common metastable isotope
+          E = 117.595 # keV
+          print('INFO [MacroBuildUtils]: A metastable state of the isotope %s is specified (Z = %i, A = %i). Assuming energy level = %i keV.' % (isotope_ground, Z, A, E))
+        else: 
+          E = 0
+          print('WARNING [MacroBuildUtils]: A metastable state of the isotope %s is specified, but no energy level is specified. (Z = %i, A = %i, E = %i keV)' % (isotope_ground, Z, A, E))
+
+      ionBody = """
+/generator/setGenerator gps
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion %d %d %d %6g
+/grdm/nucleusLimits %d %d %d %d
+""" % (Z,A,Z,E,A,A,Z,Z)
+
+    else:
+
+      Z = SimUtils.GetAtomicNumber(isotope)
+      A = SimUtils.GetAtomicMass(isotope)
+  
+      ionBody = """
+/generator/setGenerator gps
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion %d %d
+/grdm/nucleusLimits %d %d %d %d
+""" % (Z,A,A,A,Z,Z)
+
+    return ionBody
+
+def GetRunBeam(info):
+    
+    events = info['NumberOfEvents'] #int(card.Get('TotalNumberOfEvents')) // int(card.Get('NumberOfJobs'))
+    #branchEvents = int(math.floor(events * ratio))
+
+    return """/run/beamOn %d \n""" % (events)
+
+# Format event generation lines 
+def FormatLocationLines(s):
+  if s['shape'] == 'Para':
+    return """
+/gps/pos/type Volume
+/gps/pos/shape {s[shape]}
+/gps/pos/centre {s[center][0]} {s[center][1]} {s[center][2]} mm
+/gps/pos/halfx {s[size][0]} mm
+/gps/pos/halfy {s[size][1]} mm
+/gps/pos/halfz {s[size][2]} mm
+/gps/pos/confine {s[volume]}
+""".format(s=s)
+  elif s['shape'] == 'Cylinder':
+    return """
+/gps/pos/type Volume
+/gps/pos/shape {s[shape]}
+/gps/pos/centre {s[center][0]} {s[center][1]} {s[center][2]} mm
+/gps/pos/radius {s[size][0]} mm
+/gps/pos/halfz {s[size][1]} mm
+/gps/pos/confine {s[volume]}
+""".format(s=s)
+    
+
+def GetLocation(location, card, info, geom,isotope):
+
+    tpccenter = card.Get('DetectorSimulation.TPCCenter')
+    
+    #locationType = card.Get('LocationType')
+    locationType = info['LocationType']
+
+    if locationType == 'ScriptConfinement':
+      s = {'volume': location, 'center': tpccenter}
+
+      # Calibration guide tubes. (Essentially 2D)
+      if '/nEXO/TPCExternals/CalibrationGuideTube' in location:
+        s['shape'] = 'Para'
+        s['size'] = (1000, 1000, 1000)
+
+        if location == '/nEXO/TPCExternals/CalibrationGuideTube1':
+          s['size'] = (800, 10, 1200)
+        elif location == '/nEXO/TPCExternals/CalibrationGuideTube2':
+          s['size'] = (10, 1200, 1200)
+
+      # Cylindrical objects
+      else:
+        s['shape'] = 'Cylinder'
+        s['size'] = (5000, 5000)  # default for externals
+        tpcr = geom['/nEXO/TPCInternals/TPCRadius']
+        tpch = geom['/nEXO/TPCInternals/TPCHeight']
+        tpcz = tpccenter[2]
+
+        # TPC Vessel
+        if location == '/nEXO/TPCVessel': 
+          r = tpcr + geom['/nEXO/TPCVessel/AllenCylFlatEnd/Thickness']
+          h = tpch + 2.*geom['/nEXO/TPCVessel/AllenCylFlatEnd/EndsThickness']
+          s['size'] = (r+1., h/2.+1.)
+
+        # TPC Internals
+        elif '/nEXO/TPCInternals/' in location:
+          s['size'] = (tpcr+1., tpch/2.+1.)
+
+          if location == '/nEXO/TPCInternals/Cathode': 
+            r = tpcr - geom['/nEXO/TPCInternals/CathodeRadialStandoff'] 
+            h = geom['/nEXO/TPCInternals/CathodeThickness']
+            z = tpcz-tpch/2. + geom['/nEXO/TPCInternals/CathodeStandoff'] + geom['/nEXO/TPCInternals/CathodeThickness']/2.
+            s['center'] = (0,0,z) 
+            s['size'] = (r+1., h/2.)
+          elif location == '/nEXO/TPCInternals/Bulge': 
+            r = tpcr - geom['/nEXO/TPCInternals/CathodeRadialStandoff'] + geom['/nEXO/TPCInternals/BulgeRadius']
+            h = geom['/nEXO/TPCInternals/BulgeRadius']*2.
+            z = tpcz-tpch/2. + geom['/nEXO/TPCInternals/CathodeStandoff'] + geom['/nEXO/TPCInternals/CathodeThickness']/2.
+            s['center'] = (0,0,z) 
+            s['size'] = (r+1., h/2.+1.)
+  
+          elif location == '/nEXO/TPCInternals/HVPlunger':
+            r = geom['/nEXO/TPCInternals/HVPlungerRadius']
+            h = geom['/nEXO/TPCInternals/CathodeRadialStandoff']
+            radial = tpcr - geom['/nEXO/TPCInternals/CathodeRadialStandoff']
+            theta = geom['/nEXO/TPCInternals/HVPlungerPhi'] * math.pi/180. 
+            x = radial*math.cos(theta)
+            y = radial*math.sin(theta)
+            z = tpcz-tpch/2. + geom['/nEXO/TPCInternals/CathodeStandoff']/2.
+            s['center'] = (x,y,z) 
+            s['size'] = (r+1., h/2.+1.)
+
+        # TPC Externals
+        elif '/nEXO/TPCExternals/' in location:
+          s['size'] = (5000, 5000)
+
+          if '/nEXO/TPCExternals/HVFeedthru' in location:
+            r = geom['/nEXO/TPCExternals/HVFeedthruDiameter']/2. + geom['/nEXO/TPCExternals/HVFeedthruWallThickness']
+            h = geom['/nEXO/TPCExternals/HVFeedthruLength']
+            radial = tpcr - geom['/nEXO/TPCExternals/HVFeedthruRadialStandoff']
+            theta = geom['/nEXO/TPCExternals/HVFeedthruAzimuthalPosition'] * math.pi/180. 
+            x = radial*math.cos(theta)
+            y = radial*math.sin(theta)
+            z = tpcz-tpch/2. - geom['/nEXO/TPCVessel/AllenCylFlatEnd/EndsThickness'] - h/2.
+            s['center'] = (x,y,z) 
+            s['size'] = (r+1., h/2.+1.)
+          elif location in ['/nEXO/TPCExternals/HVCable', '/nEXO/TPCExternals/HVTube']:
+            #xpos, ypos, zpos = 50, 50, -40.3
+            #halfz, radius = 100, 30
+            radial = tpcr - geom['/nEXO/TPCExternals/HVFeedthruRadialStandoff'] \
+                     + geom['/nEXO/TPCExternals/HVTubeRadiusOfCurvature']/2. 
+            theta = geom['/nEXO/TPCExternals/HVFeedthruAzimuthalPosition'] * math.pi/180.
+            x = radial*math.cos(theta)
+            y = radial*math.sin(theta)
+            s['center'] = (x,y,tpcz) 
+            r = geom['/nEXO/TPCExternals/HVTubeRadiusOfCurvature']
+            h = 2000
+            s['size'] = (r+1., h/2.+1.)
+
+          elif location == '/nEXO/TPCExternals/TPCSupport':
+            #xpos, ypos, zpos = 0, 0, -40.3+65
+            #halfz, radius = 100, 100
+            z = tpcz + tpch/2.
+            s['center'] = (0,0,z)
+            s['size'] = (1000, 1000)
+
+          elif location.startswith('/nEXO/TPCExternals/RepeaterBox'):
+            #xpos, ypos, zpos = 500, 0, 2430.  (zpos = fOuterCryostatRadius+200; fOuterCryostatRadius = 2230 (default, as of july 2020))
+            #halfdims = 228.6, 152.4, 152.4  (9" x 6" x 6")  (These are halflengths!!!)
+            ocz = -619.6
+            ocr = 2230
+            s['shape'] = 'Para'
+            s['center'] = (500,0,ocz+ocr+200)
+            s['size'] = (300, 200, 200)
+
+          elif location == '/nEXO/TPCExternals/OuterCryoWTSupport':
+            #xpos, ypos, zpos = 0, 0, 4410.9 mm
+            #halfz, radius = 1827.5, 2099.54 mm
+            z = 4410.9
+            s['center'] = (0,0,z)
+            s['size'] = (2500,2000)
+
+      lines = FormatLocationLines(s)
+      #print(lines)
+      return lines
+
+    elif locationType == 'ScriptDefinition':
+        
+        if location == 'Cathode':
+            return """
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 64.6 cm
+/gps/pos/rot1 0 1 0
+/gps/pos/rot2 0 0 1
+/gps/pos/centre 63.2 0 0 cm
+/gps/ang/type iso
+
+"""
+        elif location == 'Cathode2':
+            return """
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/centre 0 0 0 cm
+/gps/pos/halfz 200 cm
+/gps/pos/radius 200 cm
+/gps/pos/confine /nEXO/TPCInternals/LXe/Cathode
+
+"""
+        elif location=='all':
+          px=[648.5,0,-1022.6]
+          nx=[-648.5,0,-1022.6]
+          py=[0,648.5,-1022.6]
+          ny=[0,-648.5,-1022.6]
+          pz=[0,0,-299.1245]
+          nz=[0,0,-1746.0755]
+          p=[px,nx,py,ny,pz,nz]
+
+          l=['PX','NX','PY','NY','PZ','NZ'] #location name
+          inten1=0.36;inten2=0.036
+
+          temp="""
+"""
+          for k,i in enumerate(p):
+            temp+="""
+#%s @ Location: %s %s
+"""%(isotope,l[k],p[k])
+            if k in [0,1,2,3]:     #intensity for px,py,nx,ny
+              temp+="""
+/gps/source/intensity %0.2f
+"""%(inten1)
+            else:
+              temp+="""
+/gps/source/add %0.3f 
+"""%(inten2)
+            temp+=GetParticle(isotope)
+            temp+="""
+/gps/position %0.4f %0.4f %0.4f mm
+"""%(i[0],i[1],i[2])
+          return temp
+
+## Source PX
+#/gps/source/intensity 0.36
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position 648.5 0 -1022.6 mm
+#
+## Source NX
+#/gps/source/add 0.36
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position -648.5 0 -1022.6 mm
+#
+## Source PY
+#/gps/source/add 0.36
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position 0 648.5 -1022.6 mm
+#
+## Source NY
+#/gps/source/add 0.36
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position 0 -648.5 -1022.6 mm
+#
+## Source PZ
+#/gps/source/add 0.036
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position 0 0 -299.1245 mm
+#
+## Source NZ
+#/gps/source/add 0.036
+#/gps/particle ion
+#/gps/energy 0 keV
+#/gps/ion 90 228
+#/gps/position 0 0 -1746.0755 mm
+#  """
+        elif 'pos' in location: # if location == 'pos0_0_-1585.97', will return a point source at the centre of the cathode (/gps/pos/centre 0 0 -1585.97 mm)
+
+          z_corr=['-299.1245','-1746.0755']
+          if location.split('_')[-1] in z_corr:
+            return( """
+/gps/pos/centre %s mm
+/gps/source/intensity 0.1
+ """ % (location[3:].replace('_',' ')))
+          else:
+            return """
+/gps/pos/centre %s mm
+""" % (location[3:].replace('_',' '))
+        else:
+            print( 'Location specified in card was not found in script!')
+            sys.exit()
+
+    elif locationType == 'LocationMacro':
+        return card.Get(location)
+        
+    print( 'Location not correctly specified in card!')
+    sys.exit() 
+
+    return
