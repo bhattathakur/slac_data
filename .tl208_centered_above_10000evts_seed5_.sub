@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -t 04:00:00
+#SBATCH -A mlodd
+#SBATCH -e .tl208_centered_above_10000evts_seed5_.out
+#SBATCH -o .tl208_centered_above_10000evts_seed5_.out
+#SBATCH --mail-user=test --mail-type=fail
+#SBATCH -J tl208
+#SBATCH --export=ALL 
+source change1 
+source change2
+cd source 
+export STARTTIME=`date +%s` 
+echo Start time $STARTTIME 
+python RunDetSim_new.py \
+--evtmax 10000 \
+--seed 5 \
+--run ./examples/NEXO_Xe127_uniform.mac \
+--digioutput .tl208_centered_above_10000evts_seed5_usEL_01.root \
+--padsize 6. \
+--wpFile /usr/gapps/nexo/nexo-offline/data/singleStripWP6mm.root \
+--tilemap /usr/gapps/nexo/nexo-offline/data/tilesMap_6mm.txt \
+--localmap /usr/gapps/nexo/nexo-offline/data/localChannelsMap_6mm.txt \
+--noiselib /usr/gapps/nexo/nexo-offline/data/noise_lib_100e.root \
+--skipEThreshold 0. \
+echo CPU time: $DT seconds

@@ -1,0 +1,57 @@
+
+/gesim/phys/SelectPhysics QGSP_BIC_HP
+#/gesim/phys/SelectPhysics Hadron
+#BEGIN savegen
+/gesim/analysis/saveGen no
+#/gesim/analysis/saveGen yes
+#END savegen
+
+# Material definitions has to be done before /run/initialize
+#BEGIN detselect
+/gesim/detector/selectDetector 4
+/gesim/analysis/selectDetector 4
+/gesim/source/setSourcePosition door_ra226
+#END detselect
+
+/run/initialize
+#/grdm/analogueMC 1
+/grdm/verbose 0
+/grdm/allVolumes
+
+
+/process/em/fluo true
+/process/em/auger true
+
+
+# Print primary events (yes/no)
+#/event/printEvents yes
+/event/printEvents no
+
+# Simulate 
+#/gps/verbose 2
+/histo/fileName ra226_door2 #rootfile to save events
+#BEGIN seed
+/random/setSeeds 704572137  78045
+#END seed
+
+#BEGIN evtgen
+/gps/particle ion
+/gps/ion 88 226 0 0
+#END evtgen
+
+#BEGIN srcselect
+/gps/ang/type iso
+/gps/pos/type Volume
+#/gps/pos/shape Sphere
+/gps/pos/shape Para
+
+/gps/pos/centre 276.4 0 0 mm  #for door
+/gps/pos/halfx  0.15 mm
+/gps/pos/halfy  1.2 mm
+/gps/pos/halfz  1.2 mm
+/gps/pos/confine Foil
+
+/run/verbose 1
+/run/printProgress 100000
+#BEGIN nevts
+/run/beamOn 100000

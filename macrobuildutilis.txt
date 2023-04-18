@@ -101,7 +101,7 @@ def GetBody(info):
    
     return info['MacroModel']
 
-def GetParticle(isotope):
+def GetParticle(isotope,count):
 
     if isotope in ['bb2n','bb0n','gps','B8NuElectronRecoil']:
         return "/generator/setGenerator %s \n" % (isotope)
@@ -153,13 +153,17 @@ def GetParticle(isotope):
       Z = SimUtils.GetAtomicNumber(isotope)
       A = SimUtils.GetAtomicMass(isotope)
   
-      ionBody = """
+      if(count==-1): #look at -1
+        ionBody = """
 /generator/setGenerator gps
-/gps/particle ion
+/grdm/nucleusLimits %d %d %d %d
+/gps/ene/mono 0 keV
+""" % (A,A,Z,Z)
+      else:
+        ionBody = """/gps/particle ion
 /gps/energy 0 keV
 /gps/ion %d %d
-/grdm/nucleusLimits %d %d %d %d
-""" % (Z,A,A,A,Z,Z)
+""" % (Z,A)
 
     return ionBody
 
@@ -342,7 +346,7 @@ def GetLocation(location, card, info, geom,isotope):
           p=[px,nx,py,ny,pz,nz]
 
           l=['PX','NX','PY','NY','PZ','NZ'] #location name
-          inten1=0.36;inten2=0.036
+          inten1=0.36;inten2=inten1/10.
 
           temp="""
 """
@@ -350,19 +354,20 @@ def GetLocation(location, card, info, geom,isotope):
             temp+="""
 #%s @ Location: %s %s
 """%(isotope,l[k],p[k])
-            if k in [0,1,2,3]:     #intensity for px,py,nx,ny
-              temp+="""
-/gps/source/intensity %0.2f
+            if k in [0]:     #intensity for px
+              temp+="""/gps/source/intensity %0.3f
 """%(inten1)
-            else:
-              temp+="""
-/gps/source/add %0.3f 
+            elif k in [1,2,3]:     #intensity for py,nx,ny
+              temp+="""/gps/source/add %0.3f
+"""%(inten1)
+            else:                 #intensity at pz, nz (anode,cathode)
+              temp+="""/gps/source/add %0.3f          
 """%(inten2)
-            temp+=GetParticle(isotope)
-            temp+="""
-/gps/position %0.4f %0.4f %0.4f mm
+            temp+=GetParticle(isotope,count=k)
+            temp+="""/gps/position %0.4f %0.4f %0.4f mm
 """%(i[0],i[1],i[2])
-          return temp
+          return GetParticle(isotope,-1)+temp+"\n/gps/source/list"
+
 
 ## Source PX
 #/gps/source/intensity 0.36
