@@ -1,0 +1,190 @@
+################################################################################
+# Example card in YAML
+# Contact: Scott Schwartz, schwartzscotte@gmail.com
+# Created: 6/28/2022
+################################################################################
+
+RunTitle: Th228_Sims_10M  # ID for this set of simulations. Used as prefix for generated files.
+
+# Select the parts of the software to be run
+RunDetectorSimulation: 1           # 1=yes, 0=no to run the Geant4 simulation
+RunChargeSimulation:   1           # 1=yes, 0=no to run the charge simulation
+RunClustering:         0           # 1=yes, 0=no to run the clustering (Non existent)
+RunReconstruction:     1           # 1=yes, 0=no to run the reconstruction 
+RunFastlight:          0           # 1=yes, 0=no to run the fast light simulation (requires lightmap)
+
+# Configurations for the platform on which the software is run
+System: 
+  # Cluster farm choices: local, LLNL, SLAC, OSG. (For docker, use "local")
+  Farm:            local    # This is currently ignored. Define appropriate BatchFarmCall below, e.g. msub, condor_submit, etc.
+  BatchFarmCall:   "sbatch -A mlodd -t 2-00:00:00"
+  FullnEXOSimPath: "python ./RunDetSim_new.py"
+  PythonCommand:   python
+  #SetupFile:       /opt/nexo/software/setup.sh
+
+  # Working directory where macros and bash scripts are stored
+  FileTopDir: /p/lustre2/nexouser/scotswas/Th228CalibSims/output/Th228_Sims_10M
+  JobsFullOutputPath:     "[FileTopDir]/jobs"    # output directory of job scripts
+  G4FullOutputPath:       "[FileTopDir]/g4"      # output directory of G4 macros and files
+  ClusterFullOutputPath:  "[FileTopDir]/cluster" # output directory of clustered files
+  ReconFullOutputPath:    "[FileTopDir]/recon"   # output directory of reconstructed files
+  FileNamePattern:        "[OutputNamePrefix]_[Isotope]_[Location]_seed[Seed]"
+  #FileNamePattern:        "[OutputNamePrefix]_[Geometry]_[Isotope]_[Location]_seed[Seed]"
+
+  JobHeader: |
+    #!/bin/bash
+    #SBATCH -N 1
+    #SBATCH -p pbatch
+    #SBATCH -A mlodd
+    #SBATCH -t 2-00:00:00
+    #SBATCH --export ALL
+    source /p/lustre1/nexouser/spack_setup.sh
+    export NEXOTOP=/p/lustre1/scotswas/nexo-builds/nexo-main
+    source ${NEXOTOP}/build/setup.sh
+    cd ${NEXOTOP}/nexo-offline/Cards
+
+
+
+# Settings for detector simulation in Geant4
+DetectorSimulation:
+
+  # Name of the output root tree
+  G4TreeName: nEXOevents
+  TPCCenter: [0, 0, -1022.6] 
+
+  # Example of varying TPC dimensions
+  # Note: There can be multiple entries in "LinkDimensions". However the lists of linked dimensions must not overlap.
+  # Remember to include "[Geometry]" in the FileNamePattern line under "System".
+  #Geometries:
+  #  LinkDimensions: 
+  #    - ["Radius", "Height"]                  # Radii and heights change in tandem. Not limited to two variables. 
+  #                                            # Also notice this is a list of lists.
+  #  Radius:         ["628.5","638.5","648.5"] # Radii of some part (same length as the list of heights)
+  #  Height:         ["1297","1277","1257"]    # Heights of some part (same length as the list of Radii)
+  #
+  # Macro Template
+  MacroModel: |
+    /control/verbose 1
+    /nEXO/det/checkOverlap false
+    
+    ## Use Baseline 2019
+    /control/execute ./yamls/Baseline2019.mac
+    
+    # Turn on scintillation simulation, if desired:
+    /EXOPhysicsList/enableLight true
+    /run/initialize
+    
+    # Turn on NEST
+    /analysis/setPropagateOP 0
+    /analysis/setSaveOP 1
+    /analysis/setPropagateTE 0
+    /analysis/setSaveTE 1
+
+  # Event Generation
+  LocationType: ScriptDefinition
+  Parents:
+      U238:
+        - ["U238","1"]
+    # Th228: 
+    #   - ["Th228","1"]
+    #   - ["Ra224","1"]
+    #   - ["Rn220","1"]
+    #   - ["Po216","1"]
+    #   - ["Pb212","1"]
+    #   - ["Bi212","1"]
+    #   - ["Tl208","0.36"]
+    #   - ["Po212","0.64"]
+  
+  # Volumes in which primary particles are generated
+  # The three entries in the arrays are: total number of events, number of jobs, and starting seed number.
+  Locations:
+    pos648.5_0_-1022.6:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+      
+    pos-648.5_0_-1022.6:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+        
+    pos0_648.5_-1022.6:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+      
+    pos0_-648.5_-1022.6:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+        
+    pos0_0_-299.1245:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+      
+    pos0_0_-1746.0755:
+      Th228: [10000000,100,1]
+      Ra224: [10000000,100,1]
+      Rn220: [10000000,100,1]
+      Po216: [10000000,100,1]
+      Pb212: [10000000,100,1]
+      Bi212: [10000000,100,1]
+      Tl208: [3600000,100,1]
+      Po212: [6400000,100,1]
+
+  skipEThreshold: 0
+
+ChargeSimulation:
+
+  PadSize: 6  # mm
+  EField: 380 # V/cm
+  ElectronLifetime: 10000 # us
+  SamplingInterval: 0.5 #
+  OverSampleRatio: 50 #
+  SignalType: bb0n  # "--type"
+  WeightPotentialType: Pads  # "--coType"
+
+  Induction: 1        # 1 to turn on induction simulation
+  SaveWaveform: 1     # 1 to save waveforms
+
+  TileMapPath: ../data/tilesMap_6mm.txt
+  LocalMapPath: ../data/localChannelsMap_6mm.txt
+  NoiseLibraryPath: ../data/noise_lib_1_2_us_100e.root
+  WPFilePath: ../data/singleStripWP6mm.root
+
+Reconstruction:
+  
+  ReconTreeName: reconTree
+  FullReconstructionPath: "../Analysis/SensitivityRecon/share/RunSensRecon.py"   # from nexo-offline/Analysis/SensitivityRecon/share/RunSensRecon.py
+
+Merge:
+  Path:                         "./MergeIntoPlainTrees.py"               # Path to the merge python script
+  MergeJobsPath:                "[FileTopDir]/merge-jobs"                # Output directory where merge jobs are saved
+  MergedTreesPath:              "[FileTopDir]/merged"                    # Output directory where merged trees are saved
+  MergedTreesFileNamePattern:   "[OutputNamePrefix]_[Parent]_[Location]" # File name pattern for both merge jobs and merged trees

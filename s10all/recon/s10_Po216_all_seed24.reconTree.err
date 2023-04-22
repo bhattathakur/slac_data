@@ -1,0 +1,8 @@
+Error in <TFile::TFile>: file /scratch/t/tbhatta/s10/g4/s10_Po216_all_seed24.nEXOevents.root does not exist
+Error in <TFile::Open>: no url specified
+Traceback (most recent call last):
+  File "/sdf/home/t/tbhatta/nexo-offline/Cards/../Analysis/SensitivityRecon/share/RunSensRecon.py", line 113, in <module>
+    run(vars(args))
+  File "/sdf/home/t/tbhatta/nexo-offline/Cards/../Analysis/SensitivityRecon/share/RunSensRecon.py", line 105, in run
+    task.run()
+RuntimeError: StopRunProcess

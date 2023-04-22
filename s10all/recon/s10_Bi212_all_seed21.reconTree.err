@@ -1,0 +1,7 @@
+Info in <TGeoManager::CloseGeometry>: Geometry loaded from file...
+Info in <TGeoManager::SetTopVolume>: Top volume is /nEXO. Master volume is /nEXO
+Info in <TGeoNavigator::BuildCache>: --- Maximum geometry depth set to 100
+Info in <TGeoManager::Voxelize>: Voxelizing...
+Info in <TGeoManager::CountLevels>: max level = 16, max placements = 134
+Info in <TGeoManager::CloseGeometry>: 142871 nodes/ 45 volume UID's in nEXO ROOT Geometry
+Info in <TGeoManager::CloseGeometry>: ----------------modeler ready----------------

@@ -1,0 +1,2562 @@
+**************************************************
+Welcome to SNiPER v2.1.0
+Running @ tur022 on Sat Apr 15 06:11:18 2023
+**************************************************
+
+**************************************************************
+ Geant4 version Name: geant4-10-07-patch-02 [MT]   (11-June-2021)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Create G4SvcRunManager
+{
+  "sniper": {
+    "LoadDlls": [ "libRandomSvc.so", "libBufferMemMgr.so", "libGeometry.so", "libnEXOSim.so", "libFilterAlg.so", "libChargeDigitizer.so" ],
+    "LogLevel": 9
+  },
+  "identifier": "Task/task",
+  "properties": {
+    "EvtMax": 25000,
+    "LogLevel": 9
+  },
+  "services": [
+    {
+      "identifier": "RandomSvc/RandomSvc",
+      "properties": {
+        "Seed": 23,
+        "SeedStatusInputFile": "",
+        "SeedStatusInputVector": []
+      }
+    },
+    {
+      "identifier": "BufferMemMgr/BufferMemMgr",
+      "properties": {
+        "TimeWindow": [ 0, 0 ]
+      }
+    },
+    {
+      "identifier": "RootOutputSvc/OutputSvc",
+      "properties": {
+        "OutputStreams": { "/Event/Elec": "/scratch/t/tbhatta/s10/g4/s10_Po216_all_seed23.nEXOevents.root", "/Event/Sim": "/scratch/t/tbhatta/s10/g4/s10_Po216_all_seed23.nEXOevents.root" }
+      }
+    },
+    {
+      "identifier": "SimGeomSvc/SimGeomSvc",
+      "properties": {
+        "GeometryInputFile": ""
+      }
+    },
+    {
+      "identifier": "G4Svc/G4Svc"
+    },
+    {
+      "identifier": "nEXOSimFactorySvc/nEXOSimFactorySvc",
+      "properties": {
+        "AnaMgrList": [],
+        "PhysicsList": "NEXO"
+      }
+    }
+  ],
+  "algorithms": [
+    {
+      "identifier": "DetSimAlg/DetSimAlg",
+      "properties": {
+        "DetFactory": "nEXOSimFactorySvc",
+        "G4Svc": "G4Svc",
+        "RunCmds": [],
+        "RunMac": "/scratch/t/tbhatta/s10/g4/s10_Po216_all_seed23.mac",
+        "VisMac": ""
+      }
+    },
+    {
+      "identifier": "McFilterAlg/McFilterAlg",
+      "properties": {
+        "energyCut": 0.1
+      }
+    },
+    {
+      "identifier": "ChargeDigitizerAlg/ChargeDigitizerAlg",
+      "properties": {
+        "ElectricField": 380,
+        "ElectronLifeT": 10000,
+        "InductionSim": true,
+        "InputFileName": "detsim.root",
+        "InputTreeName": "nEXOevents",
+        "OutputFileName": "digi.root",
+        "OverSamplingRatio": 50,
+        "PadSize": 6,
+        "PeakingTime": 1.2,
+        "ProcessOnlyEventsWithSkinHits": false,
+        "SamplingInteval": 0.5,
+        "SaveWaveform": true,
+        "Type": "bb0n",
+        "asiclibfile": "/sdf/home/t/tbhatta/nexo-offline/data/cryo_asic_model.root",
+        "coType": "Pads",
+        "noisefile": "/sdf/home/t/tbhatta/nexo-offline/data/noise_unshape.root",
+        "noiselibfile": "../data/noise_lib_1_2_us_100e.root",
+        "padsMapName": "../data/localChannelsMap_6mm.txt",
+        "tileMapName": "../data/tilesMap_6mm.txt",
+        "wpFileName": "../data/singleStripWP6mm.root"
+      }
+    }
+  ]
+}
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+/nEXO/det/checkOverlap true
+/control/execute ./yamls/Baseline2019.mac
+/nEXO/TPCInternals/TPCRadius 638.5 mm
+/nEXO/TPCInternals/TPCHeight 1277 mm
+/nEXO/TPCVessel/AllenCylFlatEnd/InnerRadius 638.5 mm
+/nEXO/TPCVessel/AllenCylFlatEnd/InnerLength 1277 mm
+/nEXO/TPCVessel/AllenCylFlatEnd/Thickness 3 mm
+/nEXO/TPCVessel/AllenCylFlatEnd/EndsThickness 11.6824 mm
+/nEXO/TPCExternals/TPCRadius 638.5 mm
+/nEXO/TPCExternals/TPCHeight 1277 mm
+/nEXO/TPCExternals/TPCVesselSideThickness 3 mm
+/nEXO/TPCExternals/TPCVesselEndsThickness 11.6824 mm
+/nEXO/TPCInternals/CathodeRadialStandoff 61.85 mm
+/nEXO/TPCInternals/CathodeThickness 0.127 mm
+/nEXO/TPCInternals/CathodeStandoff 75 mm
+/nEXO/TPCInternals/BulgeRadius 5 mm
+/nEXO/TPCInternals/FieldCageOption 5
+/nEXO/TPCInternals/FieldRingRadialThickness 10 mm
+/nEXO/TPCInternals/FieldRingZThickness 4 mm
+/nEXO/TPCInternals/FieldRingPitch 20 mm
+/nEXO/TPCInternals/FieldRingRadialStandoff 61.85 mm
+/nEXO/TPCInternals/CathodeToBottomRingDistance 19.82 mm
+/nEXO/TPCInternals/AnodeToTopRingDistance 19.31 mm
+/nEXO/TPCInternals/SupportLegOuterRadius 1.5875 mm
+/nEXO/TPCInternals/SupportLegInnerRadius 0 mm
+/nEXO/TPCInternals/SupportSpacerOuterRadius 3.175 mm
+/nEXO/TPCInternals/SupportSpacerInnerRadius 1.5875 mm
+/nEXO/TPCInternals/SiPMOption 2
+/nEXO/TPCInternals/SiPMStaveRadialStandoff 1.0 mm
+/nEXO/TPCInternals/SiPMStaveZStandoff 20.0 mm
+/nEXO/TPCInternals/SiPMStaveThickness 2.0 mm
+/nEXO/TPCInternals/SiPMModuleThickness 1.0 mm
+/nEXO/TPCInternals/SiPMUnitSiThickness 0.3 mm
+/nEXO/TPCInternals/SiPMUnitQuartzThickness 0.0015 mm
+/nEXO/TPCInternals/NSiPMStaves 24
+/nEXO/TPCInternals/NSiPMModulesX 2
+/nEXO/TPCInternals/NSiPMModulesZ 15
+/nEXO/TPCInternals/SiPMModuleSpacing 0.25 mm
+/nEXO/TPCInternals/SiPMModuleMargin 0.25 mm
+/nEXO/TPCInternals/NSiPMUnitsX 8
+/nEXO/TPCInternals/NSiPMUnitsZ 8
+/nEXO/TPCInternals/SiPMUnitSideLength 9.5 mm
+/nEXO/TPCInternals/SiPMUnitSpacing 0.55 mm
+/nEXO/TPCInternals/SiPMUnitMargin 0.25 mm
+/nEXO/TPCInternals/AnodeOption 2
+/nEXO/TPCInternals/AnodeRadialStandoff 2.88 mm
+/nEXO/TPCInternals/AnodeStandoff 18.87 mm
+/nEXO/TPCInternals/ChargeModuleThickness 0.5 mm
+/nEXO/TPCInternals/ChargeModuleSupportThickness 3 mm
+/nEXO/TPCInternals/ChargeModuleLength 100.5 mm
+/nEXO/TPCInternals/ChargeModuleBackingThickness 0.5 mm
+/nEXO/TPCInternals/ChargeModuleSupportWidth 30 mm
+/nEXO/TPCInternals/ChargeModuleGlueThickness 0.762 mm
+/nEXO/TPCInternals/ChargeModuleGlueRadius 0.381 mm
+/nEXO/TPCInternals/ChargeModuleGluePosition 45 mm
+/nEXO/TPCInternals/ChargeModuleChipLength 10 mm
+/nEXO/TPCInternals/ChargeModuleChipThickness 1 mm
+/nEXO/TPCInternals/ChargeModuleChipPosition 10 mm
+/nEXO/TPCInternals/ChargePadDiagonalLength 6 mm
+/nEXO/TPCInternals/ChargePadThickness 0.001 mm
+/nEXO/TPCInternals/ChargePadLinkLength 0.064 mm
+/nEXO/TPCInternals/ChargePadLinkHeight 0.025 mm
+/nEXO/TPCExternals/WaterShieldTank/WSTHeight 1402.08 cm
+/nEXO/TPCExternals/WaterShieldTank/WSTRadius 655.32 cm
+/nEXO/TPCExternals/WaterShieldTank/WSTSideWallThickness 10.16 cm
+/nEXO/TPCExternals/WaterShieldTank/WSTBottomWallThickness 15.24 cm
+/nEXO/TPCExternals/WaterShieldTank/WSTTopWallThickness 15.24 cm
+/nEXO/TPCExternals/WaterShieldTank/EmptyWST false
+/nEXO/TPCExternals/OuterCryostatRadius 2230.0 mm
+/nEXO/TPCExternals/OuterCryostatThickness 20.0 mm
+/nEXO/TPCExternals/OuterCryostatLinerThickness 3.0 mm
+/nEXO/TPCExternals/InnerCryostatRadius 1690.0 mm
+/nEXO/TPCExternals/InnerCryostatThickness 10.0 mm
+/nEXO/TPCExternals/InnerCryostatLinerThickness 2.0 mm
+/nEXO/TPCExternals/InnerCryostatZOffset -403.0 mm
+/nEXO/TPCExternals/setHVConfig 0
+/nEXO/TPCExternals/HVFeedthruAzimuthalPosition 45. deg
+/nEXO/TPCExternals/HVFeedthruRadialStandoff 70. mm
+/nEXO/TPCExternals/HVFeedthruDiameter 50. mm
+/nEXO/TPCExternals/HVFeedthruLength 100. mm
+/nEXO/TPCExternals/HVFeedthruWallThickness 1.651 mm
+/nEXO/TPCExternals/HVTubeDiameter 15.875 mm
+/nEXO/TPCExternals/HVTubeWallThickness 1.651 mm
+/nEXO/TPCExternals/HVTubeRadiusOfCurvature 200. mm
+/nEXO/TPCExternals/HVTubeZOffset 0 mm
+/nEXO/TPCExternals/HVTubeLength 1.5 m
+/nEXO/TPCInternals/HVPlungerRadius 10. mm
+/nEXO/TPCInternals/HVPlungerPhi 45. deg
+/nEXO/TPCExternals/CalibGuideTubesOption 1
+/nEXO/TPCExternals/CalibGuideTubesPhi 0 deg
+/nEXO/TPCExternals/CalibGuideTubesOuterRadius 4.7625 mm
+/nEXO/TPCExternals/CalibGuideTubesThickness 1.651 mm
+/EXOPhysicsList/enableLight true
+/run/initialize
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Galactic
+G4NistMaterialBuilder: BuildMaterial #286
+New material nComponents= 1
+G4NistElementBuilder: Build Element <H>  Z= 1  Aeff= 1.00794  with natural isotope composition
+G4Material: Mean excitation energy is changed for G4_Galactic Iold= 19.2eV; Inew= 21.8 eV;
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+G4NistMaterialBuilder: BuildMaterial #104
+New material nComponents= 4
+G4NistElementBuilder: Build Element <C>  Z= 6  Aeff= 12.0107  with natural isotope composition
+G4NistElementBuilder: Build Element <N>  Z= 7  Aeff= 14.0068  with natural isotope composition
+G4NistElementBuilder: Build Element <O>  Z= 8  Aeff= 15.9994  with natural isotope composition
+G4NistElementBuilder: Build Element <Ar>  Z= 18  Aeff= 39.9477  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial G4_WATER
+G4NistMaterialBuilder: BuildMaterial #0
+New material nComponents= 2
+G4Material: Mean excitation energy is changed for G4_WATER Iold= 75eV; Inew= 78 eV;
+G4NistMaterialBuilder::FindOrBuildMaterial G4_KAPTON
+G4NistMaterialBuilder: BuildMaterial #178
+New material nComponents= 4
+G4NistMaterialBuilder::FindOrBuildMaterial KaptonLight
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <KaptonLight> is not found.
+New material KaptonLight is prepared;  nMaterials= 309 nComponents= 777 nCurrent= 4
+G4NistMaterialBuilder: BuildMaterial #308
+New material nComponents= 4
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+G4NistMaterialBuilder: BuildMaterial #29
+New material nComponents= 1
+G4NistElementBuilder: Build Element <Cu>  Z= 29  Aeff= 63.5456  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Al
+G4NistMaterialBuilder: BuildMaterial #13
+New material nComponents= 1
+G4NistElementBuilder: Build Element <Al>  Z= 13  Aeff= 26.9815  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Pb
+G4NistMaterialBuilder: BuildMaterial #82
+New material nComponents= 1
+G4NistElementBuilder: Build Element <Pb>  Z= 82  Aeff= 207.217  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Si
+G4NistMaterialBuilder: BuildMaterial #14
+New material nComponents= 1
+G4NistElementBuilder: Build Element <Si>  Z= 14  Aeff= 28.0854  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <liquidXe> is not found.
+G4NistMaterialBuilder::FindOrBuildMaterial G4_SILICON_DIOXIDE
+G4NistMaterialBuilder: BuildMaterial #244
+New material nComponents= 2
+G4NistMaterialBuilder::FindOrBuildMaterial G4_ALUMINUM_OXIDE
+G4NistMaterialBuilder: BuildMaterial #106
+New material nComponents= 2
+G4Material: Mean excitation energy is changed for G4_ALUMINUM_OXIDE Iold= 126.988eV; Inew= 145.2 eV;
+G4NistMaterialBuilder::FindOrBuildMaterial G4_STAINLESS-STEEL
+G4NistMaterialBuilder: BuildMaterial #291
+New material nComponents= 3
+G4NistElementBuilder: Build Element <Fe>  Z= 26  Aeff= 55.8451  with natural isotope composition
+G4NistElementBuilder: Build Element <Cr>  Z= 24  Aeff= 51.9961  with natural isotope composition
+G4NistElementBuilder: Build Element <Ni>  Z= 28  Aeff= 58.6933  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial Bialkali
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Bialkali> is not found.
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Ti
+G4NistMaterialBuilder: BuildMaterial #22
+New material nComponents= 1
+G4NistElementBuilder: Build Element <Ti>  Z= 22  Aeff= 47.8667  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial G4_TEFLON
+G4NistMaterialBuilder: BuildMaterial #226
+New material nComponents= 2
+G4NistElementBuilder: Build Element <F>  Z= 9  Aeff= 18.9984  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial TeflonLight
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <TeflonLight> is not found.
+New material TeflonLight is prepared;  nMaterials= 310 nComponents= 781 nCurrent= 2
+G4NistMaterialBuilder: BuildMaterial #309
+New material nComponents= 2
+G4NistMaterialBuilder::FindOrBuildMaterial HFE
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <HFE> is not found.
+New material HFE is prepared;  nMaterials= 311 nComponents= 783 nCurrent= 4
+G4NistMaterialBuilder: BuildMaterial #310
+New material nComponents= 4
+G4NistMaterialBuilder::FindOrBuildMaterial Acrylic
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Acrylic> is not found.
+New material Acrylic is prepared;  nMaterials= 312 nComponents= 787 nCurrent= 3
+G4NistMaterialBuilder: BuildMaterial #311
+New material nComponents= 3
+G4NistMaterialBuilder::FindOrBuildMaterial TPB
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <TPB> is not found.
+New material TPB is prepared;  nMaterials= 313 nComponents= 790 nCurrent= 2
+G4NistMaterialBuilder: BuildMaterial #312
+New material nComponents= 2
+G4NistMaterialBuilder::FindOrBuildMaterial HDPE
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <HDPE> is not found.
+New material HDPE is prepared;  nMaterials= 314 nComponents= 792 nCurrent= 2
+G4NistMaterialBuilder: BuildMaterial #313
+New material nComponents= 2
+G4NistMaterialBuilder::FindOrBuildMaterial ShotCrete
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <ShotCrete> is not found.
+New material ShotCrete is prepared;  nMaterials= 315 nComponents= 794 nCurrent= 11
+G4NistMaterialBuilder: BuildMaterial #314
+New material nComponents= 11
+G4NistElementBuilder: Build Element <Ca>  Z= 20  Aeff= 40.078  with natural isotope composition
+G4NistElementBuilder: Build Element <K>  Z= 19  Aeff= 39.0983  with natural isotope composition
+G4NistElementBuilder: Build Element <Mg>  Z= 12  Aeff= 24.305  with natural isotope composition
+G4NistElementBuilder: Build Element <Mn>  Z= 25  Aeff= 54.938  with natural isotope composition
+G4NistElementBuilder: Build Element <Na>  Z= 11  Aeff= 22.9898  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial Concrete
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Concrete> is not found.
+New material Concrete is prepared;  nMaterials= 316 nComponents= 805 nCurrent= 9
+G4NistMaterialBuilder: BuildMaterial #315
+New material nComponents= 9
+G4NistMaterialBuilder::FindOrBuildMaterial Rock
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Rock> is not found.
+New material Rock is prepared;  nMaterials= 317 nComponents= 814 nCurrent= 12
+G4NistMaterialBuilder: BuildMaterial #316
+New material nComponents= 12
+G4NistMaterialBuilder::FindOrBuildMaterial CarbonFiber
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <CarbonFiber> is not found.
+New material CarbonFiber is prepared;  nMaterials= 318 nComponents= 826 nCurrent= 1
+G4NistMaterialBuilder: BuildMaterial #317
+New material nComponents= 1
+G4NistMaterialBuilder::FindOrBuildMaterial Silicone
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Silicone> is not found.
+New material Silicone is prepared;  nMaterials= 319 nComponents= 827 nCurrent= 4
+G4NistMaterialBuilder: BuildMaterial #318
+New material nComponents= 4
+G4NistMaterialBuilder::FindOrBuildMaterial StainlessSteelCryo
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <StainlessSteelCryo> is not found.
+New material StainlessSteelCryo is prepared;  nMaterials= 320 nComponents= 831 nCurrent= 5
+G4NistMaterialBuilder: BuildMaterial #319
+New material nComponents= 5
+G4NistMaterialBuilder::FindOrBuildMaterial Bialkali
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <Bialkali> is not found.
+New material Bialkali is prepared;  nMaterials= 321 nComponents= 836 nCurrent= 4
+G4NistMaterialBuilder: BuildMaterial #320
+New material nComponents= 4
+G4NistElementBuilder: Build Element <Sb>  Z= 51  Aeff= 121.76  with natural isotope composition
+G4NistElementBuilder: Build Element <Cs>  Z= 55  Aeff= 132.905  with natural isotope composition
+G4NistMaterialBuilder::FindOrBuildMaterial borosilicate_glass
+G4NistMaterialBuilder::FindOrBuildMaterial WARNING: material <borosilicate_glass> is not found.
+New material borosilicate_glass is prepared;  nMaterials= 322 nComponents= 840 nCurrent= 3
+G4NistMaterialBuilder: BuildMaterial #321
+New material nComponents= 3
+G4NistElementBuilder: Build Element <B>  Z= 5  Aeff= 10.811  with natural isotope composition
+
+The materials defined are: 
+
+
+***** Table : Nb of materials = 28 *****
+
+ Material: G4_Galactic    density:  0.000 mg/cm3  RadL: 204310098.490 pc   Nucl.Int.Length: 113427284.261 pc 
+                       Imean:  21.800 eV   temperature:   2.73 K  pressure:   0.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:   G4_AIR    density:  1.205 mg/cm3  RadL: 303.921 m    Nucl.Int.Length: 710.095 m  
+                       Imean:  85.700 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:   0.01 %  ElmAbundance   0.02 % 
+
+   --->  Element: N (N)   Z =  7.0   N =    14   A = 14.007 g/mole
+         --->  Isotope:   N14   Z =  7   N =  14   A =  14.00 g/mole   abundance: 99.632 %
+         --->  Isotope:   N15   Z =  7   N =  15   A =  15.00 g/mole   abundance:  0.368 %
+          ElmMassFraction:  75.53 %  ElmAbundance  78.44 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  23.18 %  ElmAbundance  21.07 % 
+
+   --->  Element: Ar (Ar)   Z = 18.0   N =    40   A = 39.948 g/mole
+         --->  Isotope:  Ar36   Z = 18   N =  36   A =  35.97 g/mole   abundance:  0.337 %
+         --->  Isotope:  Ar38   Z = 18   N =  38   A =  37.96 g/mole   abundance:  0.063 %
+         --->  Isotope:  Ar40   Z = 18   N =  40   A =  39.96 g/mole   abundance: 99.600 %
+          ElmMassFraction:   1.28 %  ElmAbundance   0.47 % 
+
+
+ Material: G4_WATER H_2O   density:  1.000 g/cm3   RadL:  36.083 cm   Nucl.Int.Length:  75.375 cm 
+                       Imean:  78.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:  11.19 %  ElmAbundance  66.67 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  88.81 %  ElmAbundance  33.33 % 
+
+
+ Material: G4_KAPTON    density:  1.420 g/cm3   RadL:  28.575 cm   Nucl.Int.Length:  55.817 cm 
+                       Imean:  79.600 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  69.11 %  ElmAbundance  56.41 % 
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   2.64 %  ElmAbundance  25.64 % 
+
+   --->  Element: N (N)   Z =  7.0   N =    14   A = 14.007 g/mole
+         --->  Isotope:   N14   Z =  7   N =  14   A =  14.00 g/mole   abundance: 99.632 %
+         --->  Isotope:   N15   Z =  7   N =  15   A =  15.00 g/mole   abundance:  0.368 %
+          ElmMassFraction:   7.33 %  ElmAbundance   5.13 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  20.92 %  ElmAbundance  12.82 % 
+
+
+ Material: KaptonLight    density: 143.000 mg/cm3  RadL:   2.837 m    Nucl.Int.Length:   5.543 m  
+                       Imean:  77.822 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   2.64 %  ElmAbundance  25.64 % 
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  69.11 %  ElmAbundance  56.41 % 
+
+   --->  Element: N (N)   Z =  7.0   N =    14   A = 14.007 g/mole
+         --->  Isotope:   N14   Z =  7   N =  14   A =  14.00 g/mole   abundance: 99.632 %
+         --->  Isotope:   N15   Z =  7   N =  15   A =  15.00 g/mole   abundance:  0.368 %
+          ElmMassFraction:   7.33 %  ElmAbundance   5.13 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  20.92 %  ElmAbundance  12.82 % 
+
+
+ Material:    G4_Cu    density:  8.960 g/cm3   RadL:   1.436 cm   Nucl.Int.Length:  15.588 cm 
+                       Imean: 322.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Cu (Cu)   Z = 29.0   N =    64   A = 63.546 g/mole
+         --->  Isotope:  Cu63   Z = 29   N =  63   A =  62.93 g/mole   abundance: 69.170 %
+         --->  Isotope:  Cu65   Z = 29   N =  65   A =  64.93 g/mole   abundance: 30.830 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:    G4_Al    density:  2.699 g/cm3   RadL:   8.896 cm   Nucl.Int.Length:  38.894 cm 
+                       Imean: 166.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Al (Al)   Z = 13.0   N =    27   A = 26.982 g/mole
+         --->  Isotope:  Al27   Z = 13   N =  27   A =  26.98 g/mole   abundance: 100.000 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:    G4_Pb    density: 11.350 g/cm3   RadL:   5.613 mm   Nucl.Int.Length:  18.248 cm 
+                       Imean: 823.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Pb (Pb)   Z = 82.0   N =   207   A = 207.217 g/mole
+         --->  Isotope: Pb204   Z = 82   N = 204   A = 203.97 g/mole   abundance:  1.400 %
+         --->  Isotope: Pb206   Z = 82   N = 206   A = 205.97 g/mole   abundance: 24.100 %
+         --->  Isotope: Pb207   Z = 82   N = 207   A = 206.98 g/mole   abundance: 22.100 %
+         --->  Isotope: Pb208   Z = 82   N = 208   A = 207.98 g/mole   abundance: 52.400 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material:    G4_Si    density:  2.330 g/cm3   RadL:   9.366 cm   Nucl.Int.Length:  45.660 cm 
+                       Imean: 173.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material: G4_SILICON_DIOXIDE SiO_2   density:  2.320 g/cm3   RadL:  11.658 cm   Nucl.Int.Length:  41.317 cm 
+                       Imean: 139.200 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  46.74 %  ElmAbundance  33.33 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  53.26 %  ElmAbundance  66.67 % 
+
+
+ Material: G4_ALUMINUM_OXIDE Al_2O_3   density:  3.970 g/cm3   RadL:   7.038 cm   Nucl.Int.Length:  24.268 cm 
+                       Imean: 145.200 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Al (Al)   Z = 13.0   N =    27   A = 26.982 g/mole
+         --->  Isotope:  Al27   Z = 13   N =  27   A =  26.98 g/mole   abundance: 100.000 %
+          ElmMassFraction:  52.93 %  ElmAbundance  40.00 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  47.07 %  ElmAbundance  60.00 % 
+
+
+ Material: G4_STAINLESS-STEEL    density:  8.000 g/cm3   RadL:   1.738 cm   Nucl.Int.Length:  16.678 cm 
+                       Imean: 282.977 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Fe (Fe)   Z = 26.0   N =    56   A = 55.845 g/mole
+         --->  Isotope:  Fe54   Z = 26   N =  54   A =  53.94 g/mole   abundance:  5.845 %
+         --->  Isotope:  Fe56   Z = 26   N =  56   A =  55.93 g/mole   abundance: 91.754 %
+         --->  Isotope:  Fe57   Z = 26   N =  57   A =  56.94 g/mole   abundance:  2.119 %
+         --->  Isotope:  Fe58   Z = 26   N =  58   A =  57.93 g/mole   abundance:  0.282 %
+          ElmMassFraction:  74.62 %  ElmAbundance  74.00 % 
+
+   --->  Element: Cr (Cr)   Z = 24.0   N =    52   A = 51.996 g/mole
+         --->  Isotope:  Cr50   Z = 24   N =  50   A =  49.95 g/mole   abundance:  4.345 %
+         --->  Isotope:  Cr52   Z = 24   N =  52   A =  51.94 g/mole   abundance: 83.789 %
+         --->  Isotope:  Cr53   Z = 24   N =  53   A =  52.94 g/mole   abundance:  9.501 %
+         --->  Isotope:  Cr54   Z = 24   N =  54   A =  53.94 g/mole   abundance:  2.365 %
+          ElmMassFraction:  16.90 %  ElmAbundance  18.00 % 
+
+   --->  Element: Ni (Ni)   Z = 28.0   N =    59   A = 58.693 g/mole
+         --->  Isotope:  Ni58   Z = 28   N =  58   A =  57.94 g/mole   abundance: 68.077 %
+         --->  Isotope:  Ni60   Z = 28   N =  60   A =  59.93 g/mole   abundance: 26.223 %
+         --->  Isotope:  Ni61   Z = 28   N =  61   A =  60.93 g/mole   abundance:  1.140 %
+         --->  Isotope:  Ni62   Z = 28   N =  62   A =  61.93 g/mole   abundance:  3.635 %
+         --->  Isotope:  Ni64   Z = 28   N =  64   A =  63.93 g/mole   abundance:  0.926 %
+          ElmMassFraction:   8.48 %  ElmAbundance   8.00 % 
+
+
+ Material:    G4_Ti    density:  4.540 g/cm3   RadL:   3.560 cm   Nucl.Int.Length:  27.991 cm 
+                       Imean: 233.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Ti (Ti)   Z = 22.0   N =    48   A = 47.867 g/mole
+         --->  Isotope:  Ti46   Z = 22   N =  46   A =  45.95 g/mole   abundance:  8.250 %
+         --->  Isotope:  Ti47   Z = 22   N =  47   A =  46.95 g/mole   abundance:  7.440 %
+         --->  Isotope:  Ti48   Z = 22   N =  48   A =  47.95 g/mole   abundance: 73.720 %
+         --->  Isotope:  Ti49   Z = 22   N =  49   A =  48.95 g/mole   abundance:  5.410 %
+         --->  Isotope:  Ti50   Z = 22   N =  50   A =  49.94 g/mole   abundance:  5.180 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material: liquidXe    density:  3.057 g/cm3   RadL:   2.868 cm   Nucl.Int.Length:  58.836 cm 
+                       Imean: 482.000 eV   temperature: 173.15 K  pressure:   1.00 atm
+
+   --->  Element: Xe_enr (Xe)   Z = 54.0   N =   136   A = 135.707 g/mole
+         --->  Isotope: Xe134   Z = 54   N = 134   A = 133.91 g/mole   abundance: 10.000 %
+         --->  Isotope: Xe136   Z = 54   N = 136   A = 135.91 g/mole   abundance: 90.000 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material: G4_TEFLON    density:  2.200 g/cm3   RadL:  15.839 cm   Nucl.Int.Length:  40.831 cm 
+                       Imean:  99.100 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  24.02 %  ElmAbundance  33.33 % 
+
+   --->  Element: F (F)   Z =  9.0   N =    19   A = 18.998 g/mole
+         --->  Isotope:   F19   Z =  9   N =  19   A =  19.00 g/mole   abundance: 100.000 %
+          ElmMassFraction:  75.98 %  ElmAbundance  66.67 % 
+
+
+ Material: TeflonLight    density:  1.100 g/cm3   RadL:  31.677 cm   Nucl.Int.Length:  81.662 cm 
+                       Imean: 105.352 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  24.02 %  ElmAbundance  33.33 % 
+
+   --->  Element: F (F)   Z =  9.0   N =    19   A = 18.998 g/mole
+         --->  Isotope:   F19   Z =  9   N =  19   A =  19.00 g/mole   abundance: 100.000 %
+          ElmMassFraction:  75.98 %  ElmAbundance  66.67 % 
+
+
+ Material:      HFE    density:  1.770 g/cm3   RadL:  19.903 cm   Nucl.Int.Length:  49.331 cm 
+                       Imean:  98.367 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  24.01 %  ElmAbundance  26.67 % 
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   1.51 %  ElmAbundance  20.00 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:   8.00 %  ElmAbundance   6.67 % 
+
+   --->  Element: F (F)   Z =  9.0   N =    19   A = 18.998 g/mole
+         --->  Isotope:   F19   Z =  9   N =  19   A =  19.00 g/mole   abundance: 100.000 %
+          ElmMassFraction:  66.48 %  ElmAbundance  46.67 % 
+
+
+ Material:  Acrylic    density:  1.185 g/cm3   RadL:  34.219 cm   Nucl.Int.Length:  62.935 cm 
+                       Imean:  68.609 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  59.98 %  ElmAbundance  33.33 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  31.96 %  ElmAbundance  13.33 % 
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   8.05 %  ElmAbundance  53.33 % 
+
+
+ Material:      TPB    density:  1.185 g/cm3   RadL:  36.765 cm   Nucl.Int.Length:  62.641 cm 
+                       Imean:  68.564 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  93.81 %  ElmAbundance  56.00 % 
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   6.19 %  ElmAbundance  44.00 % 
+
+
+ Material:     HDPE    density: 950.000 mg/cm3  RadL:  47.135 cm   Nucl.Int.Length:  71.154 cm 
+                       Imean:  56.483 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:  14.40 %  ElmAbundance  66.72 % 
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  85.60 %  ElmAbundance  33.28 % 
+
+
+ Material: ShotCrete    density:  2.320 g/cm3   RadL:  13.866 cm   Nucl.Int.Length:  34.516 cm 
+                       Imean:  83.797 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   7.20 %  ElmAbundance  54.68 % 
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  42.80 %  ElmAbundance  27.28 % 
+
+   --->  Element: Al (Al)   Z = 13.0   N =    27   A = 26.982 g/mole
+         --->  Isotope:  Al27   Z = 13   N =  27   A =  26.98 g/mole   abundance: 100.000 %
+          ElmMassFraction:   3.05 %  ElmAbundance   0.87 % 
+
+   --->  Element: Ca (Ca)   Z = 20.0   N =    40   A = 40.078 g/mole
+         --->  Isotope:  Ca40   Z = 20   N =  40   A =  39.96 g/mole   abundance: 96.941 %
+         --->  Isotope:  Ca42   Z = 20   N =  42   A =  41.96 g/mole   abundance:  0.647 %
+         --->  Isotope:  Ca43   Z = 20   N =  43   A =  42.96 g/mole   abundance:  0.135 %
+         --->  Isotope:  Ca44   Z = 20   N =  44   A =  43.96 g/mole   abundance:  2.086 %
+         --->  Isotope:  Ca46   Z = 20   N =  46   A =  45.95 g/mole   abundance:  0.004 %
+         --->  Isotope:  Ca48   Z = 20   N =  48   A =  47.95 g/mole   abundance:  0.187 %
+          ElmMassFraction:   4.80 %  ElmAbundance   0.92 % 
+
+   --->  Element: Fe (Fe)   Z = 26.0   N =    56   A = 55.845 g/mole
+         --->  Isotope:  Fe54   Z = 26   N =  54   A =  53.94 g/mole   abundance:  5.845 %
+         --->  Isotope:  Fe56   Z = 26   N =  56   A =  55.93 g/mole   abundance: 91.754 %
+         --->  Isotope:  Fe57   Z = 26   N =  57   A =  56.94 g/mole   abundance:  2.119 %
+         --->  Isotope:  Fe58   Z = 26   N =  58   A =  57.93 g/mole   abundance:  0.282 %
+          ElmMassFraction:   1.30 %  ElmAbundance   0.18 % 
+
+   --->  Element: K (K)   Z = 19.0   N =    39   A = 39.098 g/mole
+         --->  Isotope:   K39   Z = 19   N =  39   A =  38.96 g/mole   abundance: 93.258 %
+         --->  Isotope:   K40   Z = 19   N =  40   A =  39.96 g/mole   abundance:  0.012 %
+         --->  Isotope:   K41   Z = 19   N =  41   A =  40.96 g/mole   abundance:  6.730 %
+          ElmMassFraction:   0.90 %  ElmAbundance   0.18 % 
+
+   --->  Element: Mg (Mg)   Z = 12.0   N =    24   A = 24.305 g/mole
+         --->  Isotope:  Mg24   Z = 12   N =  24   A =  23.99 g/mole   abundance: 78.990 %
+         --->  Isotope:  Mg25   Z = 12   N =  25   A =  24.99 g/mole   abundance: 10.000 %
+         --->  Isotope:  Mg26   Z = 12   N =  26   A =  25.98 g/mole   abundance: 11.010 %
+          ElmMassFraction:   0.60 %  ElmAbundance   0.19 % 
+
+   --->  Element: Mn (Mn)   Z = 25.0   N =    55   A = 54.938 g/mole
+         --->  Isotope:  Mn55   Z = 25   N =  55   A =  54.94 g/mole   abundance: 100.000 %
+          ElmMassFraction:   0.20 %  ElmAbundance   0.03 % 
+
+   --->  Element: Na (Na)   Z = 11.0   N =    23   A = 22.990 g/mole
+         --->  Isotope:  Na23   Z = 11   N =  23   A =  22.99 g/mole   abundance: 100.000 %
+          ElmMassFraction:   1.15 %  ElmAbundance   0.38 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  14.00 %  ElmAbundance   3.82 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  24.00 %  ElmAbundance  11.48 % 
+
+
+ Material: Concrete    density:  2.320 g/cm3   RadL:  10.800 cm   Nucl.Int.Length:  42.349 cm 
+                       Imean: 131.909 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Al (Al)   Z = 13.0   N =    27   A = 26.982 g/mole
+         --->  Isotope:  Al27   Z = 13   N =  27   A =  26.98 g/mole   abundance: 100.000 %
+          ElmMassFraction:   6.00 %  ElmAbundance   4.72 % 
+
+   --->  Element: Ca (Ca)   Z = 20.0   N =    40   A = 40.078 g/mole
+         --->  Isotope:  Ca40   Z = 20   N =  40   A =  39.96 g/mole   abundance: 96.941 %
+         --->  Isotope:  Ca42   Z = 20   N =  42   A =  41.96 g/mole   abundance:  0.647 %
+         --->  Isotope:  Ca43   Z = 20   N =  43   A =  42.96 g/mole   abundance:  0.135 %
+         --->  Isotope:  Ca44   Z = 20   N =  44   A =  43.96 g/mole   abundance:  2.086 %
+         --->  Isotope:  Ca46   Z = 20   N =  46   A =  45.95 g/mole   abundance:  0.004 %
+         --->  Isotope:  Ca48   Z = 20   N =  48   A =  47.95 g/mole   abundance:  0.187 %
+          ElmMassFraction:  10.10 %  ElmAbundance   5.35 % 
+
+   --->  Element: Fe (Fe)   Z = 26.0   N =    56   A = 55.845 g/mole
+         --->  Isotope:  Fe54   Z = 26   N =  54   A =  53.94 g/mole   abundance:  5.845 %
+         --->  Isotope:  Fe56   Z = 26   N =  56   A =  55.93 g/mole   abundance: 91.754 %
+         --->  Isotope:  Fe57   Z = 26   N =  57   A =  56.94 g/mole   abundance:  2.119 %
+         --->  Isotope:  Fe58   Z = 26   N =  58   A =  57.93 g/mole   abundance:  0.282 %
+          ElmMassFraction:   2.60 %  ElmAbundance   0.99 % 
+
+   --->  Element: K (K)   Z = 19.0   N =    39   A = 39.098 g/mole
+         --->  Isotope:   K39   Z = 19   N =  39   A =  38.96 g/mole   abundance: 93.258 %
+         --->  Isotope:   K40   Z = 19   N =  40   A =  39.96 g/mole   abundance:  0.012 %
+         --->  Isotope:   K41   Z = 19   N =  41   A =  40.96 g/mole   abundance:  6.730 %
+          ElmMassFraction:   1.70 %  ElmAbundance   0.92 % 
+
+   --->  Element: Mg (Mg)   Z = 12.0   N =    24   A = 24.305 g/mole
+         --->  Isotope:  Mg24   Z = 12   N =  24   A =  23.99 g/mole   abundance: 78.990 %
+         --->  Isotope:  Mg25   Z = 12   N =  25   A =  24.99 g/mole   abundance: 10.000 %
+         --->  Isotope:  Mg26   Z = 12   N =  26   A =  25.98 g/mole   abundance: 11.010 %
+          ElmMassFraction:   1.20 %  ElmAbundance   1.05 % 
+
+   --->  Element: Mn (Mn)   Z = 25.0   N =    55   A = 54.938 g/mole
+         --->  Isotope:  Mn55   Z = 25   N =  55   A =  54.94 g/mole   abundance: 100.000 %
+          ElmMassFraction:   0.40 %  ElmAbundance   0.15 % 
+
+   --->  Element: Na (Na)   Z = 11.0   N =    23   A = 22.990 g/mole
+         --->  Isotope:  Na23   Z = 11   N =  23   A =  22.99 g/mole   abundance: 100.000 %
+          ElmMassFraction:   2.30 %  ElmAbundance   2.13 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  27.70 %  ElmAbundance  20.95 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  48.00 %  ElmAbundance  63.73 % 
+
+
+ Material:     Rock    density:  2.850 g/cm3   RadL:   8.757 cm   Nucl.Int.Length:  34.513 cm 
+                       Imean: 133.689 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:   0.15 %  ElmAbundance   3.09 % 
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:   0.04 %  ElmAbundance   0.07 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  45.96 %  ElmAbundance  59.79 % 
+
+   --->  Element: Na (Na)   Z = 11.0   N =    23   A = 22.990 g/mole
+         --->  Isotope:  Na23   Z = 11   N =  23   A =  22.99 g/mole   abundance: 100.000 %
+          ElmMassFraction:   2.20 %  ElmAbundance   1.99 % 
+
+   --->  Element: Mg (Mg)   Z = 12.0   N =    24   A = 24.305 g/mole
+         --->  Isotope:  Mg24   Z = 12   N =  24   A =  23.99 g/mole   abundance: 78.990 %
+         --->  Isotope:  Mg25   Z = 12   N =  25   A =  24.99 g/mole   abundance: 10.000 %
+         --->  Isotope:  Mg26   Z = 12   N =  26   A =  25.98 g/mole   abundance: 11.010 %
+          ElmMassFraction:   3.30 %  ElmAbundance   2.82 % 
+
+   --->  Element: Al (Al)   Z = 13.0   N =    27   A = 26.982 g/mole
+         --->  Isotope:  Al27   Z = 13   N =  27   A =  26.98 g/mole   abundance: 100.000 %
+          ElmMassFraction:   8.99 %  ElmAbundance   6.94 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  26.18 %  ElmAbundance  19.40 % 
+
+   --->  Element: K (K)   Z = 19.0   N =    39   A = 39.098 g/mole
+         --->  Isotope:   K39   Z = 19   N =  39   A =  38.96 g/mole   abundance: 93.258 %
+         --->  Isotope:   K40   Z = 19   N =  40   A =  39.96 g/mole   abundance:  0.012 %
+         --->  Isotope:   K41   Z = 19   N =  41   A =  40.96 g/mole   abundance:  6.730 %
+          ElmMassFraction:   1.20 %  ElmAbundance   0.64 % 
+
+   --->  Element: Ca (Ca)   Z = 20.0   N =    40   A = 40.078 g/mole
+         --->  Isotope:  Ca40   Z = 20   N =  40   A =  39.96 g/mole   abundance: 96.941 %
+         --->  Isotope:  Ca42   Z = 20   N =  42   A =  41.96 g/mole   abundance:  0.647 %
+         --->  Isotope:  Ca43   Z = 20   N =  43   A =  42.96 g/mole   abundance:  0.135 %
+         --->  Isotope:  Ca44   Z = 20   N =  44   A =  43.96 g/mole   abundance:  2.086 %
+         --->  Isotope:  Ca46   Z = 20   N =  46   A =  45.95 g/mole   abundance:  0.004 %
+         --->  Isotope:  Ca48   Z = 20   N =  48   A =  47.95 g/mole   abundance:  0.187 %
+          ElmMassFraction:   5.20 %  ElmAbundance   2.70 % 
+
+   --->  Element: Mn (Mn)   Z = 25.0   N =    55   A = 54.938 g/mole
+         --->  Isotope:  Mn55   Z = 25   N =  55   A =  54.94 g/mole   abundance: 100.000 %
+          ElmMassFraction:   0.10 %  ElmAbundance   0.04 % 
+
+   --->  Element: Fe (Fe)   Z = 26.0   N =    56   A = 55.845 g/mole
+         --->  Isotope:  Fe54   Z = 26   N =  54   A =  53.94 g/mole   abundance:  5.845 %
+         --->  Isotope:  Fe56   Z = 26   N =  56   A =  55.93 g/mole   abundance: 91.754 %
+         --->  Isotope:  Fe57   Z = 26   N =  57   A =  56.94 g/mole   abundance:  2.119 %
+         --->  Isotope:  Fe58   Z = 26   N =  58   A =  57.93 g/mole   abundance:  0.282 %
+          ElmMassFraction:   6.19 %  ElmAbundance   2.31 % 
+
+   --->  Element: Ti (Ti)   Z = 22.0   N =    48   A = 47.867 g/mole
+         --->  Isotope:  Ti46   Z = 22   N =  46   A =  45.95 g/mole   abundance:  8.250 %
+         --->  Isotope:  Ti47   Z = 22   N =  47   A =  46.95 g/mole   abundance:  7.440 %
+         --->  Isotope:  Ti48   Z = 22   N =  48   A =  47.95 g/mole   abundance: 73.720 %
+         --->  Isotope:  Ti49   Z = 22   N =  49   A =  48.95 g/mole   abundance:  5.410 %
+         --->  Isotope:  Ti50   Z = 22   N =  50   A =  49.94 g/mole   abundance:  5.180 %
+          ElmMassFraction:   0.50 %  ElmAbundance   0.22 % 
+
+
+ Material: CarbonFiber    density:  1.880 g/cm3   RadL:  22.711 cm   Nucl.Int.Length:  42.635 cm 
+                       Imean:  81.000 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction: 100.00 %  ElmAbundance 100.00 % 
+
+
+ Material: Silicone    density: 965.000 mg/cm3  RadL:  47.745 cm   Nucl.Int.Length:  47.728 cm 
+                       Imean:  29.201 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: C (C)   Z =  6.0   N =    12   A = 12.011 g/mole
+         --->  Isotope:   C12   Z =  6   N =  12   A =  12.00 g/mole   abundance: 98.930 %
+         --->  Isotope:   C13   Z =  6   N =  13   A =  13.00 g/mole   abundance:  1.070 %
+          ElmMassFraction:  20.00 %  ElmAbundance   2.68 % 
+
+   --->  Element: H (H)   Z =  1.0   N =     1   A =  1.008 g/mole
+         --->  Isotope:    H1   Z =  1   N =   1   A =   1.01 g/mole   abundance: 99.989 %
+         --->  Isotope:    H2   Z =  1   N =   2   A =   2.01 g/mole   abundance:  0.011 %
+          ElmMassFraction:  60.00 %  ElmAbundance  95.74 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  10.00 %  ElmAbundance   0.57 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  10.00 %  ElmAbundance   1.01 % 
+
+
+ Material: StainlessSteelCryo    density:  8.020 g/cm3   RadL:   1.742 cm   Nucl.Int.Length:  16.588 cm 
+                       Imean: 280.927 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Fe (Fe)   Z = 26.0   N =    56   A = 55.845 g/mole
+         --->  Isotope:  Fe54   Z = 26   N =  54   A =  53.94 g/mole   abundance:  5.845 %
+         --->  Isotope:  Fe56   Z = 26   N =  56   A =  55.93 g/mole   abundance: 91.754 %
+         --->  Isotope:  Fe57   Z = 26   N =  57   A =  56.94 g/mole   abundance:  2.119 %
+         --->  Isotope:  Fe58   Z = 26   N =  58   A =  57.93 g/mole   abundance:  0.282 %
+          ElmMassFraction:  68.00 %  ElmAbundance  66.70 % 
+
+   --->  Element: Cr (Cr)   Z = 24.0   N =    52   A = 51.996 g/mole
+         --->  Isotope:  Cr50   Z = 24   N =  50   A =  49.95 g/mole   abundance:  4.345 %
+         --->  Isotope:  Cr52   Z = 24   N =  52   A =  51.94 g/mole   abundance: 83.789 %
+         --->  Isotope:  Cr53   Z = 24   N =  53   A =  52.94 g/mole   abundance:  9.501 %
+         --->  Isotope:  Cr54   Z = 24   N =  54   A =  53.94 g/mole   abundance:  2.365 %
+          ElmMassFraction:  19.00 %  ElmAbundance  20.02 % 
+
+   --->  Element: Ni (Ni)   Z = 28.0   N =    59   A = 58.693 g/mole
+         --->  Isotope:  Ni58   Z = 28   N =  58   A =  57.94 g/mole   abundance: 68.077 %
+         --->  Isotope:  Ni60   Z = 28   N =  60   A =  59.93 g/mole   abundance: 26.223 %
+         --->  Isotope:  Ni61   Z = 28   N =  61   A =  60.93 g/mole   abundance:  1.140 %
+         --->  Isotope:  Ni62   Z = 28   N =  62   A =  61.93 g/mole   abundance:  3.635 %
+         --->  Isotope:  Ni64   Z = 28   N =  64   A =  63.93 g/mole   abundance:  0.926 %
+          ElmMassFraction:  10.00 %  ElmAbundance   9.33 % 
+
+   --->  Element: Mn (Mn)   Z = 25.0   N =    55   A = 54.938 g/mole
+         --->  Isotope:  Mn55   Z = 25   N =  55   A =  54.94 g/mole   abundance: 100.000 %
+          ElmMassFraction:   2.00 %  ElmAbundance   1.99 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:   1.00 %  ElmAbundance   1.95 % 
+
+
+ Material: Bialkali    density:  2.700 g/cm3   RadL:   3.815 cm   Nucl.Int.Length:  55.932 cm 
+                       Imean: 341.803 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: Sb (Sb)   Z = 51.0   N =   122   A = 121.760 g/mole
+         --->  Isotope: Sb121   Z = 51   N = 121   A = 120.90 g/mole   abundance: 57.210 %
+         --->  Isotope: Sb123   Z = 51   N = 123   A = 122.90 g/mole   abundance: 42.790 %
+          ElmMassFraction:  33.00 %  ElmAbundance  19.37 % 
+
+   --->  Element: K (K)   Z = 19.0   N =    39   A = 39.098 g/mole
+         --->  Isotope:   K39   Z = 19   N =  39   A =  38.96 g/mole   abundance: 93.258 %
+         --->  Isotope:   K40   Z = 19   N =  40   A =  39.96 g/mole   abundance:  0.012 %
+         --->  Isotope:   K41   Z = 19   N =  41   A =  40.96 g/mole   abundance:  6.730 %
+          ElmMassFraction:  33.00 %  ElmAbundance  60.33 % 
+
+   --->  Element: Cs (Cs)   Z = 55.0   N =   133   A = 132.905 g/mole
+         --->  Isotope: Cs133   Z = 55   N = 133   A = 132.91 g/mole   abundance: 100.000 %
+          ElmMassFraction:  33.00 %  ElmAbundance  17.75 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:   1.00 %  ElmAbundance   2.55 % 
+
+
+ Material: borosilicate_glass    density:  2.230 g/cm3   RadL:  12.590 cm   Nucl.Int.Length:  42.282 cm 
+                       Imean: 120.503 eV   temperature: 293.15 K  pressure:   1.00 atm
+
+   --->  Element: B (B)   Z =  5.0   N =    11   A = 10.811 g/mole
+         --->  Isotope:   B10   Z =  5   N =  10   A =  10.01 g/mole   abundance: 19.900 %
+         --->  Isotope:   B11   Z =  5   N =  11   A =  11.01 g/mole   abundance: 80.100 %
+          ElmMassFraction:   3.89 %  ElmAbundance   6.83 % 
+
+   --->  Element: O (O)   Z =  8.0   N =    16   A = 15.999 g/mole
+         --->  Isotope:   O16   Z =  8   N =  16   A =  15.99 g/mole   abundance: 99.757 %
+         --->  Isotope:   O17   Z =  8   N =  17   A =  17.00 g/mole   abundance:  0.038 %
+         --->  Isotope:   O18   Z =  8   N =  18   A =  18.00 g/mole   abundance:  0.205 %
+          ElmMassFraction:  55.14 %  ElmAbundance  65.47 % 
+
+   --->  Element: Si (Si)   Z = 14.0   N =    28   A = 28.085 g/mole
+         --->  Isotope:  Si28   Z = 14   N =  28   A =  27.98 g/mole   abundance: 92.230 %
+         --->  Isotope:  Si29   Z = 14   N =  29   A =  28.98 g/mole   abundance:  4.683 %
+         --->  Isotope:  Si30   Z = 14   N =  30   A =  29.97 g/mole   abundance:  3.087 %
+          ElmMassFraction:  40.97 %  ElmAbundance  27.71 % 
+
+
+
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+The temperature of liquid xenon is 173.15 and density 3.057
+G4NistMaterialBuilder::FindOrBuildMaterial G4_SILICON_DIOXIDE
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Si
+G4NistMaterialBuilder::FindOrBuildMaterial borosilicate_glass
+G4NistMaterialBuilder::FindOrBuildMaterial Bialkali
+G4NistMaterialBuilder::FindOrBuildMaterial G4_WATER
+G4NistMaterialBuilder::FindOrBuildMaterial G4_ALUMINUM_OXIDE
+G4NistMaterialBuilder::FindOrBuildMaterial TPB
+//******************************************************//
+//********* CONSTRUCT THE MINE -> The World ************//
+//******************************************************//
+G4NistMaterialBuilder::FindOrBuildMaterial Rock
+//************************************************//
+//************* nEXO TPC Externals ***************//
+//************************************************//
+G4NistMaterialBuilder::FindOrBuildMaterial Rock
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+Checking overlaps for volume /nEXO/TPCExternals/Cryopit (G4UnionSolid) ... 
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : GeomVol1002
+      issued by : G4PVPlacement::CheckOverlaps()
+Overlap with mother volume !
+          Overlap is detected for volume /nEXO/TPCExternals/Cryopit:0 (G4UnionSolid)
+          with its mother volume /nEXO/TPCExternals (G4Cons)
+          at mother local point (-13721,848.245,7997.86), overlapping by at least: 1.19719 m  
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+//************* WST ****************//
+//################################################//
+//################ Water Tank ####################//
+//################################################//
+G4NistMaterialBuilder::FindOrBuildMaterial G4_STAINLESS-STEEL
+//    WSTHeight = 14020.8
+Checking overlaps for volume /nEXO/TPCExternals/WaterShieldTank (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_WATER
+//##################################################//
+//####################### PMTs #####################//
+//##################################################//
+PMT configuration option = 1769236844
+Distance of PMT from water tank wall = 2.04736e+189 cm
+//##################################################//
+//############### Daya Bay PMT geometry ############//
+//##################################################//
+G4NistMaterialBuilder::FindOrBuildMaterial borosilicate_glass
+G4NistMaterialBuilder::FindOrBuildMaterial Bialkali
+Checking overlaps for volume /nEXO/TPCExternals/WaterShieldTank/PMT_photocathode (G4Sphere) ... OK! 
+No valid PMT configuration option chosen
+Checking overlaps for volume /nEXO/TPCExternals/WaterShieldTank/Water (G4Tubs) ... OK! 
+//######### Spherical Outer Cryostat #############//
+// fOuterCryostatRadius = 2230
+G4NistMaterialBuilder::FindOrBuildMaterial CarbonFiber
+Checking overlaps for volume /nEXO/TPCExternals/OuterCryostat (G4UnionSolid) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Ti
+Checking overlaps for volume /nEXO/TPCExternals/OuterCryostatLiner (G4Sphere) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial CarbonFiber
+Checking overlaps for volume /nEXO/TPCExternals/OuterCryostatSupport (G4Cons) ... OK! 
+// fOuterCryoWTSupportHalfZ = 1827.5
+// fOuterCryoWTSupportIR = 2092.5
+G4NistMaterialBuilder::FindOrBuildMaterial G4_STAINLESS-STEEL
+Checking overlaps for volume /nEXO/TPCExternals/OuterCryoWTSupport (G4Tubs) ... OK! 
+Reflectivity of StainlessSteel (WST) is 0.98
+Reflectivity of CarbonFiber (OuterCryo and Support) is 0.15
+//######### Repeater Box  #############//
+G4NistMaterialBuilder::FindOrBuildMaterial G4_STAINLESS-STEEL
+Checking overlaps for volume /nEXO/TPCExternals/RepeaterBoxShell (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+Checking overlaps for volume /nEXO/TPCExternals/RepeaterBoxAir (G4Box) ... OK! 
+// Vacuum Radius = 2210
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Galactic
+Checking overlaps for volume /nEXO/TPCExternals/CryostatVacuum (G4Sphere) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial CarbonFiber
+Checking overlaps for volume /nEXO/TPCExternals/InnerCryostatSupport (G4UnionSolid) ... OK! 
+// fInnerCryostatRadius = 1690
+G4NistMaterialBuilder::FindOrBuildMaterial CarbonFiber
+//************* INNER CRYOSTAT ****************//
+Checking overlaps for volume /nEXO/TPCExternals/InnerCryostat (G4UnionSolid) ... OK! 
+// Titanium Sphere outer radius = 1688
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Ti
+Checking overlaps for volume /nEXO/TPCExternals/InnerCryostatLiner (G4Sphere) ... OK! 
+// HFE sphere radius = 1680
+G4NistMaterialBuilder::FindOrBuildMaterial HFE
+Checking overlaps for volume /nEXO/TPCExternals/HFE (G4Sphere) ... OK! 
+HV Feedthru RadialStandoff = 70 mm
+HV Feedthru AzimuthalPosition = 0.785398 mm
+HV Feedthru Diameter = 50 mm
+HV Feedthru Length = 100 mm
+HV Feedthru WallThickness = 1.651 mm
+HV Tube Diameter = 15.875 mm
+HV Tube WallThickness = 1.651 mm
+HV Tube RadiusOfCurvature = 200 mm
+HV Tube ZOffset = 0 mm
+HV Tube Length = 1500 mm
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCExternals/HVFeedthruBox (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_TEFLON
+Checking overlaps for volume /nEXO/TPCExternals/HVFeedthruCore (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCExternals/HVTube (G4Torus) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCExternals/HVTube (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial HDPE
+Checking overlaps for volume /nEXO/TPCExternals/HVCable (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial HDPE
+Checking overlaps for volume /nEXO/TPCExternals/HVCable (G4Torus) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCExternals/TPCSupport (G4SubtractionSolid) ... OK! 
+//************************************************//
+//************* Calibration GT's *****************//
+//************************************************//
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCExternals/CalibrationGuideTube1 (G4UnionSolid) ... OK! 
+Checking overlaps for volume /nEXO/TPCExternals/CalibrationGuideTube2 (G4UnionSolid) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+G4NistMaterialBuilder::FindOrBuildMaterial G4_AIR
+Checking overlaps for volume /nEXO/TPCExternals/CalibrationGuideTube1_in (G4UnionSolid) ... 
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : GeomVol1002
+      issued by : G4PVPlacement::CheckOverlaps()
+Overlap with mother volume !
+          Overlap is detected for volume /nEXO/TPCExternals/CalibrationGuideTube1_in:0 (G4UnionSolid)
+          with its mother volume /nEXO/TPCExternals/CalibrationGuideTube1 (G4UnionSolid)
+          at mother local point (-344.596,-2.99408,-853.95), overlapping by at least: 12.0424 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+Checking overlaps for volume /nEXO/TPCExternals/CalibrationGuideTube2_in (G4UnionSolid) ... 
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : GeomVol1002
+      issued by : G4PVPlacement::CheckOverlaps()
+Overlap with mother volume !
+          Overlap is detected for volume /nEXO/TPCExternals/CalibrationGuideTube2_in:0 (G4UnionSolid)
+          with its mother volume /nEXO/TPCExternals/CalibrationGuideTube2 (G4UnionSolid)
+          at mother local point (0.332143,648.025,-887.021), overlapping by at least: 64.3262 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+Checking overlaps for volume /nEXO/TPCExternals (G4Cons) ... OK! 
+//################################################//
+//######## TPC Vessel Model: AllenCylFlatEnd
+//################################################//
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCVessel (G4Tubs) ... OK! 
+//################################################//
+//############# nEXO TPC Internals ###############//
+//################################################//
+//################################################//
+//################### Liquid Xe ##################//
+//################################################//
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Building TPC Internals
+Field Ring Option = 5
+SiPM Option = 2
+Anode Option = 2
+//##################################################//
+//################### Field Cage ###################//
+//##################################################//
+Number of Field Rings = 58
+Field Ring Radial Position = 571.65mm
+Field Ring Radial Thickness = 10mm
+Field Ring Z Thickness = 4mm
+Field Ring Pitch = 20mm
+Field Ring Standoff From TPC = 61.85mm
+Cathode To Bottom Ring Distance = 19.82mm
+Anode To Top Ring Distance = 19.31mm
+Number of Support Legs = 24
+Support Leg Outer Radius = 1.5875mm
+Support Leg Inner Radius = 0mm
+Support Leg Radial Position = 571.65mm
+Support Spacer Outer Radius = 3.175mm
+Support Spacer Inner Radius = 1.5875mm
+Constructing field wire rings based on hierarchical horizontal plate ring model.
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/LXe/CageVirtualGroup (G4Tubs) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+G4NistMaterialBuilder::FindOrBuildMaterial G4_ALUMINUM_OXIDE
+G4NistMaterialBuilder::FindOrBuildMaterial G4_ALUMINUM_OXIDE
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/FieldRing (G4UnionSolid) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SupportRodsAndSpacers (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe/RingVirtualGroup (G4Tubs) ... OK! 
+//##################################################//
+//####################### SiPM #####################//
+//##################################################//
+Number of SiPM Staves = 24
+SiPM Stave Radial Standoff = 1 mm
+SiPM Stave Z Standoff = 20 mm
+SiPM Unit Side Length = 9.5 mm
+SiPM Unit Si Thickness = 0.3 mm
+SiPM Unit Quartz Thickness = 0.0015 mm
+SiPM Unit Thickness = 0.3016 mm
+SiPM Module Thickness = 1 mm
+SiPM Unit Spacing = 0.55 mm
+SiPM Unit Margin = 0.25 mm
+Number of SiPM Units in X = 8
+Number of SiPM Units in Z = 8
+SiPM Module Side Length X = 80.35 mm
+SiPM Module Side Length Z = 80.35 mm
+SiPM Stave Thickness = 2 mm
+SiPM Module Spacing = 0.25 mm
+SiPM Module Margin = 0.25 mm
+Number of SiPM Modules in X = 2
+Number of SiPM Modules in Z = 15
+SiPM Stave Side Length X = 161.45 mm
+SiPM Stave Side Length Z = 1209.25 mm
+SiPM Total Height = 1209.25 mm
+SiPM Total Thickness = 3.3016 mm
+Inner TPC R = 638.5 mm
+Inner Surface R = 637.5 mm
+Stave Inscribe R = 632.046 mm
+polyNangle = 15 degrees
+polyNsidelen = 164.997 mm
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMStave (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/SiPMStave (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/virtualSiPMModule (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Si
+Checking overlaps for volume /nEXO/TPCInternals/SiPMModule (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/SiPM (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Si
+Checking overlaps for volume /nEXO/TPCInternals/SiPMSubstrate (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Si
+Checking overlaps for volume /nEXO/TPCInternals/ActiveSiPM (G4Box) ... OK! 
+//##################################################//
+//################# Anode Platters #################//
+//##################################################//
+Anode Radial Standoff = 2.88 mm
+Anode Radius = 635.62 mm
+Anode Standoff = 18.87 mm
+Anode Z Position = 619.88 mm
+Charge Module Support Thickness = 3 mm
+Charge Module Support Width = 30 mm
+Cathode Anode Distance = 1183 mm
+Charge Module Length = 100.5 mm
+Charge Module Thickness = 0.5 mm
+Charge Module Backing Thickness = 0.5 mm
+Charge Module Glue Thickness = 0.762 mm
+Charge Module Glue Radius = 0.381 mm
+Charge Module Glue Position = 45 mm
+Charge Module Chip Length = 10 mm
+Charge Module Chip Thickness = 1 mm
+Charge Module Chip Position = 10 mm
+Charge Pad Diagonal Length = 6 mm
+Charge Pad Thickness = 0.001 mm
+Charge Pad Link Length = 0.064 mm
+Charge Pad Link Height = 0.025 mm
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/Anode (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_SILICON_DIOXIDE
+Checking overlaps for volume /nEXO/TPCInternals/ChargeModuleBacking (G4Box) ... OK! 
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/ChargeModuleSupport (G4Tubs) ... OK! 
+//##################################################//
+//################# Cathode Platters ###############//
+//##################################################//
+Cathode radius = 576.65 mm
+Cathode radial Standoff = 61.85 mm
+Cathode Z position (Top surface) = -563.373 mm
+Cathode Z standoff = 75 mm
+Cathode thickness = 0.127 mm
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/Cathode (G4Tubs) ... OK! 
+//##################################################//
+//#################### Bulge #######################//
+//##################################################//
+Bulge radius = 5 mm
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/Bulge (G4Torus) ... OK! 
+//############################################//
+//################# HV Plunger ###############//
+//############################################//
+HVPlunger radius = 10 mm
+HVPlunger phi = 45 deg
+HVPlunger X Position = 407.753 mm
+HVPlunger Y Position = 407.753 mm
+HVPlunger Z Position = -603.468 mm
+G4NistMaterialBuilder::FindOrBuildMaterial G4_Cu
+Checking overlaps for volume /nEXO/TPCInternals/HVPlunger (G4Tubs) ... OK! 
+//##################################################//
+//################## Active Region #################//
+//##################################################//
+Active LXe Radius = 566.65 mm
+Active LXe Upper Z = 619.63 mm
+Active LXe Lower Z = -563.373 mm
+Active LXe Height = 1183 mm
+Active LXe Zpos = 28.1285 mm
+G4NistMaterialBuilder::FindOrBuildMaterial liquidXe
+Checking overlaps for volume /nEXO/TPCInternals/LXe/ActiveRegion (G4Tubs) ... OK! 
+Checking overlaps for volume /nEXO/TPCInternals/LXe (G4Tubs) ... OK! 
+Reflectivity of field ring is 0.8
+Reflectivity of anode is 0.5
+Reflectivity of cathode is 0.8
+Reflectivity of bulge is 0.8
+Reflectivity of teflon is 0.95
+Reflectivity of SiPM staves is 0.8
+Reflectivity of charge tile support is 0.8
+VOLUME NAME                                       QUANT.  MATERIAL              D. (g/cm3)    IND. MASS (kg)    IND. VOL (cm3)  SURF. AREA (cm2)      IND. SA (cm^2)
+/nEXO                                             1       Rock                        2.85  138049059.473136   48438266481.802      96000000.000     96000000.000000
+/nEXO/TPCExternals                                1       Rock                        2.85   34069954.172196   11954369884.981      34695749.266     34695749.266246
+/nEXO/TPCExternals/CalibrationGuideTube1          1       G4_Cu                       8.96          0.559819            62.480          2693.403         2693.402934
+/nEXO/TPCExternals/CalibrationGuideTube2          1       G4_Cu                       8.96          0.725520            80.973          3800.735         3800.734760
+/nEXO/TPCExternals/Cryopit                        1       G4_AIR                      0.00       2067.133782    1715762732.196      13805560.671     13805560.670697
+/nEXO/TPCExternals/CryostatVacuum                 1       G4_Galactic                 0.00          0.000000      24465135.864        612088.937       612088.937406
+/nEXO/TPCExternals/HFE                            1       HFE                         1.77      32036.130219      18099508.598        353829.287       353829.286769
+/nEXO/TPCExternals/HVCable                        1       HDPE                        0.95          0.139868           147.229           470.881          470.881250
+/nEXO/TPCExternals/HVFeedthruBox                  1       G4_Cu                       8.96          0.275367            30.733           196.350          196.349541
+/nEXO/TPCExternals/HVFeedthruCore                 1       G4_TEFLON                   2.20          0.364357           165.617           176.116          176.116264
+/nEXO/TPCExternals/HVTube                         1       G4_Cu                       8.96          0.207671            23.178           160.639          160.638622
+/nEXO/TPCExternals/InnerCryostat                  1       CarbonFiber                 1.88        869.796204        462657.556        368771.981       368771.981422
+/nEXO/TPCExternals/InnerCryostatLiner             1       G4_Ti                       4.54        321.660073         70850.236        354673.244       354673.244220
+/nEXO/TPCExternals/InnerCryostatSupport           1       CarbonFiber                 1.88        450.913736        239847.732        116312.683       116312.683406
+/nEXO/TPCExternals/OuterCryoWTSupport             1       G4_STAINLESS-STEEL          8.00       2710.973786        338871.723        964558.050       964558.050373
+/nEXO/TPCExternals/OuterCryostat                  1       CarbonFiber                 1.88       2913.181263       1549564.501        638316.569       638316.569484
+/nEXO/TPCExternals/OuterCryostatLiner             1       G4_Ti                       4.54        834.798857        183876.400        613754.107       613754.107176
+/nEXO/TPCExternals/OuterCryostatSupport           1       CarbonFiber                 1.88        632.271344        336314.545        407405.703       407405.703481
+/nEXO/TPCExternals/RepeaterBoxAir                 1       G4_AIR                      0.00          0.049666         41224.081          7287.852         7287.852000
+/nEXO/TPCExternals/RepeaterBoxShell               1       
+/nEXO/TPCExternals/TPCSupport                     1       G4_Cu                       8.96         81.955789          9146.851         44150.699        44150.698814
+/nEXO/TPCExternals/WaterShieldTank                1       G4_STAINLESS-STEEL          8.00     784449.255541      98056156.943       8471338.319      8471338.318544
+/nEXO/TPCExternals/WaterShieldTank/PMT_photocathode1       Bialkali                    2.70          0.161271            59.730          1200.748         1200.748128
+/nEXO/TPCExternals/WaterShieldTank/WSTFill        1       
+/nEXO/TPCInternals/ActiveSiPM                     1       G4_Si                       2.33          0.000000             0.000             1.805            1.805038
+/nEXO/TPCInternals/Anode                          104     liquidXe                    3.06          0.000000             0.000           204.015          204.015000
+/nEXO/TPCInternals/Bulge                          1       G4_Cu                       8.96          2.527598           282.098          1128.392         1128.391871
+/nEXO/TPCInternals/Cathode                        1       G4_Cu                       8.96          1.147867           128.110         20179.341        20179.341013
+/nEXO/TPCInternals/ChargeModuleBacking            1       G4_SILICON_DIOXIDE          2.32          0.011716             5.050           204.015          204.015000
+/nEXO/TPCInternals/ChargeModuleSupport            1       G4_Cu                       8.96         34.117268          3807.731         25504.683        25504.683456
+/nEXO/TPCInternals/FieldRing                      1       G4_Cu                       8.96          1.174484           131.081           879.989          879.989282
+/nEXO/TPCInternals/HVPlunger                      1       G4_Cu                       8.96          0.197219            22.011            50.305           50.305381
+/nEXO/TPCInternals/LXe                            1       liquidXe                    3.06       1162.582804        380301.866         76846.294        76846.293696
+/nEXO/TPCInternals/LXe/ActiveRegion               1       liquidXe                    3.06       3648.051356       1193343.591         62294.067        62294.067227
+/nEXO/TPCInternals/LXe/CageVirtualGroup           1       liquidXe                    3.06          0.000000             0.000         84047.719        84047.719412
+/nEXO/TPCInternals/LXe/RingVirtualGroup           58      liquidXe                    3.06          1.755802           574.355          2155.070         2155.069729
+/nEXO/TPCInternals/SiPM                           64      liquidXe                    3.06          0.000000             0.000             1.920            1.919608
+/nEXO/TPCInternals/SiPMModule                     1       G4_Si                       2.33          0.015043             6.456           132.336          132.336450
+/nEXO/TPCInternals/SiPMStave                      1       G4_Cu                       8.96          3.498583           390.467          3959.496         3959.496250
+/nEXO/TPCInternals/SiPMSubstrate                  1       G4_Si                       2.33          0.000063             0.027             1.919            1.919000
+/nEXO/TPCInternals/SupportRodsAndSpacers          24      G4_ALUMINUM_OXIDE           3.97          0.000126             0.032             0.557            0.557328
+/nEXO/TPCInternals/virtualSiPMModule              30      liquidXe                    3.06          0.000627             0.205           133.306          133.305792
+/nEXO/TPCInternals/virtualSiPMStave               24      liquidXe                    3.06          0.006166             2.017          3995.178         3995.178312
+/nEXO/TPCVessel                                   1       G4_Cu                       8.96        408.685337         45612.203         78270.033        78270.033277
+### WARNING: G4EmProcessOptions class is obsolete and will be removed in the next public release 
+    Please, try to use G4EmParameters class and/or UI interface to EM parameters
+NEST Version: 2
+/opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Inelastic
+@@@ G4ParticleHPInelasticData instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Inelastic/CrossSection/6_nat_Carbon
+ G4RadioactiveDecay is deprecated and will be removed in Geant4 version 11. 
+ Please replace it with G4RadioactiveDecayBase if you want the unbiased radioactive deacy process.
+ If you want the general process, with optional biasing, use G4Radioactivation. 
+EXOPhysicsList::SetCuts:CutLength: 1.000000 mm 
+ InnerRegion cuts are set to: 
+ gamma cut    = 1.000000mm
+ electron cut = 1.000000mm
+ positron cut = 1.000000mm
+InsideTPC cuts are set to: 
+ gamma cut    = 0.100000mm
+  electron cut = 0.100000mm
+  positron cut = 0.100000 mm
+/analysis/setPropagateOP 0
+/analysis/setSaveOP 1
+/analysis/setPropagateTE 0
+/analysis/setSaveTE 1
+/analysis/setSaveOnlyEventsWithDeposits false
+/generator/setGenerator gps
+Using gps Generator
+Evaluation of bb2n spectrum...
+Max: 370983.134486
+normalization 780147.295481
+K_spectral_max 0.480285
+/grdm/nucleusLimits 216 216 84 84
+
+-------- WWWW ------- G4Exception-START -------- WWWW -------
+*** G4Exception : HAD_RDM_771
+      issued by : G4RadioactiveDecaymessenger
+This command is valid but deprecated and will be replaced with the command:
+/process/had/rdm/nucleusLimits in the next major release, Geant4 version 11.0
+*** This is just a warning message. ***
+-------- WWWW -------- G4Exception-END --------- WWWW -------
+
+/gps/ene/mono 0 keV
+/gps/source/intensity 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position 648.5000 0.0000 -1022.6000 mm
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position -648.5000 0.0000 -1022.6000 mm
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position 0.0000 648.5000 -1022.6000 mm
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position 0.0000 -648.5000 -1022.6000 mm
+/gps/source/add 0.100
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position 0.0000 0.0000 -299.1245 mm
+/gps/source/add 0.100
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 84 216
+/gps/position 0.0000 0.0000 -1746.0755 mm
+/gps/source/list
+The number of particle sources is: 6
+ Multiple Vertex sources: 0 Flat Sampling flag: 0
+	source 0 with intensity: 1.000000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: 0.648500 0.000000 -1.022600 m  
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+	source 1 with intensity: 1.000000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: -0.648500 0.000000 -1.022600 m  
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+	source 2 with intensity: 1.000000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: 0.000000 0.648500 -1.022600 m  
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+	source 3 with intensity: 1.000000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: 0.000000 -0.648500 -1.022600 m  
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+	source 4 with intensity: 0.100000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: 0.000000 0.000000 -29.912400 cm 
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+	source 5 with intensity: 0.100000
+ 		Num Particles: 1; Particle type: Po216
+ 		Energy: 1.000000 MeV
+ 		Direction: (0.000000,0.000000,-1.000000); Position: 0.000000 0.000000 -1.746080 m  
+ 		Angular Distribution: planar
+ 		Energy Distribution: Mono
+ 		Position Distribution Type: Point; Position Shape: NULL
+
+### ===  Deexcitation model UAtomDeexcitation is activated for 3 regions:
+          DefaultRegionForTheWorld  1  0  0
+          CryostatRegion  1  0  0
+          TPCRegion  1  0  0
+### ===  Ignore cuts flag:   0
+
+phot:  for gamma SubType=12 BuildTable=0
+      LambdaPrime table from 200.000000 keV to 10.000000 TeV in 154 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+ LivermorePhElectric : Emin=0.000000 eV  Emax=10.000000 TeV  SauterGavrila Fluo
+
+compt:  for gamma SubType=13 BuildTable=1
+      Lambda table from 100.000000 eV  to 1.000000 MeV, 20 bins/decade, spline: 1
+      LambdaPrime table from 1.000000 MeV to 10.000000 TeV in 140 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+    LivermoreCompton : Emin=0.000000 eV  Emax=10.000000 TeV Fluo
+
+conv:  for gamma SubType=14 BuildTable=1
+      Lambda table from 1.021998 MeV to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+ LivermoreConversion : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedTsai
+
+Rayl:  for gamma SubType=11 BuildTable=1
+      Lambda table from 100.000000 eV  to 100.000000 keV, 20 bins/decade, spline: 0
+      LambdaPrime table from 100.000000 keV to 10.000000 TeV in 160 bins 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   LivermoreRayleigh : Emin=0.000000 eV  Emax=10.000000 TeV  CullenGenerator
+
+msc:  for e-  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=100.000000 MeV Nbins=120 100.000000 eV  - 100.000000 MeV
+              StepLim=DistanceToBoundary Rfact=0.010000 Gfact=2.500000 Sfact=0.600000 DispFlag:1 Skin=1.000000 Llimit=1.000000
+        WentzelVIUni : Emin=100.000000 MeV Emax=10.000000 TeV Nbins=100 100.000000 MeV - 10.000000 TeV
+              StepLim=DistanceToBoundary Rfact=0.010000 Gfact=2.500000 Sfact=0.600000 DispFlag:1 Skin=1.000000 Llimit=1.000000
+
+eIoni:  for e-  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 1.000000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+       LowEnergyIoni : Emin=0.000000 eV  Emax=100.000000 keV  deltaVI
+        MollerBhabha : Emin=100.000000 keV Emax=10.000000 TeV
+
+eBrem:  for e-  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      LPM flag: 1 for E > 1.000000 GeV,  VertexHighEnergyTh(GeV)= 100000.000000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           LowEnBrem : Emin=0.000000 eV  Emax=1.000000 GeV  AngularGen2BS
+            eBremLPM : Emin=1.000000 GeV Emax=10.000000 TeV  ModifiedTsai
+
+CoulombScat:  for e-, integral:1  SubType=1 BuildTable=1
+      Lambda table from 100.000000 MeV to 10.000000 TeV, 20 bins/decade, spline: 1
+      ThetaMin(p) < Theta(degree) < 180; pLimit(GeV^1)= 0.139531
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+  eCoulombScattering : Emin=100.000000 MeV Emax=10.000000 TeV
+
+msc:  for e+  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=100.000000 MeV Nbins=120 100.000000 eV  - 100.000000 MeV
+              StepLim=DistanceToBoundary Rfact=0.010000 Gfact=2.500000 Sfact=0.600000 DispFlag:1 Skin=1.000000 Llimit=1.000000
+        WentzelVIUni : Emin=100.000000 MeV Emax=10.000000 TeV Nbins=100 100.000000 MeV - 10.000000 TeV
+              StepLim=DistanceToBoundary Rfact=0.010000 Gfact=2.500000 Sfact=0.600000 DispFlag:1 Skin=1.000000 Llimit=1.000000
+
+eIoni:  for e+  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 1.000000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        MollerBhabha : Emin=0.000000 eV  Emax=10.000000 TeV
+
+eBrem:  for e+  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      LPM flag: 1 for E > 1.000000 GeV,  VertexHighEnergyTh(GeV)= 100000.000000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+             eBremSB : Emin=0.000000 eV  Emax=1.000000 GeV  ModifiedTsai
+            eBremLPM : Emin=1.000000 GeV Emax=10.000000 TeV  ModifiedTsai
+
+annihil:  for e+, integral:1  SubType=5 BuildTable=0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            eplus2gg : Emin=0.000000 eV  Emax=10.000000 TeV
+
+CoulombScat:  for e+, integral:1  SubType=1 BuildTable=1
+      Lambda table from 100.000000 MeV to 10.000000 TeV, 20 bins/decade, spline: 1
+      ThetaMin(p) < Theta(degree) < 180; pLimit(GeV^1)= 0.139531
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+  eCoulombScattering : Emin=100.000000 MeV Emax=10.000000 TeV
+
+msc:  for proton  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for proton  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg : Emin=0.000000 eV  Emax=2.000000 MeV
+          BetheBloch : Emin=2.000000 MeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for proton  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for proton  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 13x1001; from 7.506176 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+nuclearStopping:  for proton SubType=8 BuildTable=0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping : Emin=0.000000 eV  Emax=1.000000 MeV
+
+msc:  for GenericIon  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+ionIoni:  for GenericIon  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.020000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+         ParamICRU73 : Emin=0.000000 eV  Emax=10.000000 TeV  deltaVI
+      ===== Limit on energy threshold has been applied 
+
+nuclearStopping:  for GenericIon SubType=8 BuildTable=0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping : Emin=0.000000 eV  Emax=10.000000 GeV
+=======================================================================
+======       Radioactive Decay Physics Parameters              ========
+=======================================================================
+Max life time                                     1000.00000 ps
+Internal e- conversion flag                       1
+Stored internal conversion coefficients           0
+Enable correlated gamma emission                  0
+Max 2J for sampling of angular correlations       10
+Atomic de-excitation enabled                      0
+Auger electron emission enabled                   0
+Auger cascade enabled                             0
+Check EM cuts disabled for atomic de-excitation   0
+Use Bearden atomic level energies                 0
+=======================================================================
+
+msc:  for alpha  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+ionIoni:  for alpha  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.020000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            BraggIon : Emin=0.000000 eV  Emax=7.945199 MeV
+          BetheBloch : Emin=7.945199 MeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+nuclearStopping:  for alpha SubType=8 BuildTable=0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping : Emin=0.000000 eV  Emax=10.000000 GeV
+
+msc:  for anti_proton  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for anti_proton  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO : Emin=0.000000 eV  Emax=2.000000 MeV
+          BetheBloch : Emin=2.000000 MeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for anti_proton  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for anti_proton  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 13x1001; from 7.506176 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+nuclearStopping:  for anti_proton SubType=8 BuildTable=0
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+   ICRU49NucStopping : Emin=0.000000 eV  Emax=1.000000 MeV
+
+msc:  for kaon+  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for kaon+  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg : Emin=0.000000 eV  Emax=1.052311 MeV
+          BetheBloch : Emin=1.052311 MeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for kaon+  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for kaon+  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 14x1001; from 3.949416 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+msc:  for kaon-  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for kaon-  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO : Emin=0.000000 eV  Emax=1.052311 MeV
+          BetheBloch : Emin=1.052311 MeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for kaon-  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for kaon-  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 14x1001; from 3.949416 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+msc:  for mu+  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        WentzelVIUni : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+muIoni:  for mu+  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg : Emin=0.000000 eV  Emax=200.000000 keV
+          BetheBloch : Emin=200.000000 keV Emax=1.000000 GeV
+        MuBetheBloch : Emin=1.000000 GeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+muBrems:  for mu+  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+muPairProd:  for mu+  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 17x1001; from 1.000000 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+CoulombScat:  for mu+, integral:1  SubType=1 BuildTable=1
+      Lambda table from threshold  to 10.000000 TeV, 20 bins/decade, spline: 1
+      ThetaMin(p) < Theta(degree) < 180; pLimit(GeV^1)= 0.139531
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+  eCoulombScattering : Emin=0.000000 eV  Emax=10.000000 TeV
+
+msc:  for mu-  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+        WentzelVIUni : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+muIoni:  for mu-  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO : Emin=0.000000 eV  Emax=200.000000 keV
+          BetheBloch : Emin=200.000000 keV Emax=1.000000 GeV
+        MuBetheBloch : Emin=1.000000 GeV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+muBrems:  for mu-  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+              MuBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+muPairProd:  for mu-  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 17x1001; from 1.000000 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+          muPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+CoulombScat:  for mu-, integral:1  SubType=1 BuildTable=1
+      Lambda table from threshold  to 10.000000 TeV, 20 bins/decade, spline: 1
+      ThetaMin(p) < Theta(degree) < 180; pLimit(GeV^1)= 0.139531
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+  eCoulombScattering : Emin=0.000000 eV  Emax=10.000000 TeV
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Capture/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Elastic/CrossSection/6_nat_Carbon
+NeutronHP: /Inelastic file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Inelastic/CrossSection/6_nat_Carbon
+NeutronHP: /Elastic file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Elastic/CrossSection/6_nat_Carbon
+
+=======================================================
+======       ParticleHP Physics Parameters     ========
+=======================================================
+ UseOnlyPhotoEvaporation ? 0
+ SkipMissingIsotopes ?     0
+ NeglectDoppler ?          0
+ DoNotAdjustFinalState ?   0
+ ProduceFissionFragments ? 0
+ UseWendtFissionModel ?    0
+ UseNRESP71Model ?         0
+=======================================================
+
+@@@ G4ParticleHPInelastic instantiated for particle neutron data directory variable is G4NEUTRONHPDATA pointing to /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Inelastic
+NeutronHP: /Capture file for Z = 6, A = 12 is not found and NeutronHP will use /opt/software/linux-ubuntu22.04-zen2/gcc-11.2.0/g4ndl-4.6-xolcvsfq3ge5ipbynqeqnf5s77nh7kp6/share/data/G4NDL4.6/Capture/CrossSection/6_nat_Carbon
+
+msc:  for pi+  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for pi+  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               Bragg : Emin=0.000000 eV  Emax=297.504557 keV
+          BetheBloch : Emin=297.504557 keV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for pi+  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for pi+  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 16x1001; from 1.116561 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+msc:  for pi-  SubType= 10
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            UrbanMsc : Emin=0.000000 eV  Emax=10.000000 TeV Nbins=220 100.000000 eV  - 10.000000 TeV
+              StepLim=Minimal Rfact=0.200000 Gfact=2.500000 Sfact=0.600000 DispFlag:0 Skin=1.000000 Llimit=1.000000
+
+hIoni:  for pi-  SubType=2
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      StepFunction=(0.200000, 0.100000 mm), integ: 1, fluct: 1, linLossLim= 0.010000
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+            ICRU73QO : Emin=0.000000 eV  Emax=297.504557 keV
+          BetheBloch : Emin=297.504557 keV Emax=10.000000 TeV
+      ===== Limit on energy threshold has been applied 
+
+hBrems:  for pi-  SubType=3
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+               hBrem : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+      ===== Limit on energy threshold has been applied 
+
+hPairProd:  for pi-  SubType=4
+      dE/dx and range tables from 100.000000 eV  to 10.000000 TeV in 220 bins
+      Lambda tables from threshold to 10.000000 TeV, 20 bins/decade, spline: 1
+      Sampling table 16x1001; from 1.116561 GeV to 10.000000 TeV 
+      ===== EM models for the G4Region  DefaultRegionForTheWorld ======
+           hPairProd : Emin=0.000000 eV  Emax=10.000000 TeV  ModifiedMephi
+
+========= Table of registered couples ============================
+
+Index : 0     used in the geometry : Yes
+ Material : Rock
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 1.000000 mm 
+ Energy thresholds :  gamma  6.863575 keV    e-  640.652275 keV    e+  621.936557 keV proton 100.000000 keV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 1     used in the geometry : Yes
+ Material : G4_AIR
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 1.000000 mm 
+ Energy thresholds :  gamma  0.500000 eV     e-  297.135399 eV     e+  293.619842 eV  proton 100.000000 keV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 2     used in the geometry : Yes
+ Material : G4_STAINLESS-STEEL
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 1.000000 mm 
+ Energy thresholds :  gamma  20.761806 keV    e-  1.305128 MeV    e+  1.242204 MeV proton 100.000000 keV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 3     used in the geometry : Yes
+ Material : G4_WATER
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 1.000000 mm 
+ Energy thresholds :  gamma  2.933798 keV    e-  350.594038 keV    e+  340.351947 keV proton 100.000000 keV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 4     used in the geometry : Yes
+ Material : CarbonFiber
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 1.000000 mm 
+ Energy thresholds :  gamma  3.113026 keV    e-  500.403083 keV    e+  481.007218 keV proton 100.000000 keV
+ Region(s) which use this couple : 
+    DefaultRegionForTheWorld
+
+Index : 5     used in the geometry : Yes
+ Material : CarbonFiber
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  3.113026 keV    e-  500.403083 keV    e+  481.007218 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 6     used in the geometry : Yes
+ Material : G4_Ti
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  13.177369 keV    e-  816.166416 keV    e+  780.664246 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 7     used in the geometry : Yes
+ Material : G4_Galactic
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  0.500000 eV     e-  0.500000 eV     e+  0.500000 eV  proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 8     used in the geometry : Yes
+ Material : HFE
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  3.907517 keV    e-  462.363146 keV    e+  448.855884 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 9     used in the geometry : Yes
+ Material : G4_Cu
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  24.804064 keV    e-  1.398614 MeV    e+  1.331182 MeV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 10     used in the geometry : Yes
+ Material : G4_TEFLON
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  4.356262 keV    e-  530.973139 keV    e+  515.461537 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 11     used in the geometry : Yes
+ Material : HDPE
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  2.269006 keV    e-  354.076108 keV    e+  345.435035 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 12     used in the geometry : Yes
+ Material : G4_AIR
+ Range cuts        :  gamma  1.000000 mm     e-  1.000000 mm     e+  1.000000 mm  proton 0.000000 fm 
+ Energy thresholds :  gamma  0.500000 eV     e-  297.135399 eV     e+  293.619842 eV  proton 0.000000 eV 
+ Region(s) which use this couple : 
+    CryostatRegion
+
+Index : 13     used in the geometry : Yes
+ Material : G4_Cu
+ Range cuts        :  gamma  100.000000 um     e-  100.000000 um     e+  100.000000 um  proton 0.000000 fm 
+ Energy thresholds :  gamma  7.355210 keV    e-  249.302837 keV    e+  243.218710 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    TPCRegion
+
+Index : 14     used in the geometry : Yes
+ Material : liquidXe
+ Range cuts        :  gamma  100.000000 um     e-  100.000000 um     e+  100.000000 um  proton 0.000000 fm 
+ Energy thresholds :  gamma  7.070118 keV    e-  110.313665 keV    e+  108.154632 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    TPCRegion
+
+Index : 15     used in the geometry : Yes
+ Material : G4_ALUMINUM_OXIDE
+ Range cuts        :  gamma  100.000000 um     e-  100.000000 um     e+  100.000000 um  proton 0.000000 fm 
+ Energy thresholds :  gamma  2.480073 keV    e-  170.404685 keV    e+  167.069564 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    TPCRegion
+
+Index : 16     used in the geometry : Yes
+ Material : G4_Si
+ Range cuts        :  gamma  100.000000 um     e-  100.000000 um     e+  100.000000 um  proton 0.000000 fm 
+ Energy thresholds :  gamma  2.314301 keV    e-  121.772795 keV    e+  119.389486 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    TPCRegion
+
+Index : 17     used in the geometry : Yes
+ Material : G4_SILICON_DIOXIDE
+ Range cuts        :  gamma  100.000000 um     e-  100.000000 um     e+  100.000000 um  proton 0.000000 fm 
+ Energy thresholds :  gamma  1.975815 keV    e-  124.203680 keV    e+  121.772795 keV proton 0.000000 eV 
+ Region(s) which use this couple : 
+    TPCRegion
+
+==================================================================
+
+### Run : 0
+Run 0 starts at:
+Date/Time = Sat, 15 Apr 2023 13:11:43 +0000 (GMT) +457531000 nsec
+TILE_SIZE: 96
+Local channel:    0  -48.0000    0.0000    0.0000  X
+Local channel:    1  -42.0000    0.0000    0.0000  X
+Local channel:    2  -36.0000    0.0000    0.0000  X
+Local channel:    3  -30.0000    0.0000    0.0000  X
+Local channel:    4  -24.0000    0.0000    0.0000  X
+Local channel:    5  -18.0000    0.0000    0.0000  X
+Local channel:    6  -12.0000    0.0000    0.0000  X
+Local channel:    7   -6.0000    0.0000    0.0000  X
+Local channel:    8    0.0000    0.0000    0.0000  X
+Local channel:    9    6.0000    0.0000    0.0000  X
+Local channel:   10   12.0000    0.0000    0.0000  X
+Local channel:   11   18.0000    0.0000    0.0000  X
+Local channel:   12   24.0000    0.0000    0.0000  X
+Local channel:   13   30.0000    0.0000    0.0000  X
+Local channel:   14   36.0000    0.0000    0.0000  X
+Local channel:   15   42.0000    0.0000    0.0000  X
+Local channel:   16    0.0000  -48.0000    0.0000  Y
+Local channel:   17    0.0000  -42.0000    0.0000  Y
+Local channel:   18    0.0000  -36.0000    0.0000  Y
+Local channel:   19    0.0000  -30.0000    0.0000  Y
+Local channel:   20    0.0000  -24.0000    0.0000  Y
+Local channel:   21    0.0000  -18.0000    0.0000  Y
+Local channel:   22    0.0000  -12.0000    0.0000  Y
+Local channel:   23    0.0000   -6.0000    0.0000  Y
+Local channel:   24    0.0000    0.0000    0.0000  Y
+Local channel:   25    0.0000    6.0000    0.0000  Y
+Local channel:   26    0.0000   12.0000    0.0000  Y
+Local channel:   27    0.0000   18.0000    0.0000  Y
+Local channel:   28    0.0000   24.0000    0.0000  Y
+Local channel:   29    0.0000   30.0000    0.0000  Y
+Local channel:   30    0.0000   36.0000    0.0000  Y
+Local channel:   31    0.0000   42.0000    0.0000  Y
+Total   32 local channels on each tile
+Successfully loading local pads map in each readout tile: ../data/localChannelsMap_6mm.txt
+Tile:    0 -624.0000 -336.0000  650.0000
+Tile:    1 -624.0000 -240.0000  650.0000
+Tile:    2 -624.0000 -144.0000  650.0000
+Tile:    3 -624.0000  -48.0000  650.0000
+Tile:    4 -624.0000   48.0000  650.0000
+Tile:    5 -624.0000  144.0000  650.0000
+Tile:    6 -624.0000  240.0000  650.0000
+Tile:    7 -624.0000  336.0000  650.0000
+Tile:    8 -528.0000 -432.0000  650.0000
+Tile:    9 -528.0000 -336.0000  650.0000
+Tile:   10 -528.0000 -240.0000  650.0000
+Tile:   11 -528.0000 -144.0000  650.0000
+Tile:   12 -528.0000  -48.0000  650.0000
+Tile:   13 -528.0000   48.0000  650.0000
+Tile:   14 -528.0000  144.0000  650.0000
+Tile:   15 -528.0000  240.0000  650.0000
+Tile:   16 -528.0000  336.0000  650.0000
+Tile:   17 -528.0000  432.0000  650.0000
+Tile:   18 -432.0000 -528.0000  650.0000
+Tile:   19 -432.0000 -432.0000  650.0000
+Tile:   20 -432.0000 -336.0000  650.0000
+Tile:   21 -432.0000 -240.0000  650.0000
+Tile:   22 -432.0000 -144.0000  650.0000
+Tile:   23 -432.0000  -48.0000  650.0000
+Tile:   24 -432.0000   48.0000  650.0000
+Tile:   25 -432.0000  144.0000  650.0000
+Tile:   26 -432.0000  240.0000  650.0000
+Tile:   27 -432.0000  336.0000  650.0000
+Tile:   28 -432.0000  432.0000  650.0000
+Tile:   29 -432.0000  528.0000  650.0000
+Tile:   30 -336.0000 -624.0000  650.0000
+Tile:   31 -336.0000 -528.0000  650.0000
+Tile:   32 -336.0000 -432.0000  650.0000
+Tile:   33 -336.0000 -336.0000  650.0000
+Tile:   34 -336.0000 -240.0000  650.0000
+Tile:   35 -336.0000 -144.0000  650.0000
+Tile:   36 -336.0000  -48.0000  650.0000
+Tile:   37 -336.0000   48.0000  650.0000
+Tile:   38 -336.0000  144.0000  650.0000
+Tile:   39 -336.0000  240.0000  650.0000
+Tile:   40 -336.0000  336.0000  650.0000
+Tile:   41 -336.0000  432.0000  650.0000
+Tile:   42 -336.0000  528.0000  650.0000
+Tile:   43 -336.0000  624.0000  650.0000
+Tile:   44 -240.0000 -624.0000  650.0000
+Tile:   45 -240.0000 -528.0000  650.0000
+Tile:   46 -240.0000 -432.0000  650.0000
+Tile:   47 -240.0000 -336.0000  650.0000
+Tile:   48 -240.0000 -240.0000  650.0000
+Tile:   49 -240.0000 -144.0000  650.0000
+Tile:   50 -240.0000  -48.0000  650.0000
+Tile:   51 -240.0000   48.0000  650.0000
+Tile:   52 -240.0000  144.0000  650.0000
+Tile:   53 -240.0000  240.0000  650.0000
+Tile:   54 -240.0000  336.0000  650.0000
+Tile:   55 -240.0000  432.0000  650.0000
+Tile:   56 -240.0000  528.0000  650.0000
+Tile:   57 -240.0000  624.0000  650.0000
+Tile:   58 -144.0000 -624.0000  650.0000
+Tile:   59 -144.0000 -528.0000  650.0000
+Tile:   60 -144.0000 -432.0000  650.0000
+Tile:   61 -144.0000 -336.0000  650.0000
+Tile:   62 -144.0000 -240.0000  650.0000
+Tile:   63 -144.0000 -144.0000  650.0000
+Tile:   64 -144.0000  -48.0000  650.0000
+Tile:   65 -144.0000   48.0000  650.0000
+Tile:   66 -144.0000  144.0000  650.0000
+Tile:   67 -144.0000  240.0000  650.0000
+Tile:   68 -144.0000  336.0000  650.0000
+Tile:   69 -144.0000  432.0000  650.0000
+Tile:   70 -144.0000  528.0000  650.0000
+Tile:   71 -144.0000  624.0000  650.0000
+Tile:   72  -48.0000 -624.0000  650.0000
+Tile:   73  -48.0000 -528.0000  650.0000
+Tile:   74  -48.0000 -432.0000  650.0000
+Tile:   75  -48.0000 -336.0000  650.0000
+Tile:   76  -48.0000 -240.0000  650.0000
+Tile:   77  -48.0000 -144.0000  650.0000
+Tile:   78  -48.0000  -48.0000  650.0000
+Tile:   79  -48.0000   48.0000  650.0000
+Tile:   80  -48.0000  144.0000  650.0000
+Tile:   81  -48.0000  240.0000  650.0000
+Tile:   82  -48.0000  336.0000  650.0000
+Tile:   83  -48.0000  432.0000  650.0000
+Tile:   84  -48.0000  528.0000  650.0000
+Tile:   85  -48.0000  624.0000  650.0000
+Tile:   86   48.0000 -624.0000  650.0000
+Tile:   87   48.0000 -528.0000  650.0000
+Tile:   88   48.0000 -432.0000  650.0000
+Tile:   89   48.0000 -336.0000  650.0000
+Tile:   90   48.0000 -240.0000  650.0000
+Tile:   91   48.0000 -144.0000  650.0000
+Tile:   92   48.0000  -48.0000  650.0000
+Tile:   93   48.0000   48.0000  650.0000
+Tile:   94   48.0000  144.0000  650.0000
+Tile:   95   48.0000  240.0000  650.0000
+Tile:   96   48.0000  336.0000  650.0000
+Tile:   97   48.0000  432.0000  650.0000
+Tile:   98   48.0000  528.0000  650.0000
+Tile:   99   48.0000  624.0000  650.0000
+Tile:  100  144.0000 -624.0000  650.0000
+Tile:  101  144.0000 -528.0000  650.0000
+Tile:  102  144.0000 -432.0000  650.0000
+Tile:  103  144.0000 -336.0000  650.0000
+Tile:  104  144.0000 -240.0000  650.0000
+Tile:  105  144.0000 -144.0000  650.0000
+Tile:  106  144.0000  -48.0000  650.0000
+Tile:  107  144.0000   48.0000  650.0000
+Tile:  108  144.0000  144.0000  650.0000
+Tile:  109  144.0000  240.0000  650.0000
+Tile:  110  144.0000  336.0000  650.0000
+Tile:  111  144.0000  432.0000  650.0000
+Tile:  112  144.0000  528.0000  650.0000
+Tile:  113  144.0000  624.0000  650.0000
+Tile:  114  240.0000 -624.0000  650.0000
+Tile:  115  240.0000 -528.0000  650.0000
+Tile:  116  240.0000 -432.0000  650.0000
+Tile:  117  240.0000 -336.0000  650.0000
+Tile:  118  240.0000 -240.0000  650.0000
+Tile:  119  240.0000 -144.0000  650.0000
+Tile:  120  240.0000  -48.0000  650.0000
+Tile:  121  240.0000   48.0000  650.0000
+Tile:  122  240.0000  144.0000  650.0000
+Tile:  123  240.0000  240.0000  650.0000
+Tile:  124  240.0000  336.0000  650.0000
+Tile:  125  240.0000  432.0000  650.0000
+Tile:  126  240.0000  528.0000  650.0000
+Tile:  127  240.0000  624.0000  650.0000
+Tile:  128  336.0000 -624.0000  650.0000
+Tile:  129  336.0000 -528.0000  650.0000
+Tile:  130  336.0000 -432.0000  650.0000
+Tile:  131  336.0000 -336.0000  650.0000
+Tile:  132  336.0000 -240.0000  650.0000
+Tile:  133  336.0000 -144.0000  650.0000
+Tile:  134  336.0000  -48.0000  650.0000
+Tile:  135  336.0000   48.0000  650.0000
+Tile:  136  336.0000  144.0000  650.0000
+Tile:  137  336.0000  240.0000  650.0000
+Tile:  138  336.0000  336.0000  650.0000
+Tile:  139  336.0000  432.0000  650.0000
+Tile:  140  336.0000  528.0000  650.0000
+Tile:  141  336.0000  624.0000  650.0000
+Tile:  142  432.0000 -528.0000  650.0000
+Tile:  143  432.0000 -432.0000  650.0000
+Tile:  144  432.0000 -336.0000  650.0000
+Tile:  145  432.0000 -240.0000  650.0000
+Tile:  146  432.0000 -144.0000  650.0000
+Tile:  147  432.0000  -48.0000  650.0000
+Tile:  148  432.0000   48.0000  650.0000
+Tile:  149  432.0000  144.0000  650.0000
+Tile:  150  432.0000  240.0000  650.0000
+Tile:  151  432.0000  336.0000  650.0000
+Tile:  152  432.0000  432.0000  650.0000
+Tile:  153  432.0000  528.0000  650.0000
+Tile:  154  528.0000 -432.0000  650.0000
+Tile:  155  528.0000 -336.0000  650.0000
+Tile:  156  528.0000 -240.0000  650.0000
+Tile:  157  528.0000 -144.0000  650.0000
+Tile:  158  528.0000  -48.0000  650.0000
+Tile:  159  528.0000   48.0000  650.0000
+Tile:  160  528.0000  144.0000  650.0000
+Tile:  161  528.0000  240.0000  650.0000
+Tile:  162  528.0000  336.0000  650.0000
+Tile:  163  528.0000  432.0000  650.0000
+Tile:  164  624.0000 -336.0000  650.0000
+Tile:  165  624.0000 -240.0000  650.0000
+Tile:  166  624.0000 -144.0000  650.0000
+Tile:  167  624.0000  -48.0000  650.0000
+Tile:  168  624.0000   48.0000  650.0000
+Tile:  169  624.0000  144.0000  650.0000
+Tile:  170  624.0000  240.0000  650.0000
+Tile:  171  624.0000  336.0000  650.0000
+Total  172 tiles
+Successfully loading readout tiles map: ../data/tilesMap_6mm.txt
+====== Load 3D WP field map: Pads, ../data/singleStripWP6mm.root
+====== Load Single Pad WP data: 
+===== Load xaxis (300) 
+===== Load yaxis (300) 
+===== Load hists 90000
+fFastDiffusionSim: 0
+fInductionSim: 1
+fElectronLifetime (us): 10000
+Transverse DiffusionCoef (cm^2/s): 53.1172
+Longitudinal DiffusionCoef (cm^2/s): 24.78
+Transverse Diffusion Spread with 500us drift time (mm): 1.62968
+fNoiseSigma: 0
+Padsize: 6
+fDriftVelocity (mm/us): 1.74987
+fSeed: 1
+fDebug: 0
+fSamplingInterval (us): 0.5
+Event id --> 0
+Event id --> 1000
+Event id --> 2000
+Event id --> 3000
+Event id --> 4000
+Event id --> 5000
+Event id --> 6000
+Event id --> 7000
+Event id --> 8000
+Event id --> 9000
+Event id --> 10000
+Event id --> 11000
+Event id --> 12000
+Event id --> 13000
+Event id --> 14000
+Event id --> 15000
+Event id --> 16000
+Event id --> 17000
+Event id --> 18000
+Event id --> 19000
+Event id --> 20000
+Event id --> 21000
+Event id --> 22000
+Event id --> 23000
+Event id --> 24000
+Run 0 ends at:
+Namespace(evtmax=25000, seed=23, padsize=6.0, efield=380.0, type='bb0n', digioutput='/scratch/t/tbhatta/s10/g4/s10_Po216_all_seed23.nEXOevents.root', tilemap='../data/tilesMap_6mm.txt', localmap='../data/localChannelsMap_6mm.txt', wpFile='../data/singleStripWP6mm.root', noiselib='../data/noise_lib_1_2_us_100e.root', eleclife=10000.0, sampling=0.5, induc=True, swf=True, oversampleratio=50, coType='Pads', run='/scratch/t/tbhatta/s10/g4/s10_Po216_all_seed23.mac', skipEThreshold=0.1, runChargeSim='True')
+Date/Time = Sat, 15 Apr 2023 13:22:41 +0000 (GMT) +480647000 nsec
+Delete G4SvcRunManager
+
+**************************************************
+Terminating @ tur022 on Sat Apr 15 06:22:42 2023
+SNiPER::Context Running Mode = { BASIC }
+SNiPER::Context Terminated Successfully

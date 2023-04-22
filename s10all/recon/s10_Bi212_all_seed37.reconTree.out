@@ -1,0 +1,700 @@
+**************************************************
+Welcome to SNiPER v2.1.0
+Running @ rome0223 on Sat Apr 15 06:10:18 2023
+**************************************************
+{
+  "sniper": {
+    "LoadDlls": [ "libBufferMemMgr.so", "libRootIOSvc.so", "libGeometry.so", "libLightMapSvc.so", "libFilterAlg.so", "libDnnEventTagger.so", "libSensitivityRecon.so", "libChargeRecon.so", "libRandomSvc.so" ],
+    "LogLevel": 3
+  },
+  "identifier": "Task/task",
+  "properties": {
+    "EvtMax": 25000,
+    "LogLevel": 3
+  },
+  "services": [
+    {
+      "identifier": "BufferMemMgr/BufferMemMgr",
+      "properties": {
+        "TimeWindow": [ 0, 0 ]
+      }
+    },
+    {
+      "identifier": "RootInputSvc/InputSvc",
+      "properties": {
+        "InputFile": [ "/scratch/t/tbhatta/s10/g4/s10_Bi212_all_seed37.nEXOevents.root" ]
+      }
+    },
+    {
+      "identifier": "RootOutputSvc/OutputSvc",
+      "properties": {
+        "OutputStreams": { "/Event/Recon/ChargeQuanta": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/DNNTag": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/Energy": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/NESTBugFlag": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/NearAnodeBugFlag": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/Photons": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/SourceID": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root", "/Event/Recon/Standoff": "/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root" }
+      }
+    },
+    {
+      "identifier": "SimGeomSvc/SimGeomSvc",
+      "properties": {
+        "GeometryInputFile": ""
+      }
+    },
+    {
+      "identifier": "LightMapSvc/LightMapSvc",
+      "properties": {
+        "LightMapFile": "/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root",
+        "LightMapHistName": "lightmap"
+      }
+    },
+    {
+      "identifier": "RandomSvc/RandomSvc",
+      "properties": {
+        "Seed": 37,
+        "SeedStatusInputFile": "",
+        "SeedStatusInputVector": []
+      }
+    }
+  ],
+  "algorithms": [
+    {
+      "identifier": "NESTFieldCapper/NESTFieldCapper",
+      "properties": {
+        "fieldcap": -1
+      }
+    },
+    {
+      "identifier": "ChargeQuantaAlg/ChargeQuantaAlg",
+      "properties": {
+        "ElectronLifeT": 10000,
+        "noise": 1132.1
+      }
+    },
+    {
+      "identifier": "PhotonsAlg/PhotonsAlg",
+      "properties": {
+        "correlated_av_prob": 0.2,
+        "pde_prob": 0.186,
+        "pte_error": 0.005
+      }
+    },
+    {
+      "identifier": "EnergyAlg/EnergyAlg",
+      "properties": {
+        "chargeCal": 76.6137
+      }
+    },
+    {
+      "identifier": "StandoffAlg/StandoffAlg",
+      "properties": {
+        "ElectronLifeT": 10000,
+        "XYthreshold": 10000,
+        "Zthreshold": 100
+      }
+    },
+    {
+      "identifier": "SourceIDAlg/SourceIDAlg"
+    },
+    {
+      "identifier": "NESTBugCatcher/NESTBugCatcher",
+      "properties": {
+        "threshold": 1.05
+      }
+    },
+    {
+      "identifier": "NearAnodeBugCatcher/NearAnodeBugCatcher",
+      "properties": {
+        "ThresholdEnergy": 100,
+        "ZLength": 10
+      }
+    },
+    {
+      "identifier": "ChargeReconAlg/ChargeReconAlg",
+      "properties": {
+        "Noise": 400,
+        "PadSize": 6,
+        "SamplingFrequency": 2,
+        "TileSize": 96,
+        "Type": "unknown"
+      }
+    },
+    {
+      "identifier": "DnnEventTagger/DnnEventTagger",
+      "properties": {
+        "ImagePath": "./images",
+        "NetworkPath": "/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7",
+        "Pitch": 6,
+        "SaveAsImage": false,
+        "SaveAsNumpy": false
+      }
+    }
+  ]
+}
+task:InputSvc.initialize        INFO: Initialize RootInputSvc...
+task:InputSvc.initialize        INFO: RootInputSvc successfully initialized.
+task:SimGeomSvc.initialize      INFO: Initialize SimGeomSvc 
+0x55ec03bcda70
+LT: path/name: /Event/Sim/nEXOGeometry
+LT: fileid: 0
+LT: CheckFileStatus(fileid): 0
+LT: filename: /scratch/t/tbhatta/s10/g4/s10_Bi212_all_seed37.nEXOevents.root
+LT: file: 0x55ec00b5c530
+LT: read obj: 0x55ec04765130
+task:SimGeomSvc.load_from_root  INFO: load geometry from inputsvc: 0x55ec04765130
+task:ChargeQuantaAlg.initialize  INFO: get geometry geom: 0x55ec04765130
+virtual bool DnnEventTagger::initialize()
+task.initialize                 INFO: initialized
+task:EnergyAlg.execute          INFO: Photons= 49413.5
+task:EnergyAlg.execute          INFO: Charge= 44760
+task:EnergyAlg.execute          INFO: ENERGY= 1061.98
+task:EnergyAlg.execute          INFO: Photons= 32821.3
+task:EnergyAlg.execute          INFO: Charge= 38190
+task:EnergyAlg.execute          INFO: ENERGY= 815.808
+task:EnergyAlg.execute          INFO: Photons= 62956.2
+task:EnergyAlg.execute          INFO: Charge= 78104
+task:EnergyAlg.execute          INFO: ENERGY= 1628.14
+task:EnergyAlg.execute          INFO: Photons= 33773.7
+task:EnergyAlg.execute          INFO: Charge= 32513
+task:EnergyAlg.execute          INFO: ENERGY= 750.917
+task:EnergyAlg.execute          INFO: Photons= 4584.98
+task:EnergyAlg.execute          INFO: Charge= 4722
+task:EnergyAlg.execute          INFO: ENERGY= 105.964
+task:EnergyAlg.execute          INFO: Photons= 28175
+task:EnergyAlg.execute          INFO: Charge= 32507
+task:EnergyAlg.execute          INFO: ENERGY= 696.708
+task:EnergyAlg.execute          INFO: Photons= 23888.6
+task:EnergyAlg.execute          INFO: Charge= 24078
+task:EnergyAlg.execute          INFO: ENERGY= 545.245
+task:EnergyAlg.execute          INFO: Photons= 32456.7
+task:EnergyAlg.execute          INFO: Charge= 18987
+task:EnergyAlg.execute          INFO: ENERGY= 561.636
+task:EnergyAlg.execute          INFO: Photons= 63212.2
+task:EnergyAlg.execute          INFO: Charge= 74999
+task:EnergyAlg.execute          INFO: ENERGY= 1590.09
+task:EnergyAlg.execute          INFO: Photons= 28586.6
+task:EnergyAlg.execute          INFO: Charge= 25176
+task:EnergyAlg.execute          INFO: ENERGY= 604.999
+task:EnergyAlg.execute          INFO: Photons= 19900.2
+task:EnergyAlg.execute          INFO: Charge= 28654
+task:EnergyAlg.execute          INFO: ENERGY= 566.411
+task:EnergyAlg.execute          INFO: Photons= 19729
+task:EnergyAlg.execute          INFO: Charge= 13256
+task:EnergyAlg.execute          INFO: ENERGY= 363.773
+task:EnergyAlg.execute          INFO: Photons= 26350
+task:EnergyAlg.execute          INFO: Charge= 32663
+task:EnergyAlg.execute          INFO: ENERGY= 681.099
+task:EnergyAlg.execute          INFO: Photons= 20188.8
+task:EnergyAlg.execute          INFO: Charge= 25653
+task:EnergyAlg.execute          INFO: ENERGY= 530.032
+task:EnergyAlg.execute          INFO: Photons= 17813
+task:EnergyAlg.execute          INFO: Charge= 15633
+task:EnergyAlg.execute          INFO: ENERGY= 376.274
+task:EnergyAlg.execute          INFO: Photons= 27972.3
+task:EnergyAlg.execute          INFO: Charge= 35162
+task:EnergyAlg.execute          INFO: ENERGY= 729.403
+task:EnergyAlg.execute          INFO: Photons= 25134.3
+task:EnergyAlg.execute          INFO: Charge= 25493
+task:EnergyAlg.execute          INFO: ENERGY= 575.758
+task:EnergyAlg.execute          INFO: Photons= 32743
+task:EnergyAlg.execute          INFO: Charge= 20585
+task:EnergyAlg.execute          INFO: ENERGY= 585.261
+task:EnergyAlg.execute          INFO: Photons= 40749
+task:EnergyAlg.execute          INFO: Charge= 44642
+task:EnergyAlg.execute          INFO: ENERGY= 976.672
+task:EnergyAlg.execute          INFO: Photons= 31106.4
+task:EnergyAlg.execute          INFO: Charge= 7148
+task:EnergyAlg.execute          INFO: ENERGY= 394.051
+task:EnergyAlg.execute          INFO: Photons= 18905.7
+task:EnergyAlg.execute          INFO: Charge= 21741
+task:EnergyAlg.execute          INFO: ENERGY= 466.565
+task:EnergyAlg.execute          INFO: Photons= 64456.4
+task:EnergyAlg.execute          INFO: Charge= 76134
+task:EnergyAlg.execute          INFO: ENERGY= 1616.94
+task:EnergyAlg.execute          INFO: Photons= 31862.1
+task:EnergyAlg.execute          INFO: Charge= 30182
+task:EnergyAlg.execute          INFO: ENERGY= 702.009
+task:EnergyAlg.execute          INFO: Photons= 48023.7
+task:EnergyAlg.execute          INFO: Charge= 52461
+task:EnergyAlg.execute          INFO: ENERGY= 1149.06
+task:EnergyAlg.execute          INFO: Photons= 24230.9
+task:EnergyAlg.execute          INFO: Charge= 19581
+task:EnergyAlg.execute          INFO: ENERGY= 489.858
+task:EnergyAlg.execute          INFO: Photons= 27625.4
+task:EnergyAlg.execute          INFO: Charge= 24498
+task:EnergyAlg.execute          INFO: ENERGY= 586.856
+task:EnergyAlg.execute          INFO: Photons= 12908.6
+task:EnergyAlg.execute          INFO: Charge= 13781
+task:EnergyAlg.execute          INFO: ENERGY= 304.683
+task:EnergyAlg.execute          INFO: Photons= 27919.1
+task:EnergyAlg.execute          INFO: Charge= 34501
+task:EnergyAlg.execute          INFO: ENERGY= 720.261
+task:EnergyAlg.execute          INFO: Photons= 24222.3
+task:EnergyAlg.execute          INFO: Charge= 22452
+task:EnergyAlg.execute          INFO: ENERGY= 527.248
+task:EnergyAlg.execute          INFO: Photons= 32982.4
+task:EnergyAlg.execute          INFO: Charge= 28456
+task:EnergyAlg.execute          INFO: ENERGY= 690.313
+task:EnergyAlg.execute          INFO: Photons= 34965.8
+task:EnergyAlg.execute          INFO: Charge= 15304
+task:EnergyAlg.execute          INFO: ENERGY= 537.823
+task:EnergyAlg.execute          INFO: Photons= 33909.2
+task:EnergyAlg.execute          INFO: Charge= 41477
+task:EnergyAlg.execute          INFO: ENERGY= 869.23
+task:EnergyAlg.execute          INFO: Photons= 26725.3
+task:EnergyAlg.execute          INFO: Charge= 32528
+task:EnergyAlg.execute          INFO: ENERGY= 682.965
+task:EnergyAlg.execute          INFO: Photons= 20735.1
+task:EnergyAlg.execute          INFO: Charge= 24658
+task:EnergyAlg.execute          INFO: ENERGY= 522.326
+task:EnergyAlg.execute          INFO: Photons= 30809.6
+task:EnergyAlg.execute          INFO: Charge= 24061
+task:EnergyAlg.execute          INFO: ENERGY= 611.939
+task:EnergyAlg.execute          INFO: Photons= 30134.2
+task:EnergyAlg.execute          INFO: Charge= 34236
+task:EnergyAlg.execute          INFO: ENERGY= 738.218
+task:EnergyAlg.execute          INFO: Photons= 38198.7
+task:EnergyAlg.execute          INFO: Charge= 25445
+task:EnergyAlg.execute          INFO: ENERGY= 701.445
+task:EnergyAlg.execute          INFO: Photons= 31272.3
+task:EnergyAlg.execute          INFO: Charge= 32256
+task:EnergyAlg.execute          INFO: ENERGY= 723.378
+task:EnergyAlg.execute          INFO: Photons= 50376.9
+task:EnergyAlg.execute          INFO: Charge= 61108
+task:EnergyAlg.execute          INFO: ENERGY= 1284.68
+task:EnergyAlg.execute          INFO: Photons= 28957.1
+task:EnergyAlg.execute          INFO: Charge= 35065
+task:EnergyAlg.execute          INFO: ENERGY= 737.658
+task:EnergyAlg.execute          INFO: Photons= 34345.2
+task:EnergyAlg.execute          INFO: Charge= 33692
+task:EnergyAlg.execute          INFO: ENERGY= 771.831
+task:EnergyAlg.execute          INFO: Photons= 17140.6
+task:EnergyAlg.execute          INFO: Charge= 12985
+task:EnergyAlg.execute          INFO: ENERGY= 335.211
+task:EnergyAlg.execute          INFO: Photons= 25565.7
+task:EnergyAlg.execute          INFO: Charge= 19179
+task:EnergyAlg.execute          INFO: ENERGY= 497.516
+task:EnergyAlg.execute          INFO: Photons= 61621.9
+task:EnergyAlg.execute          INFO: Charge= 77716
+task:EnergyAlg.execute          INFO: ENERGY= 1610.18
+task:EnergyAlg.execute          INFO: Photons= 68537.3
+task:EnergyAlg.execute          INFO: Charge= 71978
+task:EnergyAlg.execute          INFO: ENERGY= 1602.15
+task:EnergyAlg.execute          INFO: Photons= 42654.2
+task:EnergyAlg.execute          INFO: Charge= 26040
+task:EnergyAlg.execute          INFO: ENERGY= 752.29
+task:EnergyAlg.execute          INFO: Photons= 24867.1
+task:EnergyAlg.execute          INFO: Charge= 21086
+task:EnergyAlg.execute          INFO: ENERGY= 515.653
+task:EnergyAlg.execute          INFO: Photons= 42137
+task:EnergyAlg.execute          INFO: Charge= 39143
+task:EnergyAlg.execute          INFO: ENERGY= 918.315
+task:EnergyAlg.execute          INFO: Photons= 27503.3
+task:EnergyAlg.execute          INFO: Charge= 36819
+task:EnergyAlg.execute          INFO: ENERGY= 746.495
+task:EnergyAlg.execute          INFO: Photons= 32215.5
+task:EnergyAlg.execute          INFO: Charge= 31492
+task:EnergyAlg.execute          INFO: ENERGY= 722.525
+task:EnergyAlg.execute          INFO: Photons= 19574.8
+task:EnergyAlg.execute          INFO: Charge= 6939
+task:EnergyAlg.execute          INFO: ENERGY= 279.83
+task:EnergyAlg.execute          INFO: Photons= 23905
+task:EnergyAlg.execute          INFO: Charge= 15685
+task:EnergyAlg.execute          INFO: ENERGY= 435.854
+task:EnergyAlg.execute          INFO: Photons= 32271.8
+task:EnergyAlg.execute          INFO: Charge= 31355
+task:EnergyAlg.execute          INFO: ENERGY= 721.282
+task:EnergyAlg.execute          INFO: Photons= 31838
+task:EnergyAlg.execute          INFO: Charge= 36463
+task:EnergyAlg.execute          INFO: ENERGY= 783.759
+task:EnergyAlg.execute          INFO: Photons= 20821.9
+task:EnergyAlg.execute          INFO: Charge= 18676
+task:EnergyAlg.execute          INFO: ENERGY= 445.085
+task:EnergyAlg.execute          INFO: Photons= 9573.22
+task:EnergyAlg.execute          INFO: Charge= 11572
+task:EnergyAlg.execute          INFO: ENERGY= 243.602
+task:EnergyAlg.execute          INFO: Photons= 29267.8
+task:EnergyAlg.execute          INFO: Charge= 33706
+task:EnergyAlg.execute          INFO: ENERGY= 722.924
+task:EnergyAlg.execute          INFO: Photons= 38950.8
+task:EnergyAlg.execute          INFO: Charge= 42521
+task:EnergyAlg.execute          INFO: ENERGY= 931.602
+task:EnergyAlg.execute          INFO: Photons= 29085
+task:EnergyAlg.execute          INFO: Charge= 27097
+task:EnergyAlg.execute          INFO: ENERGY= 634.892
+task:EnergyAlg.execute          INFO: Photons= 50602.6
+task:EnergyAlg.execute          INFO: Charge= 60638
+task:EnergyAlg.execute          INFO: ENERGY= 1280.73
+task:EnergyAlg.execute          INFO: Photons= 757979
+task:EnergyAlg.execute          INFO: Charge= 23294
+task:EnergyAlg.execute          INFO: ENERGY= 7632.58
+task:EnergyAlg.execute          INFO: Photons= 21517.9
+task:EnergyAlg.execute          INFO: Charge= 25642
+task:EnergyAlg.execute          INFO: ENERGY= 542.738
+task:EnergyAlg.execute          INFO: Photons= 63054.9
+task:EnergyAlg.execute          INFO: Charge= 77477
+task:EnergyAlg.execute          INFO: ENERGY= 1620.91
+task:EnergyAlg.execute          INFO: Photons= 29156.8
+task:EnergyAlg.execute          INFO: Charge= 35852
+task:EnergyAlg.execute          INFO: ENERGY= 749.861
+task:EnergyAlg.execute          INFO: Photons= 29829.5
+task:EnergyAlg.execute          INFO: Charge= 30595
+task:EnergyAlg.execute          INFO: ENERGY= 687.748
+task:EnergyAlg.execute          INFO: Photons= 23310.9
+task:EnergyAlg.execute          INFO: Charge= 18746
+task:EnergyAlg.execute          INFO: ENERGY= 470.064
+task:EnergyAlg.execute          INFO: Photons= 31753.9
+task:EnergyAlg.execute          INFO: Charge= 17526
+task:EnergyAlg.execute          INFO: ENERGY= 535.771
+task:EnergyAlg.execute          INFO: Photons= 41820.6
+task:EnergyAlg.execute          INFO: Charge= 40817
+task:EnergyAlg.execute          INFO: ENERGY= 937.106
+task:EnergyAlg.execute          INFO: Photons= 70552.8
+task:EnergyAlg.execute          INFO: Charge= 70691
+task:EnergyAlg.execute          INFO: ENERGY= 1604.83
+task:EnergyAlg.execute          INFO: Photons= 29142.7
+task:EnergyAlg.execute          INFO: Charge= 34629
+task:EnergyAlg.execute          INFO: ENERGY= 733.761
+task:EnergyAlg.execute          INFO: Photons= 29541.1
+task:EnergyAlg.execute          INFO: Charge= 33784
+task:EnergyAlg.execute          INFO: ENERGY= 726.583
+task:EnergyAlg.execute          INFO: Photons= 25138.9
+task:EnergyAlg.execute          INFO: Charge= 11343
+task:EnergyAlg.execute          INFO: ENERGY= 391.11
+task:EnergyAlg.execute          INFO: Photons= 61281.3
+task:EnergyAlg.execute          INFO: Charge= 71689
+task:EnergyAlg.execute          INFO: ENERGY= 1528.22
+task:EnergyAlg.execute          INFO: Photons= 28918.1
+task:EnergyAlg.execute          INFO: Charge= 33888
+task:EnergyAlg.execute          INFO: ENERGY= 721.918
+task:EnergyAlg.execute          INFO: Photons= 21896.4
+task:EnergyAlg.execute          INFO: Charge= 24663
+task:EnergyAlg.execute          INFO: ENERGY= 533.619
+task:EnergyAlg.execute          INFO: Photons= 20727.6
+task:EnergyAlg.execute          INFO: Charge= 15964
+task:EnergyAlg.execute          INFO: ENERGY= 408.775
+task:EnergyAlg.execute          INFO: Photons= 34231.2
+task:EnergyAlg.execute          INFO: Charge= 29369
+task:EnergyAlg.execute          INFO: ENERGY= 714.303
+task:EnergyAlg.execute          INFO: Photons= 62951.9
+task:EnergyAlg.execute          INFO: Charge= 77837
+task:EnergyAlg.execute          INFO: ENERGY= 1624.62
+task:EnergyAlg.execute          INFO: Photons= 65120.3
+task:EnergyAlg.execute          INFO: Charge= 74324
+task:EnergyAlg.execute          INFO: ENERGY= 1599.73
+task:EnergyAlg.execute          INFO: Photons= 31272.2
+task:EnergyAlg.execute          INFO: Charge= 32712
+task:EnergyAlg.execute          INFO: ENERGY= 729.329
+task:EnergyAlg.execute          INFO: Photons= 27742.7
+task:EnergyAlg.execute          INFO: Charge= 34611
+task:EnergyAlg.execute          INFO: ENERGY= 719.991
+task:EnergyAlg.execute          INFO: Photons= 64318.6
+task:EnergyAlg.execute          INFO: Charge= 76669
+task:EnergyAlg.execute          INFO: ENERGY= 1622.59
+task:EnergyAlg.execute          INFO: Photons= 16244.9
+task:EnergyAlg.execute          INFO: Charge= 8729
+task:EnergyAlg.execute          INFO: ENERGY= 271
+task:EnergyAlg.execute          INFO: Photons= 34951.5
+task:EnergyAlg.execute          INFO: Charge= 29561
+task:EnergyAlg.execute          INFO: ENERGY= 723.774
+task:EnergyAlg.execute          INFO: Photons= 33727.1
+task:EnergyAlg.execute          INFO: Charge= 40513
+task:EnergyAlg.execute          INFO: ENERGY= 854.886
+task:EnergyAlg.execute          INFO: Photons= 23376.2
+task:EnergyAlg.execute          INFO: Charge= 21522
+task:EnergyAlg.execute          INFO: ENERGY= 506.928
+task:EnergyAlg.execute          INFO: Photons= 22098.9
+task:EnergyAlg.execute          INFO: Charge= 21626
+task:EnergyAlg.execute          INFO: ENERGY= 495.937
+task:EnergyAlg.execute          INFO: Photons= 30189.5
+task:EnergyAlg.execute          INFO: Charge= 33465
+task:EnergyAlg.execute          INFO: ENERGY= 728.69
+task:EnergyAlg.execute          INFO: Photons= 60494.4
+task:EnergyAlg.execute          INFO: Charge= 60267
+task:EnergyAlg.execute          INFO: ENERGY= 1371.53
+task:EnergyAlg.execute          INFO: Photons= 32680.9
+task:EnergyAlg.execute          INFO: Charge= 29776
+task:EnergyAlg.execute          INFO: ENERGY= 704.627
+task:EnergyAlg.execute          INFO: Photons= 32674.1
+task:EnergyAlg.execute          INFO: Charge= 33101
+task:EnergyAlg.execute          INFO: ENERGY= 747.961
+task:EnergyAlg.execute          INFO: Photons= 41688.6
+task:EnergyAlg.execute          INFO: Charge= 26458
+task:EnergyAlg.execute          INFO: ENERGY= 748.409
+task:EnergyAlg.execute          INFO: Photons= 62324
+task:EnergyAlg.execute          INFO: Charge= 76243
+task:EnergyAlg.execute          INFO: ENERGY= 1597.74
+task:EnergyAlg.execute          INFO: Photons= 55866.6
+task:EnergyAlg.execute          INFO: Charge= 48400
+task:EnergyAlg.execute          INFO: ENERGY= 1171.89
+task:EnergyAlg.execute          INFO: Photons= 44928.7
+task:EnergyAlg.execute          INFO: Charge= 49545
+task:EnergyAlg.execute          INFO: ENERGY= 1081.08
+task:EnergyAlg.execute          INFO: Photons= 22275.1
+task:EnergyAlg.execute          INFO: Charge= 19320
+task:EnergyAlg.execute          INFO: ENERGY= 467.542
+task:EnergyAlg.execute          INFO: Photons= 24080.9
+task:EnergyAlg.execute          INFO: Charge= 23189
+task:EnergyAlg.execute          INFO: ENERGY= 535.501
+task:EnergyAlg.execute          INFO: Photons= 27869
+task:EnergyAlg.execute          INFO: Charge= 35511
+task:EnergyAlg.execute          INFO: ENERGY= 732.959
+task:EnergyAlg.execute          INFO: Photons= 60506.2
+task:EnergyAlg.execute          INFO: Charge= 73220
+task:EnergyAlg.execute          INFO: ENERGY= 1540.71
+task:EnergyAlg.execute          INFO: Photons= 29881.2
+task:EnergyAlg.execute          INFO: Charge= 20635
+task:EnergyAlg.execute          INFO: ENERGY= 558.245
+task:EnergyAlg.execute          INFO: Photons= 14730.9
+task:EnergyAlg.execute          INFO: Charge= 17277
+task:EnergyAlg.execute          INFO: ENERGY= 367.934
+task:EnergyAlg.execute          INFO: Photons= 31242.2
+task:EnergyAlg.execute          INFO: Charge= 30327
+task:EnergyAlg.execute          INFO: ENERGY= 697.908
+task:EnergyAlg.execute          INFO: Photons= 43964.2
+task:EnergyAlg.execute          INFO: Charge= 26052
+task:EnergyAlg.execute          INFO: ENERGY= 765.112
+task:EnergyAlg.execute          INFO: Photons= 27349
+task:EnergyAlg.execute          INFO: Charge= 27052
+task:EnergyAlg.execute          INFO: ENERGY= 617.521
+task:EnergyAlg.execute          INFO: Photons= 28309.6
+task:EnergyAlg.execute          INFO: Charge= 35580
+task:EnergyAlg.execute          INFO: ENERGY= 738.12
+task:EnergyAlg.execute          INFO: Photons= 35680.3
+task:EnergyAlg.execute          INFO: Charge= 30757
+task:EnergyAlg.execute          INFO: ENERGY= 746.431
+task:EnergyAlg.execute          INFO: Photons= 29566.2
+task:EnergyAlg.execute          INFO: Charge= 32201
+task:EnergyAlg.execute          INFO: ENERGY= 706.165
+task:EnergyAlg.execute          INFO: Photons= 22193.7
+task:EnergyAlg.execute          INFO: Charge= 26059
+task:EnergyAlg.execute          INFO: ENERGY= 554.715
+task:EnergyAlg.execute          INFO: Photons= 24194.5
+task:EnergyAlg.execute          INFO: Charge= 22223
+task:EnergyAlg.execute          INFO: ENERGY= 523.991
+task:EnergyAlg.execute          INFO: Photons= 37635.3
+task:EnergyAlg.execute          INFO: Charge= 34901
+task:EnergyAlg.execute          INFO: ENERGY= 819.422
+task:EnergyAlg.execute          INFO: Photons= 28823.1
+task:EnergyAlg.execute          INFO: Charge= 35808
+task:EnergyAlg.execute          INFO: ENERGY= 746.06
+task:EnergyAlg.execute          INFO: Photons= 20935.7
+task:EnergyAlg.execute          INFO: Charge= 19392
+task:EnergyAlg.execute          INFO: ENERGY= 455.531
+task:EnergyAlg.execute          INFO: Photons= 17615.4
+task:EnergyAlg.execute          INFO: Charge= 16639
+task:EnergyAlg.execute          INFO: ENERGY= 387.495
+task:EnergyAlg.execute          INFO: Photons= 16504.1
+task:EnergyAlg.execute          INFO: Charge= 19838
+task:EnergyAlg.execute          INFO: ENERGY= 418.506
+task:EnergyAlg.execute          INFO: Photons= 44125.9
+task:EnergyAlg.execute          INFO: Charge= 31290
+task:EnergyAlg.execute          INFO: ENERGY= 835.045
+task:EnergyAlg.execute          INFO: Photons= 19546.5
+task:EnergyAlg.execute          INFO: Charge= 21126
+task:EnergyAlg.execute          INFO: ENERGY= 464.733
+task:EnergyAlg.execute          INFO: Photons= 66301.7
+task:EnergyAlg.execute          INFO: Charge= 75403
+task:EnergyAlg.execute          INFO: ENERGY= 1625.24
+task:EnergyAlg.execute          INFO: Photons= 22955.2
+task:EnergyAlg.execute          INFO: Charge= 18270
+task:EnergyAlg.execute          INFO: ENERGY= 460.411
+task:EnergyAlg.execute          INFO: Photons= 22374
+task:EnergyAlg.execute          INFO: Charge= 21741
+task:EnergyAlg.execute          INFO: ENERGY= 500.097
+task:EnergyAlg.execute          INFO: Photons= 63333.6
+task:EnergyAlg.execute          INFO: Charge= 73651
+task:EnergyAlg.execute          INFO: ENERGY= 1573.67
+task:EnergyAlg.execute          INFO: Photons= 23191.2
+task:EnergyAlg.execute          INFO: Charge= 22020
+task:EnergyAlg.execute          INFO: ENERGY= 511.641
+task:EnergyAlg.execute          INFO: Photons= 20892.8
+task:EnergyAlg.execute          INFO: Charge= 13275
+task:EnergyAlg.execute          INFO: ENERGY= 375.275
+task:EnergyAlg.execute          INFO: Photons= 37226.2
+task:EnergyAlg.execute          INFO: Charge= 45156
+task:EnergyAlg.execute          INFO: ENERGY= 949.32
+task:EnergyAlg.execute          INFO: Photons= 24168.7
+task:EnergyAlg.execute          INFO: Charge= 22272
+task:EnergyAlg.execute          INFO: ENERGY= 524.381
+task:EnergyAlg.execute          INFO: Photons= 18510
+task:EnergyAlg.execute          INFO: Charge= 16732
+task:EnergyAlg.execute          INFO: ENERGY= 397.358
+task:EnergyAlg.execute          INFO: Photons= 54920.8
+task:EnergyAlg.execute          INFO: Charge= 50827
+task:EnergyAlg.execute          INFO: ENERGY= 1194.42
+task:EnergyAlg.execute          INFO: Photons= 46694.3
+task:EnergyAlg.execute          INFO: Charge= 35512
+task:EnergyAlg.execute          INFO: ENERGY= 914.985
+task:EnergyAlg.execute          INFO: Photons= 36893.4
+task:EnergyAlg.execute          INFO: Charge= 36230
+task:EnergyAlg.execute          INFO: ENERGY= 829.596
+task:EnergyAlg.execute          INFO: Photons= 26182.7
+task:EnergyAlg.execute          INFO: Charge= 31668
+task:EnergyAlg.execute          INFO: ENERGY= 666.494
+task:EnergyAlg.execute          INFO: Photons= 37042.9
+task:EnergyAlg.execute          INFO: Charge= 21096
+task:EnergyAlg.execute          INFO: ENERGY= 633.505
+task:EnergyAlg.execute          INFO: Photons= 30597.7
+task:EnergyAlg.execute          INFO: Charge= 33833
+task:EnergyAlg.execute          INFO: ENERGY= 737.439
+task:EnergyAlg.execute          INFO: Photons= 15553
+task:EnergyAlg.execute          INFO: Charge= 11202
+task:EnergyAlg.execute          INFO: ENERGY= 296.588
+task:EnergyAlg.execute          INFO: Photons= 14761.8
+task:EnergyAlg.execute          INFO: Charge= 8227
+task:EnergyAlg.execute          INFO: ENERGY= 250.108
+task:EnergyAlg.execute          INFO: Photons= 28398.8
+task:EnergyAlg.execute          INFO: Charge= 21295
+task:EnergyAlg.execute          INFO: ENERGY= 552.527
+task:EnergyAlg.execute          INFO: Photons= 24122.2
+task:EnergyAlg.execute          INFO: Charge= 23680
+task:EnergyAlg.execute          INFO: ENERGY= 542.309
+task:EnergyAlg.execute          INFO: Photons= 37685.4
+task:EnergyAlg.execute          INFO: Charge= 33845
+task:EnergyAlg.execute          INFO: ENERGY= 806.123
+task:EnergyAlg.execute          INFO: Photons= 31531
+task:EnergyAlg.execute          INFO: Charge= 35202
+task:EnergyAlg.execute          INFO: ENERGY= 764.332
+task:EnergyAlg.execute          INFO: Photons= 29514.7
+task:EnergyAlg.execute          INFO: Charge= 36239
+task:EnergyAlg.execute          INFO: ENERGY= 758.373
+task:EnergyAlg.execute          INFO: Photons= 39467.1
+task:EnergyAlg.execute          INFO: Charge= 50898
+task:EnergyAlg.execute          INFO: ENERGY= 1045.93
+task:EnergyAlg.execute          INFO: Photons= 28697.2
+task:EnergyAlg.execute          INFO: Charge= 26375
+task:EnergyAlg.execute          INFO: ENERGY= 621.718
+task:EnergyAlg.execute          INFO: Photons= 21718.8
+task:EnergyAlg.execute          INFO: Charge= 22160
+task:EnergyAlg.execute          INFO: ENERGY= 499.232
+task:EnergyAlg.execute          INFO: Photons= 72274.6
+task:EnergyAlg.execute          INFO: Charge= 70953
+task:EnergyAlg.execute          INFO: ENERGY= 1624.9
+task:EnergyAlg.execute          INFO: Photons= 29085
+task:EnergyAlg.execute          INFO: Charge= 39712
+task:EnergyAlg.execute          INFO: ENERGY= 799.549
+task:EnergyAlg.execute          INFO: Photons= 24957.4
+task:EnergyAlg.execute          INFO: Charge= 19970
+task:EnergyAlg.execute          INFO: ENERGY= 501.959
+task:EnergyAlg.execute          INFO: Photons= 36341.6
+task:EnergyAlg.execute          INFO: Charge= 25070
+task:EnergyAlg.execute          INFO: ENERGY= 678.595
+task:EnergyAlg.execute          INFO: Photons= 27573.6
+task:EnergyAlg.execute          INFO: Charge= 21626
+task:EnergyAlg.execute          INFO: ENERGY= 548.869
+task:EnergyAlg.execute          INFO: Photons= 23241.8
+task:EnergyAlg.execute          INFO: Charge= 28778
+task:EnergyAlg.execute          INFO: ENERGY= 600.338
+task:EnergyAlg.execute          INFO: Photons= 63767.7
+task:EnergyAlg.execute          INFO: Charge= 77924
+task:EnergyAlg.execute          INFO: ENERGY= 1633.64
+task:EnergyAlg.execute          INFO: Photons= 30069.8
+task:EnergyAlg.execute          INFO: Charge= 34234
+task:EnergyAlg.execute          INFO: ENERGY= 737.57
+task:EnergyAlg.execute          INFO: Photons= 24448.4
+task:EnergyAlg.execute          INFO: Charge= 19341
+task:EnergyAlg.execute          INFO: ENERGY= 488.828
+task:EnergyAlg.execute          INFO: Photons= 28701.8
+task:EnergyAlg.execute          INFO: Charge= 34866
+task:EnergyAlg.execute          INFO: ENERGY= 732.592
+task:EnergyAlg.execute          INFO: Photons= 21278.6
+task:EnergyAlg.execute          INFO: Charge= 29311
+task:EnergyAlg.execute          INFO: ENERGY= 588.314
+task:EnergyAlg.execute          INFO: Photons= 23076.6
+task:EnergyAlg.execute          INFO: Charge= 18957
+task:EnergyAlg.execute          INFO: ENERGY= 470.553
+task:EnergyAlg.execute          INFO: Photons= 32585.1
+task:EnergyAlg.execute          INFO: Charge= 17486
+task:EnergyAlg.execute          INFO: ENERGY= 543.285
+task:EnergyAlg.execute          INFO: Photons= 24545.7
+task:EnergyAlg.execute          INFO: Charge= 24014
+task:EnergyAlg.execute          INFO: ENERGY= 550.763
+task:EnergyAlg.execute          INFO: Photons= 54155.7
+task:EnergyAlg.execute          INFO: Charge= 57903
+task:EnergyAlg.execute          INFO: ENERGY= 1279.38
+task:EnergyAlg.execute          INFO: Photons= 65990.3
+task:EnergyAlg.execute          INFO: Charge= 76889
+task:EnergyAlg.execute          INFO: ENERGY= 1641.62
+task:EnergyAlg.execute          INFO: Photons= 22214.9
+task:EnergyAlg.execute          INFO: Charge= 26092
+task:EnergyAlg.execute          INFO: ENERGY= 555.351
+task:EnergyAlg.execute          INFO: Photons= 24137.2
+task:EnergyAlg.execute          INFO: Charge= 5657
+task:EnergyAlg.execute          INFO: ENERGY= 307.209
+task:EnergyAlg.execute          INFO: Photons= 66470.3
+task:EnergyAlg.execute          INFO: Charge= 77184
+task:EnergyAlg.execute          INFO: ENERGY= 1650.11
+task:EnergyAlg.execute          INFO: Photons= 30115.8
+task:EnergyAlg.execute          INFO: Charge= 34409
+task:EnergyAlg.execute          INFO: ENERGY= 740.298
+task:EnergyAlg.execute          INFO: Photons= 30102.9
+task:EnergyAlg.execute          INFO: Charge= 16760
+task:EnergyAlg.execute          INFO: ENERGY= 509.81
+task:EnergyAlg.execute          INFO: Photons= 14030.2
+task:EnergyAlg.execute          INFO: Charge= 14722
+task:EnergyAlg.execute          INFO: ENERGY= 327.81
+task:EnergyAlg.execute          INFO: Photons= 28233.4
+task:EnergyAlg.execute          INFO: Charge= 34837
+task:EnergyAlg.execute          INFO: ENERGY= 727.684
+task:EnergyAlg.execute          INFO: Photons= 28504.1
+task:EnergyAlg.execute          INFO: Charge= 41163
+task:EnergyAlg.execute          INFO: ENERGY= 812.872
+task:EnergyAlg.execute          INFO: Photons= 41308.4
+task:EnergyAlg.execute          INFO: Charge= 47081
+task:EnergyAlg.execute          INFO: ENERGY= 1013.92
+task:EnergyAlg.execute          INFO: Photons= 23000.4
+task:EnergyAlg.execute          INFO: Charge= 21779
+task:EnergyAlg.execute          INFO: ENERGY= 506.65
+task:EnergyAlg.execute          INFO: Photons= 17694
+task:EnergyAlg.execute          INFO: Charge= 17593
+task:EnergyAlg.execute          INFO: ENERGY= 400.707
+task:EnergyAlg.execute          INFO: Photons= 61524.6
+task:EnergyAlg.execute          INFO: Charge= 77269
+task:EnergyAlg.execute          INFO: ENERGY= 1603.4
+task:EnergyAlg.execute          INFO: Photons= 35727
+task:EnergyAlg.execute          INFO: Charge= 40411
+task:EnergyAlg.execute          INFO: ENERGY= 872.892
+task:EnergyAlg.execute          INFO: Photons= 31580.8
+task:EnergyAlg.execute          INFO: Charge= 31925
+task:EnergyAlg.execute          INFO: ENERGY= 722.041
+task:EnergyAlg.execute          INFO: Photons= 28127.6
+task:EnergyAlg.execute          INFO: Charge= 29273
+task:EnergyAlg.execute          INFO: ENERGY= 654.038
+task:EnergyAlg.execute          INFO: Photons= 25727
+task:EnergyAlg.execute          INFO: Charge= 34372
+task:EnergyAlg.execute          INFO: ENERGY= 697.382
+task:EnergyAlg.execute          INFO: Photons= 22587.2
+task:EnergyAlg.execute          INFO: Charge= 27866
+task:EnergyAlg.execute          INFO: ENERGY= 582.106
+task:EnergyAlg.execute          INFO: Photons= 56978.4
+task:EnergyAlg.execute          INFO: Charge= 73290
+task:EnergyAlg.execute          INFO: ENERGY= 1507.51
+task:EnergyAlg.execute          INFO: Photons= 14799.8
+task:EnergyAlg.execute          INFO: Charge= 16304
+task:EnergyAlg.execute          INFO: ENERGY= 355.9
+task:EnergyAlg.execute          INFO: Photons= 66257.4
+task:EnergyAlg.execute          INFO: Charge= 77129
+task:EnergyAlg.execute          INFO: ENERGY= 1647.34
+task:EnergyAlg.execute          INFO: Photons= 36192.5
+task:EnergyAlg.execute          INFO: Charge= 36466
+task:EnergyAlg.execute          INFO: ENERGY= 825.9
+task:EnergyAlg.execute          INFO: Photons= 63788.9
+task:EnergyAlg.execute          INFO: Charge= 74354
+task:EnergyAlg.execute          INFO: ENERGY= 1587.25
+task:EnergyAlg.execute          INFO: Photons= 46464.5
+task:EnergyAlg.execute          INFO: Charge= 47926
+task:EnergyAlg.execute          INFO: ENERGY= 1074.8
+task.execute                    INFO: stop run promtly.
+virtual bool DnnEventTagger::finalize()
+task:SimGeomSvc.finalize        INFO: Finalize SimGeomSvc 
+task:OutputSvc.doAttachObj     ERROR: Can not find output stream: /Event/Sim. Failed to attach TGeoManager
+task:InputSvc.finalize          INFO: Finalizing RootInputSvc...
+task:InputSvc.finalize          INFO: RootInputSvc sucessfully finalized
+task.finalize                   INFO: events processed 180
+Namespace(evtmax=25000, seed=37, output='/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root', input=['/scratch/t/tbhatta/s10/g4/s10_Bi212_all_seed37.nEXOevents.root'], networkpath='/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', lightmappath='/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', force=False, cap_fields=1)
+{'evtmax': -1, 'seed': 42, 'output': '/sdf/home/t/tbhatta/nexo-offline/data/bb0n-digi.root', 'input': '../data/bb0n-mc.root', 'networkpath': '/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', 'lightmappath': '/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', 'force': False, 'cap_fields': 1}
+{'evtmax': 25000, 'seed': 37, 'output': '/scratch/t/tbhatta/s10/recon/s10_Bi212_all_seed37.reconTree.root', 'input': ['/scratch/t/tbhatta/s10/g4/s10_Bi212_all_seed37.nEXOevents.root'], 'networkpath': '/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', 'lightmappath': '/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', 'force': False, 'cap_fields': 1}
+==> Building model..
+==> Load the network from checkpoint..
+
+**************************************************
+Terminating @ rome0223 on Sat Apr 15 06:10:37 2023
+SNiPER::Context Running Mode = { BASIC }
+SNiPER::Context Terminated Successfully

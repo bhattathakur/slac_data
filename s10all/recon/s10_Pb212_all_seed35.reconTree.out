@@ -1,0 +1,202 @@
+**************************************************
+Welcome to SNiPER v2.1.0
+Running @ rome0222 on Sat Apr 15 06:27:33 2023
+**************************************************
+{
+  "sniper": {
+    "LoadDlls": [ "libBufferMemMgr.so", "libRootIOSvc.so", "libGeometry.so", "libLightMapSvc.so", "libFilterAlg.so", "libDnnEventTagger.so", "libSensitivityRecon.so", "libChargeRecon.so", "libRandomSvc.so" ],
+    "LogLevel": 3
+  },
+  "identifier": "Task/task",
+  "properties": {
+    "EvtMax": 25000,
+    "LogLevel": 3
+  },
+  "services": [
+    {
+      "identifier": "BufferMemMgr/BufferMemMgr",
+      "properties": {
+        "TimeWindow": [ 0, 0 ]
+      }
+    },
+    {
+      "identifier": "RootInputSvc/InputSvc",
+      "properties": {
+        "InputFile": [ "/scratch/t/tbhatta/s10/g4/s10_Pb212_all_seed35.nEXOevents.root" ]
+      }
+    },
+    {
+      "identifier": "RootOutputSvc/OutputSvc",
+      "properties": {
+        "OutputStreams": { "/Event/Recon/ChargeQuanta": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/DNNTag": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/Energy": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/NESTBugFlag": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/NearAnodeBugFlag": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/Photons": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/SourceID": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root", "/Event/Recon/Standoff": "/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root" }
+      }
+    },
+    {
+      "identifier": "SimGeomSvc/SimGeomSvc",
+      "properties": {
+        "GeometryInputFile": ""
+      }
+    },
+    {
+      "identifier": "LightMapSvc/LightMapSvc",
+      "properties": {
+        "LightMapFile": "/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root",
+        "LightMapHistName": "lightmap"
+      }
+    },
+    {
+      "identifier": "RandomSvc/RandomSvc",
+      "properties": {
+        "Seed": 35,
+        "SeedStatusInputFile": "",
+        "SeedStatusInputVector": []
+      }
+    }
+  ],
+  "algorithms": [
+    {
+      "identifier": "NESTFieldCapper/NESTFieldCapper",
+      "properties": {
+        "fieldcap": -1
+      }
+    },
+    {
+      "identifier": "ChargeQuantaAlg/ChargeQuantaAlg",
+      "properties": {
+        "ElectronLifeT": 10000,
+        "noise": 1132.1
+      }
+    },
+    {
+      "identifier": "PhotonsAlg/PhotonsAlg",
+      "properties": {
+        "correlated_av_prob": 0.2,
+        "pde_prob": 0.186,
+        "pte_error": 0.005
+      }
+    },
+    {
+      "identifier": "EnergyAlg/EnergyAlg",
+      "properties": {
+        "chargeCal": 76.6137
+      }
+    },
+    {
+      "identifier": "StandoffAlg/StandoffAlg",
+      "properties": {
+        "ElectronLifeT": 10000,
+        "XYthreshold": 10000,
+        "Zthreshold": 100
+      }
+    },
+    {
+      "identifier": "SourceIDAlg/SourceIDAlg"
+    },
+    {
+      "identifier": "NESTBugCatcher/NESTBugCatcher",
+      "properties": {
+        "threshold": 1.05
+      }
+    },
+    {
+      "identifier": "NearAnodeBugCatcher/NearAnodeBugCatcher",
+      "properties": {
+        "ThresholdEnergy": 100,
+        "ZLength": 10
+      }
+    },
+    {
+      "identifier": "ChargeReconAlg/ChargeReconAlg",
+      "properties": {
+        "Noise": 400,
+        "PadSize": 6,
+        "SamplingFrequency": 2,
+        "TileSize": 96,
+        "Type": "unknown"
+      }
+    },
+    {
+      "identifier": "DnnEventTagger/DnnEventTagger",
+      "properties": {
+        "ImagePath": "./images",
+        "NetworkPath": "/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7",
+        "Pitch": 6,
+        "SaveAsImage": false,
+        "SaveAsNumpy": false
+      }
+    }
+  ]
+}
+task:InputSvc.initialize        INFO: Initialize RootInputSvc...
+task:InputSvc.initialize        INFO: RootInputSvc successfully initialized.
+task:SimGeomSvc.initialize      INFO: Initialize SimGeomSvc 
+0x556dc223e0d0
+LT: path/name: /Event/Sim/nEXOGeometry
+LT: fileid: 0
+LT: CheckFileStatus(fileid): 0
+LT: filename: /scratch/t/tbhatta/s10/g4/s10_Pb212_all_seed35.nEXOevents.root
+LT: file: 0x556dbf1d8c30
+LT: read obj: 0x556dc2dd9120
+task:SimGeomSvc.load_from_root  INFO: load geometry from inputsvc: 0x556dc2dd9120
+task:ChargeQuantaAlg.initialize  INFO: get geometry geom: 0x556dc2dd9120
+virtual bool DnnEventTagger::initialize()
+task.initialize                 INFO: initialized
+task:EnergyAlg.execute          INFO: Photons= 9268.9
+task:EnergyAlg.execute          INFO: Charge= 11693
+task:EnergyAlg.execute          INFO: ENERGY= 242.239
+task:EnergyAlg.execute          INFO: Photons= 14083.4
+task:EnergyAlg.execute          INFO: Charge= 10283
+task:EnergyAlg.execute          INFO: ENERGY= 270.384
+task:EnergyAlg.execute          INFO: Photons= 1.01859e+06
+task:EnergyAlg.execute          INFO: Charge= 898
+task:EnergyAlg.execute          INFO: ENERGY= 9859.96
+task:EnergyAlg.execute          INFO: Photons= 14403.7
+task:EnergyAlg.execute          INFO: Charge= 13836
+task:EnergyAlg.execute          INFO: ENERGY= 319.856
+task:EnergyAlg.execute          INFO: Photons= 13976.4
+task:EnergyAlg.execute          INFO: Charge= 13399
+task:EnergyAlg.execute          INFO: ENERGY= 310.021
+task:EnergyAlg.execute          INFO: Photons= 14760.5
+task:EnergyAlg.execute          INFO: Charge= 11949
+task:EnergyAlg.execute          INFO: ENERGY= 298.677
+task:EnergyAlg.execute          INFO: Photons= 8560.52
+task:EnergyAlg.execute          INFO: Charge= 7609
+task:EnergyAlg.execute          INFO: ENERGY= 182.084
+task:EnergyAlg.execute          INFO: Photons= 11233.4
+task:EnergyAlg.execute          INFO: Charge= 11333
+task:EnergyAlg.execute          INFO: ENERGY= 256.534
+task:EnergyAlg.execute          INFO: Photons= 8589.67
+task:EnergyAlg.execute          INFO: Charge= 11425
+task:EnergyAlg.execute          INFO: ENERGY= 232.174
+task:EnergyAlg.execute          INFO: Photons= 10630.5
+task:EnergyAlg.execute          INFO: Charge= 9997
+task:EnergyAlg.execute          INFO: ENERGY= 233.267
+task:EnergyAlg.execute          INFO: Photons= 10928.5
+task:EnergyAlg.execute          INFO: Charge= 10109
+task:EnergyAlg.execute          INFO: ENERGY= 237.61
+task:EnergyAlg.execute          INFO: Photons= 10261.1
+task:EnergyAlg.execute          INFO: Charge= 8671
+task:EnergyAlg.execute          INFO: ENERGY= 212.388
+task:EnergyAlg.execute          INFO: Photons= 9353.43
+task:EnergyAlg.execute          INFO: Charge= 8280
+task:EnergyAlg.execute          INFO: ENERGY= 198.508
+task:EnergyAlg.execute          INFO: Photons= 11454.7
+task:EnergyAlg.execute          INFO: Charge= 13433
+task:EnergyAlg.execute          INFO: ENERGY= 286.084
+task.execute                    INFO: stop run promtly.
+virtual bool DnnEventTagger::finalize()
+task:SimGeomSvc.finalize        INFO: Finalize SimGeomSvc 
+task:OutputSvc.doAttachObj     ERROR: Can not find output stream: /Event/Sim. Failed to attach TGeoManager
+task:InputSvc.finalize          INFO: Finalizing RootInputSvc...
+task:InputSvc.finalize          INFO: RootInputSvc sucessfully finalized
+task.finalize                   INFO: events processed 14
+Namespace(evtmax=25000, seed=35, output='/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root', input=['/scratch/t/tbhatta/s10/g4/s10_Pb212_all_seed35.nEXOevents.root'], networkpath='/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', lightmappath='/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', force=False, cap_fields=1)
+{'evtmax': -1, 'seed': 42, 'output': '/sdf/home/t/tbhatta/nexo-offline/data/bb0n-digi.root', 'input': '../data/bb0n-mc.root', 'networkpath': '/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', 'lightmappath': '/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', 'force': False, 'cap_fields': 1}
+{'evtmax': 25000, 'seed': 35, 'output': '/scratch/t/tbhatta/s10/recon/s10_Pb212_all_seed35.reconTree.root', 'input': ['/scratch/t/tbhatta/s10/g4/s10_Pb212_all_seed35.nEXOevents.root'], 'networkpath': '/sdf/home/t/tbhatta/nexo-offline/data/ckpt_0816_BugFix_uniform_E_pos.t7', 'lightmappath': '/sdf/home/t/tbhatta/nexo-offline/data/20200528_lightmap_0.50_0.50.root', 'force': False, 'cap_fields': 1}
+==> Building model..
+==> Load the network from checkpoint..
+
+**************************************************
+Terminating @ rome0222 on Sat Apr 15 06:27:38 2023
+SNiPER::Context Running Mode = { BASIC }
+SNiPER::Context Terminated Successfully

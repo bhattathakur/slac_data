@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#isotopes Th228 Ra224 Rn220 Po216 Bi212 Pb212 Bi212 Tl208
+#sample (*Th228*.sh)
+
+dir=(*.sh)
+#dir=(*Th228*.sh)
+#dir=(*Ra224*.sh)
+#dir=(*Rn220*.sh)
+#dir=(*Po216*.sh)
+#dir=(*Bi212*.sh)
+#dir=(*Pb212*.sh)
+#dir=(*Tl208*.sh)
+
+
+counter=1
+
+for f in "${dir[@]}"
+do
+  echo "========================"
+  echo "$((counter++)): file:" $f
+  #cat $f
+  echo "========================"
+  #echo "running read_and_split"
+  read_and_split $f
+  sbatch $f
+ done

@@ -1,0 +1,296 @@
+******************************************************************************
+*Tree    :tree      : nEXO sensitivity                                       *
+*Entries :   201053 : Total =        26644556 bytes  File  Size =   15995714 *
+*        :          : Tree compression factor =   1.65                       *
+******************************************************************************
+*Br    0 :passed_z_thresh : passed_z_thresh/O                                *
+*Entries :   201053 : Total  Size=     202268 bytes  File Size  =       9312 *
+*Baskets :        6 : Basket Size=      32000 bytes  Compression=  20.62     *
+*............................................................................*
+*Br    1 :passed_xy_thresh : passed_xy_thresh/O                              *
+*Entries :   201053 : Total  Size=     202280 bytes  File Size  =      41931 *
+*Baskets :        6 : Basket Size=      32000 bytes  Compression=   4.58     *
+*............................................................................*
+*Br    2 :n_x_ch_abovenoise : n_x_ch_abovenoise/I                            *
+*Entries :   201053 : Total  Size=     807449 bytes  File Size  =     119319 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   6.70     *
+*............................................................................*
+*Br    3 :n_y_ch_abovenoise : n_y_ch_abovenoise/I                            *
+*Entries :   201053 : Total  Size=     807449 bytes  File Size  =     119678 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   6.68     *
+*............................................................................*
+*Br    4 :r_max_simple : r_max_simple/F                                      *
+*Entries :   201053 : Total  Size=     807294 bytes  File Size  =     336790 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   2.38     *
+*............................................................................*
+*Br    5 :r_max_3d  : r_max_3d/F                                             *
+*Entries :   201053 : Total  Size=     807170 bytes  File Size  =     345680 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   2.31     *
+*............................................................................*
+*Br    6 :lower_z   : lower_z/F                                              *
+*Entries :   201053 : Total  Size=     807139 bytes  File Size  =     413633 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.93     *
+*............................................................................*
+*Br    7 :upper_z   : upper_z/F                                              *
+*Entries :   201053 : Total  Size=     807139 bytes  File Size  =     413104 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.94     *
+*............................................................................*
+*Br    8 :standoff  : standoff/F                                             *
+*Entries :   201053 : Total  Size=     807170 bytes  File Size  =     414766 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.93     *
+*............................................................................*
+*Br    9 :standoff_r : standoff_r/F                                          *
+*Entries :   201053 : Total  Size=     807232 bytes  File Size  =     410780 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.95     *
+*............................................................................*
+*Br   10 :standoff_z : standoff_z/F                                          *
+*Entries :   201053 : Total  Size=     807232 bytes  File Size  =     441832 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.81     *
+*............................................................................*
+*Br   11 :max_r_mctruth : max_r_mctruth/F                                    *
+*Entries :   201053 : Total  Size=     807325 bytes  File Size  =     668434 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.20     *
+*............................................................................*
+*Br   12 :lower_z_mctruth : lower_z_mctruth/F                                *
+*Entries :   201053 : Total  Size=     807387 bytes  File Size  =     676175 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.18     *
+*............................................................................*
+*Br   13 :upper_z_mctruth : upper_z_mctruth/F                                *
+*Entries :   201053 : Total  Size=     807387 bytes  File Size  =     681024 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.17     *
+*............................................................................*
+*Br   14 :standoff_mctruth : standoff_mctruth/F                              *
+*Entries :   201053 : Total  Size=     807418 bytes  File Size  =     711885 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.12     *
+*............................................................................*
+*Br   15 :standoff_r_mctruth : standoff_r_mctruth/F                          *
+*Entries :   201053 : Total  Size=     807480 bytes  File Size  =     713065 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.12     *
+*............................................................................*
+*Br   16 :standoff_z_mctruth : standoff_z_mctruth/F                          *
+*Entries :   201053 : Total  Size=     807480 bytes  File Size  =     700874 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.14     *
+*............................................................................*
+*Br   17 :max_r_active_mctruth : max_r_active_mctruth/F                      *
+*Entries :   201053 : Total  Size=     807542 bytes  File Size  =     671805 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.19     *
+*............................................................................*
+*Br   18 :lower_z_active_mctruth : lower_z_active_mctruth/F                  *
+*Entries :   201053 : Total  Size=     807604 bytes  File Size  =     681235 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.17     *
+*............................................................................*
+*Br   19 :upper_z_active_mctruth : upper_z_active_mctruth/F                  *
+*Entries :   201053 : Total  Size=     807604 bytes  File Size  =     682869 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.17     *
+*............................................................................*
+*Br   20 :standoff_active_mctruth : standoff_active_mctruth/F                *
+*Entries :   201053 : Total  Size=     807635 bytes  File Size  =     712493 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.12     *
+*............................................................................*
+*Br   21 :standoff_r_active_mctruth : standoff_r_active_mctruth/F            *
+*Entries :   201053 : Total  Size=     807697 bytes  File Size  =     714225 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.12     *
+*............................................................................*
+*Br   22 :standoff_z_active_mctruth : standoff_z_active_mctruth/F            *
+*Entries :   201053 : Total  Size=     807697 bytes  File Size  =     700609 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.14     *
+*............................................................................*
+*Br   23 :energy    : energy/F                                               *
+*Entries :   201053 : Total  Size=     807108 bytes  File Size  =     713776 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.12     *
+*............................................................................*
+*Br   24 :energy_mctruth_allLXe : energy_mctruth_allLXe/F                    *
+*Entries :   201053 : Total  Size=     807573 bytes  File Size  =     535457 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.49     *
+*............................................................................*
+*Br   25 :energy_mctruth_inTPC : energy_mctruth_inTPC/F                      *
+*Entries :   201053 : Total  Size=     807542 bytes  File Size  =     615291 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.30     *
+*............................................................................*
+*Br   26 :m_nQ      : m_nQ/F                                                 *
+*Entries :   201053 : Total  Size=     807046 bytes  File Size  =     592587 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.35     *
+*............................................................................*
+*Br   27 :m_nOPCal  : m_nOPCal/F                                             *
+*Entries :   201053 : Total  Size=     807170 bytes  File Size  =     709100 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.13     *
+*............................................................................*
+*Br   28 :m_nOPCollected : m_nOPCollected/F                                  *
+*Entries :   201053 : Total  Size=     807356 bytes  File Size  =     522759 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.53     *
+*............................................................................*
+*Br   29 :m_DNNvalue : m_DNNvalue/F                                          *
+*Entries :   201053 : Total  Size=     807232 bytes  File Size  =     731026 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   1.09     *
+*............................................................................*
+*Br   30 :NESTBugFound : NESTBugFound/O                                      *
+*Entries :   201053 : Total  Size=     202232 bytes  File Size  =       1514 *
+*Baskets :        6 : Basket Size=      32000 bytes  Compression= 126.81     *
+*............................................................................*
+*Br   31 :ratio     : ratio/F                                                *
+*Entries :   201053 : Total  Size=     807077 bytes  File Size  =     151160 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=   5.29     *
+*............................................................................*
+*Br   32 :NearAnodeBugFound : NearAnodeBugFound/O                            *
+*Entries :   201053 : Total  Size=     202292 bytes  File Size  =       6378 *
+*Baskets :        6 : Basket Size=      32000 bytes  Compression=  30.10     *
+*............................................................................*
+*Br   33 :EnergyNearAnode : EnergyNearAnode/F                                *
+*Entries :   201053 : Total  Size=     807387 bytes  File Size  =      21791 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression=  36.71     *
+*............................................................................*
+*Br   34 :weight    : weight/F                                               *
+*Entries :   201053 : Total  Size=     807108 bytes  File Size  =       6708 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression= 119.25     *
+*............................................................................*
+*Br   35 :isotope   : isotope/I                                              *
+*Entries :   201053 : Total  Size=     807139 bytes  File Size  =       6649 *
+*Baskets :       25 : Basket Size=      32000 bytes  Compression= 120.31     *
+*............................................................................*
+Using options: {'cardName': 'yamls/s10.yaml', 'submitJobs': False, 'run': True, 'component': 'all', 'parent': 'Th228', 'timeBetween': 0, 'catalog_fn': None}
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed1.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed2.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed3.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed4.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed5.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed6.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed7.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed8.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed9.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed10.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed11.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed12.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed13.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed14.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed15.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed16.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed17.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed18.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed19.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed20.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed21.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed22.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed23.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed24.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed25.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed26.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed27.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed28.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed29.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed30.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed31.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed32.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed33.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed34.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed35.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed36.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed37.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed38.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed39.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Th228_all_seed40.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed3.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed4.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed5.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed6.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed7.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed8.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed9.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed10.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed11.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed13.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed14.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed15.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed16.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed17.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed18.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed19.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed21.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed23.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed25.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed26.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed27.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed28.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed30.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed32.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed33.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed36.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Ra224_all_seed37.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed2.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed5.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed6.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed8.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed11.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed17.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed18.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed19.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed20.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed21.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed22.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed32.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed33.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed34.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed35.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Rn220_all_seed38.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed1.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed2.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed3.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed4.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed5.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed6.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed7.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed8.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed9.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed10.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed11.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed12.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed13.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed14.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed15.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed16.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed17.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed18.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed20.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed21.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed22.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed23.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed24.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed25.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed26.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed27.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed28.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed29.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed30.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed31.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed32.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed33.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed34.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed36.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed37.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed38.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed39.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG: /scratch/t/tbhatta/s10/recon/s10_Po216_all_seed40.reconTree.root does not exist! Assume that the simulation completed correctly but no events made the energy threshold. Including in the "denominator".
+DEBUG isotope Ra224
+DEBUG: ninitfiles  13
+DEBUG nrows 21
+DEBUG nselectedrows 21
+DEBUG isotope Rn220
+DEBUG: ninitfiles  24
+DEBUG nrows 40
+DEBUG nselectedrows 40
+DEBUG isotope Po216
+DEBUG: ninitfiles  2
+DEBUG nrows 2
+DEBUG nselectedrows 2
+DEBUG isotope Pb212
+DEBUG: ninitfiles  40
+DEBUG nrows 265
+DEBUG nselectedrows 265
+DEBUG isotope Bi212
+DEBUG: ninitfiles  40
+DEBUG nrows 7424
+DEBUG nselectedrows 7424
+DEBUG isotope Tl208
+DEBUG: ninitfiles  40
+DEBUG nrows 193301
+DEBUG nselectedrows 193301
+Output file "/scratch/t/tbhatta/s10/merged/s10_Th228_all.root" is saved.

@@ -1,0 +1,71 @@
+
+/analysis/setOutputROOTTreeName nEXOevents
+
+/control/verbose 1
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+/nEXO/det/checkOverlap true
+
+## Use Baseline 2019
+/control/execute ./yamls/Baseline2019.mac
+
+# Turn on scintillation simulation, if desired:
+/EXOPhysicsList/enableLight true
+/run/initialize
+
+# Turn on NEST
+/analysis/setPropagateOP 0
+/analysis/setSaveOP 1
+/analysis/setPropagateTE 0
+/analysis/setSaveTE 1
+/analysis/setSaveOnlyEventsWithDeposits false
+
+/generator/setGenerator gps
+/grdm/nucleusLimits 212 212 83 83
+/gps/ene/mono 0 keV
+
+
+#Bi212 @ Location: PX [648.5, 0, -1022.6]
+/gps/source/intensity 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position 648.5000 0.0000 -1022.6000 mm
+
+#Bi212 @ Location: NX [-648.5, 0, -1022.6]
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position -648.5000 0.0000 -1022.6000 mm
+
+#Bi212 @ Location: PY [0, 648.5, -1022.6]
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position 0.0000 648.5000 -1022.6000 mm
+
+#Bi212 @ Location: NY [0, -648.5, -1022.6]
+/gps/source/add 1.000
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position 0.0000 -648.5000 -1022.6000 mm
+
+#Bi212 @ Location: PZ [0, 0, -299.1245]
+/gps/source/add 0.100          
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position 0.0000 0.0000 -299.1245 mm
+
+#Bi212 @ Location: NZ [0, 0, -1746.0755]
+/gps/source/add 0.100          
+/gps/particle ion
+/gps/energy 0 keV
+/gps/ion 83 212
+/gps/position 0.0000 0.0000 -1746.0755 mm
+
+/gps/source/list
