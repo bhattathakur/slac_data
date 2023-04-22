@@ -1,1 +1,4 @@
 *.root
+*.out
+*.err
+*.log
