@@ -1,0 +1,101 @@
+Sat Jun 17 20:11:36 PDT 2023
+1:Th228
+root files: 7
+
+recn files: 7
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+2:Ra224
+root files: 218
+
+recn files: 218
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+3:Rn220
+root files: 244
+
+recn files: 244
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+4:Po216
+root files: 25
+
+recn files: 25
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+5:Pb212
+root files: 250
+
+recn files: 250
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+6:Bi212
+root files: 250
+
+recn files: 250
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+7:Tl208
+root files: 250
+
+recn files: 245
+
+err  files: 250
+
+out  files: 250
+
+mac  files: 250
+
+8:Cs137
+root files: 0
+
+recn files: 0
+
+err  files: 0
+
+out  files: 0
+
+mac  files: 0
+
+9:Co60
+root files: 0
+
+recn files: 0
+
+err  files: 0
+
+out  files: 0
+
+mac  files: 0
+
+Sat Jun 17 20:12:11 PDT 2023

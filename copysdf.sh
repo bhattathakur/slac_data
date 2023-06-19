@@ -1,5 +1,6 @@
 #!/bin/bash
-dir_name=s18
+dir_name=s17
+echo dir_name:${dir_name}
 mkdir ${dir_name}
 
 scratch_path=/scratch/t/tbhatta
