@@ -1,0 +1,4 @@
+&case&max_rate(Hz)&optimal_activity(Bq)&100_events_time[hr]
+0&best&0.13&19959.99&0.21
+1&realistic&0.02&2137.32&1.38
+2&worst&0.01&1321.2&3.15
