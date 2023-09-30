@@ -1,0 +1,306 @@
+#include "StandoffAlg.h"
+#include "SniperKernel/AlgFactory.h"
+#include "SniperKernel/AlgBase.h"
+#include "SniperKernel/SniperPtr.h"
+#include "SniperKernel/SniperDataPtr.h"
+#include "BufferMemMgr/EvtDataPtr.h"
+#include "BufferMemMgr/SavedHeaderPtr.h"
+#include "BufferMemMgr/IDataMemMgr.h"
+#include "Event/SimHeader.h"
+#include "Event/ElecHeader.h"
+#include "Event/ElecChannel.h"
+#include "Event/StandoffHeader.h"
+#include <numeric>
+#include "TH1.h"
+#include "TCanvas.h"
+#include "TRandom.h"
+#include "nEXOUtilities/nEXODimensions.hh"
+#include "Geometry/SimGeomSvc.h"
+#include <iostream>
+#include <algorithm>
+#include <functional>
+#include "TMath.h"
+
+DECLARE_ALGORITHM(StandoffAlg);
+
+StandoffAlg::StandoffAlg(const std::string& name) : AlgBase(name) {
+    declProp("Zthreshold", m_z_threshold = 100);
+    declProp("XYthreshold", m_r_threshold=10e3);
+    declProp("ElectronLifeT", ElectronLifeT = 10.0e3);
+}
+
+StandoffAlg::~StandoffAlg() {
+}
+
+bool StandoffAlg::initialize() {
+    SniperPtr<SimGeomSvc> simgeom_svc(getParent(), "SimGeomSvc");
+    // == check exist or not ==
+    if (simgeom_svc.invalid()) {
+        LogError << "can't find SimGeomSvc" << std::endl;
+        return false;
+    }
+    fAnodeZ = simgeom_svc->AnodeZ();
+    fCathodeZ = simgeom_svc->CathodeZ();
+    fRingR = simgeom_svc->FieldRingR();
+    return true;
+}
+
+bool StandoffAlg::execute() {
+    //sim 
+    EvtDataPtr<nEXO::SimHeader> sim_header(getParent(), "/Event/Sim");
+    if (sim_header.invalid()) {
+        LogError << "Header is invalid. Please check the input data." << std::endl;
+        return false;
+    }
+    nEXO::SimEvent* sim_event = dynamic_cast<nEXO::SimEvent*> (sim_header->event());
+
+    //elec
+    EvtDataPtr<nEXO::ElecHeader> elec_header(getParent(), "/Event/Elec");
+    if (elec_header.invalid()) {
+        LogError << "Header is invalid. Please check the input data." << std::endl;
+        return false;
+    }
+    nEXO::ElecEvent* elec_event = dynamic_cast<nEXO::ElecEvent*> (elec_header->event());
+    const std::vector<nEXO::ElecChannel> channels = elec_event->ElecChannels();
+    
+    ///////////////////calculation
+
+    double lower_z = INFINITY;
+    double upper_z = -INFINITY;
+    bool passed_z_thresh=false;
+    bool passed_xy_thresh=false;
+    ///// zs
+    for (auto chan : channels) {
+        std::vector<float> amp = chan.TrueWF() ; //only working on no-noise wf right now
+        if(!amp.size())
+        {
+          LogDebug <<"zero-length channel x: "<<chan.XPosition() <<" y: "<<chan.YPosition()<<" charge: "<<chan.ChannelCharge()<<std::endl;
+          continue;
+        }
+//        std::vector<int> amp ;
+//        std::transform(chan.WFAmplitude().begin(), chan.WFAmplitude().end(), chan.NoiseWF().begin(), std::back_inserter(amp), std::plus<int>());
+        auto max_elem = std::max_element(amp.begin(), amp.end());
+        int max_value = *max_elem;
+        LogDebug <<"max_amplitude "<<max_value<<" charge "<<chan.ChannelCharge()<<std::endl;
+        if (max_value <= m_z_threshold) {
+            continue;
+        }
+        passed_z_thresh=true;
+        //zpli The z position used to be reconstructed fron WFTime that is removed in new data model from data_model_refactor branch. Instead, the time is reconstructed from the waveform data point position with 0.5 microsecond sample time hard-coded. Further update needs to remove the hard-coded number.
+        for (size_t i = 0; i <= amp.size(); ++i) {
+            if (amp[i] > m_z_threshold) {
+                upper_z = std::max(upper_z, fAnodeZ - DRIFT_VELOCITY * i * 0.5 *CLHEP::microsecond);
+                LogDebug << "upper z " << upper_z << " "<<i*0.5 <<" "<<amp[i] << std::endl;
+                break;
+            }
+        }
+        for (int i = std::distance(amp.begin(),max_elem); i >= 0; --i) {
+            if (amp[i]>(max_value - m_z_threshold)) {
+                lower_z = std::min(lower_z, fAnodeZ - DRIFT_VELOCITY * i * 0.5 *CLHEP::microsecond);
+                LogDebug << "lower z " << lower_z << " "<< i * 0.5 <<" "<<amp[i] << std::endl;
+                break;
+            }
+        }
+        assert(upper_z>=lower_z);
+
+    }
+
+      
+    ///// r
+    float max_x = -9e9;
+    float max_y = -9e9;
+    //TODO: handle single channel case by using maximum possible radius on that channel
+    for (auto chan : channels) {
+        if (chan.ChannelCharge() > m_r_threshold) {
+            max_x = std::max(max_x, std::abs(chan.XPosition()));
+            max_y = std::max(max_y, std::abs(chan.YPosition()));
+            passed_xy_thresh=true;
+            LogDebug <<"max_x "<<max_x<<" x " << chan.XPosition()<<" max_y "<<max_y<<" y "<<chan.YPosition()<<" charge "<<chan.ChannelCharge()<<std::endl;
+        }
+    }
+    double r_max_simple = std::sqrt(max_x * max_x + max_y * max_y);
+
+    //calculating the x, y channel arrays and the z coordinates associated with both X and Y.
+    std::vector<double> x_ch_position;
+    std::vector<double> x_ch_position_z;
+    std::vector<double> y_ch_position;
+    std::vector<double> y_ch_position_z;
+    
+    for (auto chan : channels) {
+      std::vector<float> amp = chan.TrueWF() ;
+      size_t wflengh = amp.size();
+      if (chan.ChannelCharge() > m_r_threshold && wflengh) {
+        std::vector<float> noise = chan.NoiseWF();
+        if(chan.ChannelLocalId()<16){
+	      for (size_t i = 0; i <= amp.size(); ++i) {                                                                                     
+	         if (amp[i] > 5*TMath::RMS(wflengh, &noise[0])){
+		    x_ch_position_z.push_back(fAnodeZ - DRIFT_VELOCITY * i * 0.5 *CLHEP::microsecond);
+	            x_ch_position.push_back(std::abs(chan.XPosition()));
+		    break;
+		 }
+	      }
+	   }    
+           if(chan.ChannelLocalId()>15){
+	      //y_ch_position.push_back(std::abs(chan.YPosition()));
+	      for (size_t i = 0; i <= amp.size(); ++i) {                                                                                     
+	         if (amp[i] > 5*TMath::RMS(wflengh, &noise[0])){
+		    y_ch_position_z.push_back(fAnodeZ - DRIFT_VELOCITY * i * 0.5 *CLHEP::microsecond);
+	            y_ch_position.push_back(std::abs(chan.YPosition()));
+		    break;
+		 }
+	      }
+	   }    
+	}
+    }
+         
+    double n_x_ch_abovenoise=x_ch_position.size();
+    double n_y_ch_abovenoise=y_ch_position.size();
+
+    //here is test
+
+    double z_threshold_xy_match=10; //10 mm maximal seperation in order to match X-Y strips
+
+    std::vector<double> r_3d; 
+    if(x_ch_position_z.size()>0 && y_ch_position_z.size()>0){
+       for(size_t i=0;i<x_ch_position_z.size();i++){
+          for(size_t j=0;j<y_ch_position_z.size();j++){
+	     if(std::abs(x_ch_position_z[i]-y_ch_position_z[j])<z_threshold_xy_match){
+		 r_3d.push_back(std::sqrt(x_ch_position[i]*x_ch_position[i] + y_ch_position[j]*y_ch_position[j]));
+		 x_ch_position.erase(x_ch_position.begin()+i);
+		 y_ch_position.erase(y_ch_position.begin()+j);
+		 x_ch_position_z.erase(x_ch_position_z.begin()+i);
+		 y_ch_position_z.erase(y_ch_position_z.begin()+j);
+		 i=i-1;
+		 break;
+	     }
+	  }
+       }	  
+    }
+   
+    double r_max_3d=-1;
+    if(r_3d.size()>0){
+        r_max_3d =*std::max_element(r_3d.begin(), r_3d.end());
+    }
+    
+    //    assert(upper_z<fAnodeZ);
+//    assert(lower_z>(fCathodeZ-1*CLHEP::mm));
+//    double standoff_z = std::min(fAnodeZ - upper_z, lower_z - fCathodeZ);
+
+    // FIXME: this is a workaround to address issues with waveforms missing the first 5 us (issue #150)
+    // and the limitations of the current implementation of the algorithm.
+    // See: https://ntpc.ucllnl.org/nEXO/index.php/File:Waveform_Bug_2020-11-29.pdf
+    double standoff_z = std::min(fAnodeZ-lower_z+7, lower_z-fCathodeZ-11);
+    
+//    assert(max_r < fRingR);
+    double standoff_r = fRingR;
+    if(-1.00001 < r_max_3d && r_max_3d < -0.99999){//no good match found
+        standoff_r -=r_max_simple;
+    }else{
+        standoff_r -=r_max_3d;
+    }
+
+//    bool positive_r = false;
+//    if(r_max_3d > 0 || r_max_simple > 0)
+//      positive_r = true;
+    
+    double standoff = std::min(standoff_z,standoff_r);
+    
+    ///////////////////////MC truth section
+   
+    float lower_z_mctruth = INFINITY;
+    float upper_z_mctruth = -INFINITY;
+    if(sim_event->NESTHitZ().size()){
+        lower_z_mctruth = *std::min_element(sim_event->NESTHitZ().begin(), sim_event->NESTHitZ().end());
+        upper_z_mctruth = *std::max_element(sim_event->NESTHitZ().begin(), sim_event->NESTHitZ().end());
+    }
+    
+    float max_r2_mctruth=-1;
+    for(size_t i=0; i<sim_event->NESTHitE().size(); ++i){
+        float x = sim_event->NESTHitX()[i];        
+        float y = sim_event->NESTHitY()[i];
+        max_r2_mctruth = std::max(max_r2_mctruth,x*x+y*y);
+    }
+    float max_r_mctruth = std::sqrt(max_r2_mctruth);
+    
+    double standoff_z_mctruth = std::min(fAnodeZ - upper_z_mctruth, lower_z_mctruth - fCathodeZ);
+    double standoff_r_mctruth = fRingR-max_r_mctruth;
+    double standoff_mctruth = std::min(standoff_z_mctruth,standoff_r_mctruth);
+
+    /////truth standoff only for deposits inside the active LXe
+
+    float max_r_active_mctruth=-1;
+    float lower_z_active_mctruth = INFINITY;
+    float upper_z_active_mctruth = -INFINITY;
+    std::vector<float> activeNESTHitZ;
+    for(size_t i=0; i<sim_event->NESTHitE().size(); ++i)
+    {
+      float r = std::hypot(sim_event->NESTHitX()[i],sim_event->NESTHitY()[i]);
+      float z = sim_event->NESTHitZ()[i];
+      if((r < fRingR) && (fCathodeZ < z && z < fAnodeZ))
+      {
+        activeNESTHitZ.push_back(z);
+        max_r_active_mctruth=std::max(max_r_active_mctruth,r);
+      }
+    }
+    if(activeNESTHitZ.size()){
+        lower_z_active_mctruth = *std::min_element(activeNESTHitZ.begin(), activeNESTHitZ.end());
+        upper_z_active_mctruth = *std::max_element(activeNESTHitZ.begin(), activeNESTHitZ.end());
+    }
+    
+    double standoff_z_active_mctruth = std::min(fAnodeZ - upper_z_active_mctruth, lower_z_active_mctruth - fCathodeZ);
+    double standoff_r_active_mctruth = fRingR-max_r_active_mctruth;
+    double standoff_active_mctruth = std::min(standoff_z_active_mctruth,standoff_r_active_mctruth);
+    
+    
+    LogDebug << "max r 3d matching " << r_max_3d<<"max r_simple " << r_max_simple <<" MC truth: "<< max_r_mctruth << std::endl;
+    LogDebug << "upper/lower z  " <<upper_z<<" "<<lower_z << " MC truth: "<<upper_z_mctruth<< " "<<lower_z_mctruth  << std::endl;
+
+
+
+
+    /////saver
+
+    SavedHeaderPtr<nEXO::StandoffHeader> header(getParent());
+//    evt_nav->addHeader(header);
+
+    nEXO::Standoff* result = new nEXO::Standoff();
+    header->setEvent(result);
+
+    result->r_max_3d=r_max_3d;
+
+    result->r_max_simple = r_max_simple;// r_max_3d;
+    result->lower_z = lower_z;
+    result->upper_z = upper_z;
+    result->max_r_mctruth = max_r_mctruth;
+    result->lower_z_mctruth = lower_z_mctruth;
+    result->upper_z_mctruth = upper_z_mctruth;
+
+    result->max_r_active_mctruth = max_r_active_mctruth;
+    result->lower_z_active_mctruth = lower_z_active_mctruth;
+    result->upper_z_active_mctruth = upper_z_active_mctruth;
+
+    result->n_x_ch_abovenoise=n_x_ch_abovenoise;
+    result->n_y_ch_abovenoise=n_y_ch_abovenoise;
+
+   
+    result->passed_xy_thresh = passed_xy_thresh;
+    result->passed_z_thresh = passed_z_thresh;
+    result->standoff=standoff;
+    result->standoff_z=standoff_z;
+    result->standoff_r=standoff_r;
+    
+    result->standoff_mctruth=standoff_mctruth;
+    result->standoff_z_mctruth=standoff_z_mctruth;
+    result->standoff_r_mctruth=standoff_r_mctruth;
+
+    result->standoff_active_mctruth=standoff_active_mctruth;
+    result->standoff_r_active_mctruth=standoff_r_active_mctruth;
+    result->standoff_z_active_mctruth=standoff_z_active_mctruth;
+
+    return true;
+}
+
+bool StandoffAlg::finalize() {
+
+    return true;
+}
